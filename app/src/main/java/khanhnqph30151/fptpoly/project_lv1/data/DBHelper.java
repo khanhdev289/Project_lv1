@@ -31,6 +31,8 @@ public class DBHelper extends SQLiteOpenHelper {
             "Sp_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "Sp_tenSp TEXT NOT NULL," +
             "Sp_giaTien TEXT NOT NULL," +
+            "Sp_ngayLuuKho TEXT NOT NULL," +
+            "Sp_ngayXuatKho TEXT NOT NULL," +
             "loaiSp_tenLoai TEXT REFERENCES tbl_loaiSp(loaiSp_tenLoai)" +
             ")";
     public static final String TABLE_PHIEU_XUAT_KHO_CREATE = "CREATE TABLE IF NOT EXISTS " +
@@ -38,7 +40,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "phieuXk_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "thanhVien_id TEXT REFERENCES tbl_thanhVien(thanhVien_id)," +
             "Sp_tenSp INTEGER REFERENCES tbl_Sp(Sp_tenSp)," +
-            "phieuXK_ngay TEXT NOT NULL," +
             "Sp_giaTien TEXT REFERENCES tbl_Sp(Sp_giaTien) ," +
             "phieuXK_trangThai TEXT " +
             ")";
