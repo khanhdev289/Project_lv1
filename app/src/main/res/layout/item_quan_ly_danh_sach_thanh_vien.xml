@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên đăng nhập : "
+            android:textSize="20dp"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/tvTenDangNhapCuaThanhVien"
+
+            android:text="Nguyễn Văn A"
+            android:textSize="20dp"
+            android:textStyle="bold"
+
+            />
+
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/ivXoaThanhVien"
+
+        android:src="@drawable/icon_delete"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        />
+
+</RelativeLayout>

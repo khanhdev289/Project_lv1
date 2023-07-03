@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_margin="10dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/style_dialog_add_loai_sp"
+        >
+        <LinearLayout
+            android:id="@+id/layouttdThemTheLoai"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/style_dialog_add_loai_sp2"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thêm thể loại sản phẩm"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="#ffff"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutnhapThemTheLoai"
+            android:layout_below="@id/layouttdThemTheLoai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên loại "
+                android:textSize="18dp"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:layout_width="280dp"
+                android:layout_height="55dp"
+
+                android:id="@+id/edTenLoaiSPThem"
+
+
+                android:hint="Nhập tên sản phẩm"
+                android:paddingLeft="15dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/style_ed_dialog_loaisp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@id/layoutnhapThemTheLoai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+
+                android:id="@+id/btnThemLoaiSp"
+
+                android:text="Thêm"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:background="#03A9F4"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+
+                android:id="@+id/btnHuyLayouThemLoaiSp"
+
+
+                android:layout_marginLeft="30dp"
+
+                android:text="Hủy"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:background="#03A9F4"
+
+                />
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

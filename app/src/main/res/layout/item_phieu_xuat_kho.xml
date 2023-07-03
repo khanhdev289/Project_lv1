@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+
+        android:id="@+id/ivIconSP"
+
+        android:src="@drawable/img_demo"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/layoutTensp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivIconSP"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên sản phẩm : "
+            android:textSize="16dp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/tvTenSanPhamPhieuXuat"
+
+            android:text="Quần cộc"
+            android:textStyle="bold"
+
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutGiaSp"
+        android:layout_below="@id/layoutTensp"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivIconSP"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá sản phẩm : "
+            android:textSize="16dp"
+            android:textColor="#636363"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/tvGiaSanPhamPhieuXuat"
+
+            android:text="20000"
+            android:textColor="#636363"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutSoLuongsp"
+        android:layout_below="@id/layoutGiaSp"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivIconSP"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số lượng sản phẩm : "
+            android:textSize="16dp"
+            android:textColor="#636363"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/tvSoLuongSanPhamPhieuXuat"
+
+            android:text="100"
+            android:textColor="#636363"
+
+            />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_below="@id/layoutSoLuongsp"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivIconSP"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày xuất : "
+            android:textSize="16dp"
+            android:textColor="#636363"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/tvNgayXuatSanPhamPhieuXuat"
+
+            android:text="25/12/2023"
+            android:textColor="#636363"
+
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/ivXoaSPPhieuXuat"
+
+
+        android:src="@drawable/icon_delete"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/ivSuaSPPhieuXuat"
+
+        android:src="@drawable/icon_edit"
+        android:layout_toLeftOf="@id/ivXoaSPPhieuXuat"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        />
+
+
+
+
+
+</RelativeLayout>

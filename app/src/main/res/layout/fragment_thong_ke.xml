@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ThongKe">
+
+    <LinearLayout
+        android:id="@+id/layoutOne"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/style_fragment_loaisp"
+        >
+        <TextView
+            android:id="@+id/tvTieuDeLoaiSp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Danh sách phiếu xuất kho"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutTuThang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/layoutOne"
+        android:layout_marginTop="50dp"
+
+        >
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/btnThangBatDau"
+
+            android:background="@drawable/style_btn_thong_ke"
+            android:text="Từ tháng"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:layout_marginLeft="10dp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+
+            android:id="@+id/edThangBatDau"
+
+
+            android:background="@drawable/style_ed_dialog_loaisp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutDenThang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/layoutTuThang"
+        android:layout_marginTop="10dp"
+
+        >
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/btnThangKetThuc"
+
+            android:background="@drawable/style_btn_thong_ke"
+            android:text="Đến tháng"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:layout_marginLeft="10dp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+
+            android:id="@+id/edThangKetThuc"
+            android:background="@drawable/style_ed_dialog_loaisp"
+
+            />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/btnTinhTongThongKe"
+
+        android:background="@drawable/style_btn_thong_ke_2"
+        android:text="Tính tổng"
+        android:textAllCaps="false"
+        android:textColor="#ffff"
+        android:layout_below="@id/layoutDenThang"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnTinhTongThongKe"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:background="@drawable/style_dong_khung_thong_ke"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số lượng tồn kho"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:layout_marginLeft="5dp"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+
+                android:id="@+id/edSoLuongTonKho"
+
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/style_ed_dialog_loaisp"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số lượng đã xuất "
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:layout_marginLeft="5dp"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+
+                android:id="@+id/edSoLuongDaXuat"
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/style_ed_dialog_loaisp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
