@@ -32,17 +32,17 @@ public class DBHelper extends SQLiteOpenHelper {
             "Sp_tenSp TEXT NOT NULL," +
             "Sp_giaTien TEXT NOT NULL," +
             "Sp_ngayLuuKho TEXT NOT NULL," +
-            "Sp_ngayXuatKho TEXT NOT NULL," +
-            "loaiSp_tenLoai TEXT REFERENCES tbl_loaiSp(loaiSp_tenLoai)" +
+            "Sp_soLuong INTEGER NOT NULL," +
+            "loaiSp_id INTEGER NOT NULL," +
+            "loaiSp_id  REFERENCES tbl_loaiSp(loaiSp_id)" +
             ")";
     public static final String TABLE_PHIEU_XUAT_KHO_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_phieuXk(" +
             "phieuXk_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "thanhVien_id TEXT REFERENCES tbl_thanhVien(thanhVien_id)," +
-            "Sp_tenSp INTEGER REFERENCES tbl_Sp(Sp_tenSp)," +
-            "Sp_giaTien TEXT REFERENCES tbl_Sp(Sp_giaTien) ," +
-            "phieuXK_trangThai TEXT " +
-            ")";
+            "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
+            "phieuXk_soLuong INTEGER NOT NULL ," +
+            "phieuXk_ngayXuat TEXT NOT NULL)";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -58,7 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
         //Phieu Xuat Kho
         db.execSQL(TABLE_PHIEU_XUAT_KHO_CREATE);
 
-        //trả sách: 1: đã trả - 0: chưa trả
+
 
     }
 
