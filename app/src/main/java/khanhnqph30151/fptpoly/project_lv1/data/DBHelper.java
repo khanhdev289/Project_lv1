@@ -16,7 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     public static final String TABLE_THANH_VIEN_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_thanhVien (" +
-            "thanhVien_id TEXT PRIMARY KEY , " +
+            "thanhVien_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
             "thanhVien_hoTen TEXT NOT NULL," +
             "thanhVien_matKhau TEXT NOT NULL," +
             "thanhVien_role TEXT" +
@@ -33,7 +33,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "Sp_giaTien TEXT NOT NULL," +
             "Sp_ngayLuuKho TEXT NOT NULL," +
             "Sp_soLuong INTEGER NOT NULL," +
-            "loaiSp_id INTEGER NOT NULL," +
             "loaiSp_id  REFERENCES tbl_loaiSp(loaiSp_id)" +
             ")";
     public static final String TABLE_PHIEU_XUAT_KHO_CREATE = "CREATE TABLE IF NOT EXISTS " +
