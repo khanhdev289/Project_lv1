@@ -65,7 +65,7 @@ public class ThanhVienDAO {
 //    }
 
     public int checkLogin(String id, String password) {
-        String sql = "SELECT * FROM tbl_tt WHERE thanhVien_id=? AND thanhVien_matKhau=?";
+        String sql = "SELECT * FROM tbl_thanhVien WHERE thanhVien_hoTen=? AND thanhVien_matKhau=?";
         ArrayList<ThanhVien> list = getData(sql, id, password);
         if (list.size() == 0) {
             return -1;
