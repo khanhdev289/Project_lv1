@@ -57,7 +57,7 @@ public class PhieuXkDAO {
     }
 
     public ArrayList<PhieuXuatKho> getAllData() {
-        String sql = "SELECT * FROM tbl_Sp";
+        String sql = "SELECT * FROM tbl_phieuXk";
         return getData(sql);
     }
 

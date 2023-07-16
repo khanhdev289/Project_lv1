@@ -44,38 +44,11 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/layoutGiaSp"
-        android:layout_below="@id/layoutTensp"
-        android:layout_marginTop="3dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/ivIconSP"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Giá sản phẩm : "
-            android:textSize="16dp"
-            android:textColor="#636363"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:id="@+id/tvGiaSanPhamPhieuXuat"
-
-            android:text="20000"
-            android:textColor="#636363"
-            />
-
-    </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/layoutSoLuongsp"
-        android:layout_below="@id/layoutGiaSp"
+        android:layout_below="@id/layoutTensp"
         android:layout_marginTop="3dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

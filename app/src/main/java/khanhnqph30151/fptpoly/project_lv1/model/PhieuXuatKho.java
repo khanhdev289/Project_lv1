@@ -4,7 +4,8 @@ public class PhieuXuatKho {
     int id_pxk;
     int soluong;
     int id_sp;
-
+    int id_tv;
+    String ngayXuat;
     public int getId_tv() {
         return id_tv;
     }
@@ -13,8 +14,7 @@ public class PhieuXuatKho {
         this.id_tv = id_tv;
     }
 
-    int id_tv;
-    String ngayXuat;
+
 
     public int getId_pxk() {
         return id_pxk;
