@@ -58,6 +58,15 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_PHIEU_XUAT_KHO_CREATE);
 
 
+//        public static final String TABLE_THANH_VIEN_CREATE = "CREATE TABLE IF NOT EXISTS " +
+//                "tbl_thanhVien (" +
+//                "thanhVien_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
+//                "thanhVien_hoTen TEXT NOT NULL," +
+//                "thanhVien_matKhau TEXT NOT NULL," +
+//                "thanhVien_role TEXT" +
+//                ")";
+
+        db.execSQL("INSERT INTO tbl_thanhVien VALUES (0, 'tv1', 'tv1', 'tv')");
 
     }
 
