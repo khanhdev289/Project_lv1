@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.TKTonFragment">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_ton"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+    <LinearLayout
+        android:background="#F8F5F5"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Tổng tồn kho: "
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_total_value_ton"
+            android:text="5000"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</RelativeLayout>
