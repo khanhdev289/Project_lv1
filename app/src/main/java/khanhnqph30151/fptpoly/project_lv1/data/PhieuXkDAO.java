@@ -1,5 +1,6 @@
 package khanhnqph30151.fptpoly.project_lv1.data;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
+import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
 
 public class PhieuXkDAO {
     private final SQLiteDatabase sqLiteDatabase;
@@ -41,6 +43,7 @@ public class PhieuXkDAO {
         return sqLiteDatabase.delete("tbl_phieuXk", "phieuXk_id=?", new String[]{String.valueOf(ID)});
     }
 
+    @SuppressLint("Range")
     public ArrayList<PhieuXuatKho> getData(String sql, String... SelectAvgs) {
         ArrayList<PhieuXuatKho> lst = new ArrayList<>();
         Cursor cursor = sqLiteDatabase.rawQuery(sql, SelectAvgs);
@@ -64,6 +67,25 @@ public class PhieuXkDAO {
     public PhieuXuatKho getByID(String id) {
         String sql = "SELECT * FROM tbl_phieuXk  where phieuXk_id=?";
         return getData(sql, id).get(0);
+    }
+    @SuppressLint("Range")
+    public ArrayList<PhieuXuatKho> TimKiemPhXK(String ten) {
+        ArrayList<PhieuXuatKho> list = new ArrayList<>();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM tbl_phieuXk WHERE Sp_id LIKE '%"+ ten +"%' ", null);
+        if(cursor.getCount()>0) {
+            cursor.moveToFirst();
+            do {
+                PhieuXuatKho ob=new PhieuXuatKho();
+                ob.setId_pxk(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuXk_id"))));
+                ob.setId_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_id"))));
+                ob.setSoluong(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuXk_soLuong"))));
+                ob.setNgayXuat(cursor.getString(cursor.getColumnIndex("phieuXk_ngayXuat")));
+                ob.setId_tv(Integer.parseInt(cursor.getString(cursor.getColumnIndex("thanhVien_id"))));
+                list.add(ob);
+            }
+            while (cursor.moveToNext());
+        }
+        return list;
     }
   
 }

@@ -3,81 +3,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#BF4848"
     tools:context=".fragment.PhieuXuat">
-
     <LinearLayout
         android:id="@+id/layoutOne"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/style_fragment_loaisp"
         >
-        <TextView
-            android:id="@+id/tvTieuDeLoaiSp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Danh sách phiếu xuất kho"
-            android:textSize="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="15dp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            />
-
-        <EditText
-
-            android:id="@+id/edTimKiemPhieuSuatKho"
-
-
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_below="@id/tvTieuDeLoaiSp"
-            android:layout_margin="10dp"
-            android:background="@drawable/style_ed_loaisp"
-            android:drawableRight="@drawable/icon_tim_kiem"
-            android:hint="Nhập tên phiếu cần tìm kiếm ..."
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            />
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
         android:layout_below="@+id/layoutOne"
-        android:layout_marginTop="10dp"
+        android:id="@+id/layoutMid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/style_layout_middle"
         >
-        <androidx.recyclerview.widget.RecyclerView
+        <LinearLayout
+            android:id="@+id/layoutSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-
-            android:id="@+id/rvDanhSachPhieuXuatKho"
-
-
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/style_ed_loaisp"
+            android:orientation="horizontal">
+            <EditText
+                android:background="@drawable/style_ed_loaisp"
+                android:id="@+id/edTimKiemPhieuSuatKho"
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Nhập mã phiếu xuất cần tìm kiếm ..."
+                />
+            <ImageButton
+                android:id="@+id/btn_phieuxk_timkiem"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:background="@drawable/style_ed_loaisp"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_tim_kiem"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_below="@+id/layoutSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvDanhSachPhieuXuatKho"
+                />
+        </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/Float_add_Phieu_xuat_kho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="#FF9100"
+            android:src="@drawable/img_add"
             />
-
-
-    </LinearLayout>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-
-        android:id="@+id/Float_add_Phieu_xuat_kho"
-
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="#FF9100"
-        android:src="@drawable/img_add"
-        />
+    </RelativeLayout>
 
 </RelativeLayout>
