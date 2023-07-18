@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:layout_marginTop="15dp"
+    android:background="#E6E4E4"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/tv_name_sp_ton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Ten san pham"
+            android:textSize="20sp"
+            android:layout_alignParentStart="true"
+            />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_soluong_sp_ton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số lượng: "
+            android:layout_gravity="center"/>
+    <TextView
+        android:layout_centerVertical="true"
+        android:id="@+id/tv_soluong_sp_ton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="30dp"
+        android:textColor="@android:color/holo_red_light"
+        android:text="+9999999999đ" />
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
