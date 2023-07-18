@@ -59,7 +59,11 @@ public class DBHelper extends SQLiteOpenHelper {
         //Phieu Xuat Kho
         db.execSQL(TABLE_PHIEU_XUAT_KHO_CREATE);
 
+        db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'quần đùi'),(2,'áo khoác'),(3, 'váy')");
+
+
         db.execSQL(insert_admin);
+
 
 
     }

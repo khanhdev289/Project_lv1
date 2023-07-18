@@ -16,6 +16,8 @@
             android:title="Quản lý Thành Viên" android:icon="@drawable/style_btn"/>
         <item android:id="@+id/doiMatKhau"
             android:title="Đổi mật khẩu" android:icon="@drawable/style_btn"/>
+        <item android:id="@+id/dangxuat"
+            android:title="Đăng Xuất" android:icon="@drawable/style_btn"/>
         <item android:id="@+id/Thoat"
             android:title="Thoát" android:icon="@drawable/style_btn"/>
 
