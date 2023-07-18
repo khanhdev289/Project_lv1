@@ -1,6 +1,8 @@
 package khanhnqph30151.fptpoly.project_lv1.fragment;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -100,6 +104,11 @@ public class DanhSach_Sp extends Fragment {
                 Dialog dialog = new Dialog(getContext());
                 SanPham s = new SanPham();
                 dialog.setContentView(R.layout.dialog_add_san_pham);
+
+                Window window = dialog.getWindow();
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
 
                 EditText ed1, ed2, ed3, ed4;
                 Spinner spinerSp;

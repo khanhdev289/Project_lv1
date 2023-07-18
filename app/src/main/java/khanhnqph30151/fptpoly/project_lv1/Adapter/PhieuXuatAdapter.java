@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +27,16 @@ import java.util.ArrayList;
 
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;
+import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
+import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
 
 public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.ViewHolder>{
 
     Context myContext;
     ArrayList<PhieuXuatKho> list;
+    ArrayList<SanPham> listSanPham;
+    ArrayAdapter<SanPham> adapterSanPham;
 
     public PhieuXuatAdapter(Context myContext, ArrayList<PhieuXuatKho> list) {
         this.myContext = myContext;
@@ -74,7 +80,7 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
                             public void onClick(DialogInterface dialog, int which) {
                                 int kq = phieuXkDAO.delete(idPhieu.getId_pxk());
                                 if (kq > 0){
-                                    Toast.makeText(myContext, "Xoa thành công", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(myContext, "Xóa thành công", Toast.LENGTH_SHORT).show();
                                     list = phieuXkDAO.getAllData();
                                     setData(list);
                                 }else {
@@ -109,14 +115,28 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
 
                 EditText edTen,edSoLuong,edNgayXuat;
                 AppCompatButton btnSua,btnHuy;
+                Spinner spinner;
 
-                edTen = dialog.findViewById(R.id.edTenSpPhieuXuatSua);
+                spinner = dialog.findViewById(R.id.SpTenSpPhieuXuatSua);
+//                edTen = dialog.findViewById(R.id.edTenSpPhieuXuatSua);
                 edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuXuatSua);
                 edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuXuatSua);
                 btnSua = dialog.findViewById(R.id.btnSuaPhieuXuat);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouSuaPhieuXuat);
 
-                edTen.setText(idPhieu.getId_sp()+"");
+//                edTen.setText(idPhieu.getId_sp()+"");
+                SanPhamDAO sanPhamDAO = new SanPhamDAO(myContext);
+                listSanPham = sanPhamDAO.getAllData();
+                adapterSanPham = new ArrayAdapter<>(myContext, android.R.layout.simple_list_item_1,listSanPham);
+                spinner.setAdapter(adapterSanPham);
+                int viTri = 0;
+                for (int i = 0; i < listSanPham.size(); i++) {
+                    if (idPhieu.getId_sp() == listSanPham.get(i).getId_sp()){
+                        viTri = i;
+                        break;
+                    }
+                }
+                spinner.setSelection(viTri);
                 edSoLuong.setText(idPhieu.getSoluong()+"");
                 edNgayXuat.setText(idPhieu.getNgayXuat());
 
@@ -126,12 +146,13 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
                         dialog.dismiss();
                     }
                 });
-
                 btnSua.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (kiemTra()){
-                            idPhieu.setId_sp(Integer.parseInt(edTen.getText().toString()));
+                            SanPham sanPham = (SanPham) spinner.getSelectedItem();
+                            int idSp = sanPham.getId_sp();
+                            idPhieu.setId_sp(idSp);
                             idPhieu.setSoluong(Integer.parseInt(edSoLuong.getText().toString()));
                             idPhieu.setNgayXuat(edNgayXuat.getText().toString());
 
@@ -152,19 +173,10 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
                     private boolean kiemTra() {
 
                         if (
-                                edTen.getText().toString().equals("")
-                                        || edNgayXuat.getText().toString().equals("")
+                                        edNgayXuat.getText().toString().equals("")
                                         ||edSoLuong.getText().toString().equals("")
                         ){
                             Toast.makeText(myContext, "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
-                            return false;
-                        }
-
-                        try {
-                            Integer.parseInt(edTen.getText().toString());
-
-                        }catch (NumberFormatException ex){
-                            Toast.makeText(myContext, "Mã sản phẩm phải là số", Toast.LENGTH_SHORT).show();
                             return false;
                         }
 

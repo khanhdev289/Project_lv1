@@ -63,4 +63,10 @@ public class SanPham {
     public void setLoai_Sp(String loai_Sp) {
         this.loai_Sp = loai_Sp;
     }
+
+    public String toString(){
+
+        return this.id_sp +" : "+this.ten_sp;
+    }
+
 }
