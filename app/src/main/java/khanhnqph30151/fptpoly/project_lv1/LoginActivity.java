@@ -1,6 +1,7 @@
 package khanhnqph30151.fptpoly.project_lv1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,17 +11,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import khanhnqph30151.fptpoly.project_lv1.data.ThanhVienDAO;
+    public static String tenDangNhap = "";
+
+    TextInputEditText edTenDN;
+    TextInputEditText edMatKhau;
+    AppCompatButton btnDangNhap;
+    List<ThanhVien> thanhVienList;
+    ThanhVienDAO thanhVienDAO;
+
 
 public class LoginActivity extends AppCompatActivity {
     EditText edTenDN, edMatKhau;
     Button btnDangNhap;
     ThanhVienDAO dao;
     String strUser, strPass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
+
         edTenDN=findViewById(R.id.edTenDN);
         edMatKhau=findViewById(R.id.edMatKhau);
         btnDangNhap=findViewById(R.id.btnDangNhap);
