@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Login thanh cong", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
-                rememberUser(strUser, strPass);
+                rememberUser(strUser, strPass,dao.getRole(strUser));
                 finish();
             } else {
                 Toast.makeText(this, "Login k thanh cong", Toast.LENGTH_SHORT).show();
@@ -57,11 +57,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-    public void rememberUser(String u, String p) {
+    public void rememberUser(String r, String u, String p ) {
         SharedPreferences pref = getSharedPreferences("USER_FILE", MODE_PRIVATE);
         SharedPreferences.Editor edit = pref.edit();
         edit.putString("USERNAME", u);
         edit.putString("PASSWORD", p);
+        edit.putString("ROLE",r);
         edit.commit();
     }
 }
