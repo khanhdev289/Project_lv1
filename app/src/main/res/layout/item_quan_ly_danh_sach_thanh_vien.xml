@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tên đăng nhập : "
+            android:text="Tên Tài Khoản : "
             android:textSize="20dp"
             android:textStyle="bold"
 
@@ -22,9 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:id="@+id/tvTenDangNhapCuaThanhVien"
-
             android:text="Nguyễn Văn A"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -33,15 +31,7 @@
 
 
     </LinearLayout>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        android:id="@+id/ivXoaThanhVien"
 
-        android:src="@drawable/icon_delete"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        />
 
 </RelativeLayout>

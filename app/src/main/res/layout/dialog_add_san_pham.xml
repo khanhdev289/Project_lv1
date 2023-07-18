@@ -46,19 +46,19 @@
             android:layout_marginBottom="10dp"
             >
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Tên sp "
+                android:text="Tên:"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 />
             <EditText
-                android:layout_width="280dp"
+                android:layout_weight="7"
+                android:layout_width="0dp"
                 android:layout_height="55dp"
-
-                android:id="@+id/edTenSPThem"
-
-
+                android:id="@+id/ed_sanPham_add_name"
                 android:hint="Nhập tên sản phẩm"
                 android:paddingLeft="15dp"
                 android:layout_marginLeft="28dp"
@@ -76,19 +76,19 @@
             android:gravity="center"
             >
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Giá tiền "
+                android:text="Giá tiền:"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 />
             <EditText
-                android:layout_width="280dp"
+                android:layout_weight="7"
+                android:layout_width="0dp"
                 android:layout_height="55dp"
-
-                android:id="@+id/edSPThem"
-
-
+                android:id="@+id/ed_sanPham_add_price"
                 android:hint="Nhập giá sản phẩm"
                 android:paddingLeft="15dp"
                 android:layout_marginLeft="26dp"
@@ -108,19 +108,51 @@
             android:layout_marginTop="10dp"
             >
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Số lượng"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 />
             <EditText
-                android:layout_width="280dp"
+                android:layout_weight="7"
+                android:layout_width="0dp"
                 android:layout_height="55dp"
+                android:id="@+id/ed_sanPham_add_quanti"
+                android:hint="Nhập số sản phẩm"
+                android:paddingLeft="15dp"
+                android:background="@drawable/style_ed_dialog_loaisp"
+                android:layout_marginLeft="20dp"
 
-                android:id="@+id/edSoLuongSPThem"
+                />
 
+        </LinearLayout>
+        <LinearLayout
 
+            android:id="@+id/layout_loaiSp"
+            android:layout_below="@id/layoutSosp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Loại Sản Phẩm:"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                />
+            <Spinner
+                android:layout_weight="7"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:id="@+id/spn_sanPham_add_loaiSp"
                 android:hint="Nhập số sản phẩm"
                 android:paddingLeft="15dp"
                 android:background="@drawable/style_ed_dialog_loaisp"
@@ -130,10 +162,11 @@
 
         </LinearLayout>
 
+
         <LinearLayout
 
             android:id="@+id/layoutNgayNhap"
-            android:layout_below="@id/layoutSosp"
+            android:layout_below="@id/layout_loaiSp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -141,20 +174,20 @@
             android:layout_marginTop="10dp"
             >
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Ngày nhập"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 />
             <EditText
-                android:layout_width="280dp"
+                android:layout_weight="7"
+                android:layout_width="0dp"
                 android:layout_height="55dp"
-
-                android:id="@+id/edNgayNhapSPThem"
+                android:id="@+id/ed_sanPham_add_dateIn"
                 android:inputType="date"
-
-
                 android:hint="Nhập ngày nhập sản phẩm"
                 android:paddingLeft="15dp"
                 android:layout_marginLeft="10dp"
@@ -164,41 +197,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layoutNgayXuatSP"
             android:layout_below="@id/layoutNgayNhap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="50dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ngày xuất"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                />
-            <EditText
-                android:layout_width="280dp"
-                android:layout_height="55dp"
-
-                android:id="@+id/edTenLoaiSPThem"
-
-
-                android:hint="Nhập ngày xuất sản phẩm"
-                android:paddingLeft="15dp"
-                android:layout_marginLeft="14dp"
-                android:background="@drawable/style_ed_dialog_loaisp"
-                />
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_below="@id/layoutNgayXuatSP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -208,8 +207,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-
-                android:id="@+id/btnThemSp"
+                android:id="@+id/btn_sanPham_add_submit"
 
                 android:text="Thêm"
                 android:textAllCaps="false"
@@ -219,12 +217,8 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-
-                android:id="@+id/btnHuyLayouThemSp"
-
-
+                android:id="@+id/btn_sanPham_add_cancel"
                 android:layout_marginLeft="30dp"
-
                 android:text="Hủy"
                 android:textAllCaps="false"
                 android:textColor="#fff"
@@ -232,11 +226,6 @@
 
                 />
         </LinearLayout>
-
-
-
-
-
     </RelativeLayout>
 
 
