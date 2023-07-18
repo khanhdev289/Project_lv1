@@ -5,12 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".fragment.TKXuatFragment">
     <ExpandableListView
+        android:layout_above="@+id/sumorice"
         android:id="@+id/elv_xuatKho"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical"
         />
     <LinearLayout
+        android:id="@+id/sumorice"
         android:background="#F8F5F5"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
