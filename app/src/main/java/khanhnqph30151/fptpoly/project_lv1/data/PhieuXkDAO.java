@@ -46,8 +46,8 @@ public class PhieuXkDAO {
         Cursor cursor = sqLiteDatabase.rawQuery(sql, SelectAvgs);
         while (cursor.moveToNext()) {
             PhieuXuatKho ob=new PhieuXuatKho();
-            ob.setId_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_id"))));
             ob.setId_pxk(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuXk_id"))));
+            ob.setId_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_id"))));
             ob.setSoluong(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuXk_soLuong"))));
             ob.setNgayXuat(cursor.getString(cursor.getColumnIndex("phieuXk_ngayXuat")));
             ob.setId_tv(Integer.parseInt(cursor.getString(cursor.getColumnIndex("thanhVien_id"))));

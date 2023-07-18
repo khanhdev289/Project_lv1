@@ -24,24 +24,29 @@
             android:textStyle="bold"
             android:textColor="#000000"
             />
-
-        <EditText
-            android:id="@+id/edTimKiemLoaiSP"
-
-
+        <LinearLayout
             android:layout_width="match_parent"
-
-
-            android:layout_height="55dp"
-            android:layout_below="@id/tvTieuDeLoaiSp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/style_ed_loaisp"
-            android:drawableRight="@drawable/icon_tim_kiem"
+            android:orientation="horizontal">
+        <EditText
+            android:id="@+id/edTimKiemLoaiSP"
+            android:layout_weight="4"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@id/tvTieuDeLoaiSp"
             android:hint="Nhập tên loại cần tìm kiếm ..."
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            />
 
+            />
+        <ImageButton
+            android:id="@+id/img_timkiem"
+            android:layout_weight="1"
+            android:layout_width="60dp"
+            android:background="@drawable/style_ed_loaisp"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_tim_kiem"/>
+        </LinearLayout>
     </LinearLayout>
 
 
@@ -54,8 +59,6 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-
             android:id="@+id/rvLoaiSanPham"
 
 

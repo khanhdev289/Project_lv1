@@ -21,11 +21,15 @@ public class DBHelper extends SQLiteOpenHelper {
             "thanhVien_matKhau TEXT NOT NULL," +
             "thanhVien_role TEXT" +
             ")";
+    public static final String insert_admin = "Insert into tbl_thanhVien(thanhVien_hoTen,thanhVien_matKhau,thanhVien_role) values" +
+            "('admin','123','admin')";
     public static final String TABLE_LOAI_SAN_PHAM_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_loaiSp (" +
             "loaiSp_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "loaiSp_tenLoai TEXT NOT NULL" +
             ")";
+    public static final String insert_loaisp = "Insert into tbl_loaiSp(loaiSp_tenLoai) values" +
+            "('ao phong')";
     public static final String TABLE_SAN_PHAM_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_Sp (" +
             "Sp_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -35,6 +39,12 @@ public class DBHelper extends SQLiteOpenHelper {
             "Sp_soLuong INTEGER NOT NULL," +
             "loaiSp_id  REFERENCES tbl_loaiSp(loaiSp_id)" +
             ")";
+    public static final String insert_sp = "Insert into tbl_Sp(Sp_tenSp,Sp_giaTien,Sp_ngayLuuKho,Sp_soLuong,loaiSp_id) values" +
+            "('ao babytee','150','14/07/2023','20','1')";
+    public static final String insert_sp1 = "Insert into tbl_Sp(Sp_tenSp,Sp_giaTien,Sp_ngayLuuKho,Sp_soLuong,loaiSp_id) values" +
+            "('ao tanktop','200','14/07/2023','40','1')";
+    public static final String insert_sp2 = "Insert into tbl_Sp(Sp_tenSp,Sp_giaTien,Sp_ngayLuuKho,Sp_soLuong,loaiSp_id) values" +
+            "('ao tanktop2','200','15/07/2023','40','1')";
     public static final String TABLE_PHIEU_XUAT_KHO_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_phieuXk(" +
             "phieuXk_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -42,6 +52,13 @@ public class DBHelper extends SQLiteOpenHelper {
             "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
             "phieuXk_soLuong INTEGER NOT NULL ," +
             "phieuXk_ngayXuat TEXT NOT NULL)";
+
+    public static final String insert_pxk = "Insert into tbl_phieuXk(thanhVien_id,Sp_id,phieuXk_soLuong,phieuXk_ngayXuat) values" +
+            "('1','1','10','2023-08-20')";
+    public static final String insert_pxk1 = "Insert into tbl_phieuXk(thanhVien_id,Sp_id,phieuXk_soLuong,phieuXk_ngayXuat) values" +
+            "('1','2','4','2023-07-20')";
+    public static final String insert_pxk2 = "Insert into tbl_phieuXk(thanhVien_id,Sp_id,phieuXk_soLuong,phieuXk_ngayXuat) values" +
+            "('1','1','5','2023-07-21')";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -57,7 +74,25 @@ public class DBHelper extends SQLiteOpenHelper {
         //Phieu Xuat Kho
         db.execSQL(TABLE_PHIEU_XUAT_KHO_CREATE);
 
+        db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'quần đùi'),(2,'áo khoác'),(3, 'váy')");
 
+//        public static final String TABLE_THANH_VIEN_CREATE = "CREATE TABLE IF NOT EXISTS " +
+//                "tbl_thanhVien (" +
+//                "thanhVien_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
+//                "thanhVien_hoTen TEXT NOT NULL," +
+//                "thanhVien_matKhau TEXT NOT NULL," +
+//                "thanhVien_role TEXT" +
+//                ")";
+
+        db.execSQL("INSERT INTO tbl_thanhVien VALUES (0, 'tv1', 'tv1', 'tv')");
+
+        db.execSQL(insert_admin);
+
+        db.execSQL(insert_loaisp);
+        db.execSQL(insert_sp); db.execSQL(insert_sp1);
+        db.execSQL(insert_pxk); db.execSQL(insert_pxk1);
+        db.execSQL(insert_sp2);
+        db.execSQL(insert_pxk2);
 
     }
 

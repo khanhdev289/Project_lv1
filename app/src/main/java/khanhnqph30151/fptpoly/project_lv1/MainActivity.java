@@ -8,7 +8,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
@@ -44,15 +47,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         replaceFragment(new DanhSach_Sp());
 
 
-//        SharedPreferences sharedPreferences = getSharedPreferences("DATA", MODE_PRIVATE);
-//        String role = sharedPreferences.getString("thuThu_role", "");
-//        if (!role.equals("admin")){
-//            Menu menu = navigationView.getMenu();
-//            menu.findItem(R.id.top10).setVisible(false);
-//            menu.findItem(R.id.doanhthu).setVisible(false);
-//        }
-//        String user = sharedPreferences.getString("thuThu_hoTen", "");
-//        tvUser.setText(user);
+        SharedPreferences sharedPreferences = getSharedPreferences("USER_FILE", MODE_PRIVATE);
+        String role = sharedPreferences.getString("ROLE", "");
+        if (!role.equals("admin")){
+            Menu menu = navigationView.getMenu();
+            menu.findItem(R.id.ThongKe).setVisible(false);
+            menu.findItem(R.id.QuanlyTv).setVisible(false);
+        }
+
 
 
     }
@@ -96,7 +98,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawerLayout.close();
             replaceFragment(DoiMK.newInstance());
             return true;
-        } else if (item.getItemId() == R.id.Thoat) {
+        }
+        else if (item.getItemId() == R.id.dangxuat) {
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
+            return true;
+        }else if (item.getItemId() == R.id.Thoat) {
             finish();
             return true;
         } else {
