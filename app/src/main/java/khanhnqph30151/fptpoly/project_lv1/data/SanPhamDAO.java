@@ -64,7 +64,7 @@ public class SanPhamDAO {
     }
 
     public SanPham getByID(String id) {
-        String sql = "SELECT * FROM tbl_Sp  where Sp_id=?";
+        String sql = "SELECT * FROM tbl_Sp  where loaiSp_tenLoai=?";
         return getData(sql, id).get(0);
     }
     public ArrayList<String> getName(String sql,String...SelectAvgs){
