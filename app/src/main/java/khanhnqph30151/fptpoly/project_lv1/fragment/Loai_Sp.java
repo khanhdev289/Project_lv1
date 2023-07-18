@@ -22,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 import khanhnqph30151.fptpoly.project_lv1.Adapter.LoaiAdapter;
+import khanhnqph30151.fptpoly.project_lv1.MainActivity;
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.LoaiSPDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.LoaiSP;
@@ -64,28 +65,32 @@ public class Loai_Sp extends Fragment {
         FloatingActionButton floatAdd = view.findViewById(R.id.Float_add_loaiSp);
         tim =view.findViewById(R.id.edTimKiemLoaiSP);
         search=view.findViewById(R.id.img_timkiem);
-//        search.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////            list=dao.TimKiemLoaiSach(tim);
-//                if (tim.length() > 0) {
-//                    String tentimkiem = tim.getText().toString();
-//                    LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
-//                    recyLoaiSP.setLayoutManager(layoutManager);
-//                    LoaiSPDAO loaiSachDAO1 = new LoaiSPDAO(getContext());
-//                    list = new ArrayList<>();
-//                    list = loaiSachDAO1.TimKiemLoaiSp(tentimkiem);
-//                    adapter.setData(list);
-//                    recyLoaiSP.setAdapter(adapter);
-//
-//                } else {
-//                    capnhatdl();
-//                }
-//
-//
-//            }
-//
-//        });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//            list=dao.TimKiemLoaiSach(tim);
+                if(tim.length()==0)
+                {
+                    Toast.makeText(getContext(), "không được để chống ô tim kiếm", Toast.LENGTH_SHORT).show();
+                }
+                else if (tim.length() > 0) {
+                    String tentimkiem = tim.getText().toString();
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
+                    recyLoaiSP.setLayoutManager(layoutManager);
+                    LoaiSPDAO loaiSachDAO1 = new LoaiSPDAO(getContext());
+                    list = new ArrayList<>();
+                    list = loaiSachDAO1.TimKiemLoaiSp(tentimkiem);
+                    adapter.setData(list);
+                    recyLoaiSP.setAdapter(adapter);
+
+                } else {
+                    capnhatdl();
+                }
+
+
+            }
+
+        });
         LoaiSPDAO dao = new LoaiSPDAO(getContext());
         list = dao.getAllData();
         adapter = new LoaiAdapter(getContext(),list,dao);
@@ -156,11 +161,11 @@ public class Loai_Sp extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
     }
-//    private void capnhatdl() {
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//        recyclerView.setLayoutManager(layoutManager);
-//        list = dao.getDanhSachLoaiSach();
-//        adapter.setData(list);
-//        recyclerView.setAdapter(adapter);
-//    }
+    private void capnhatdl() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        list = dao.getAllData();
+        adapter.setData(list);
+        recyclerView.setAdapter(adapter);
+    }
 }

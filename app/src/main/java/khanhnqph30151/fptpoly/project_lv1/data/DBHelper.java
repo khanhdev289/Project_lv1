@@ -21,6 +21,8 @@ public class DBHelper extends SQLiteOpenHelper {
             "thanhVien_matKhau TEXT NOT NULL," +
             "thanhVien_role TEXT" +
             ")";
+    public static final String insert_admin = "Insert into tbl_thanhVien(thanhVien_hoTen,thanhVien_matKhau,thanhVien_role) values" +
+            "('admin','123','admin')";
     public static final String TABLE_LOAI_SAN_PHAM_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_loaiSp (" +
             "loaiSp_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -56,7 +58,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_SAN_PHAM_CREATE);
         //Phieu Xuat Kho
         db.execSQL(TABLE_PHIEU_XUAT_KHO_CREATE);
+
         db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'quần đùi'),(2,'áo khoác'),(3, 'váy')");
+
+
+        db.execSQL(insert_admin);
+
 
 
     }
