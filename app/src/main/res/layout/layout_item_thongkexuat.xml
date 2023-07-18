@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-
+            android:textStyle="bold|italic"
             android:gravity="center_vertical"
             android:text="Ten san pham"
             android:layout_marginBottom="3dp"
@@ -49,10 +49,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-
             android:text="Date"
             android:textSize="11sp"
-            android:textStyle="normal" />
+            android:textStyle="italic" />
 
     </LinearLayout>
 
@@ -62,6 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="16dp"
+        android:textStyle="bold|italic"
         android:textColor="@android:color/holo_green_dark"
         android:text="+9999999999đ" />
 

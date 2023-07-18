@@ -4,16 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_margin="10dp"
+    android:background="@color/white"
     android:padding="10dp">
-
-<!--    <ImageView-->
-<!--        android:id="@+id/ivIconSP"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="70dp"-->
-<!--        android:layout_centerVertical="true"-->
-<!--        android:layout_marginRight="15dp"-->
-<!--        android:src="@drawable/img_demo" />-->
-
     <LinearLayout
         android:layout_weight="5"
         android:layout_width="0dp"
@@ -23,100 +15,73 @@
             android:id="@+id/layoutTensp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/ivIconSP"
             android:orientation="horizontal">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mã sản phẩm : "
                 android:textSize="16dp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/tvTenSanPhamPhieuXuat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quần cộc"
                 android:textStyle="bold"
-
                 />
-
         </LinearLayout>
-
-
         <LinearLayout
             android:id="@+id/layoutGiaSp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/layoutTensp"
             android:layout_marginTop="3dp"
-            android:layout_toRightOf="@id/ivIconSP"
             android:orientation="horizontal">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Giá sản phẩm : "
                 android:textColor="#636363"
                 android:textSize="16dp" />
-
             <TextView
                 android:id="@+id/tvGiaSanPhamPhieuXuat"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
-
                 android:text="20000"
                 android:textColor="#636363" />
-
         </LinearLayout>
-
-
         <LinearLayout
             android:id="@+id/layoutSoLuongsp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="3dp"
-            android:layout_toRightOf="@id/ivIconSP"
             android:orientation="horizontal">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số lượng sản phẩm : "
                 android:textColor="#636363"
                 android:textSize="16dp" />
-
             <TextView
                 android:id="@+id/tvSoLuongSanPhamPhieuXuat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100"
                 android:textColor="#636363" />
-
         </LinearLayout>
-
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/layoutSoLuongsp"
             android:layout_marginTop="3dp"
-            android:layout_toRightOf="@id/ivIconSP"
-
             android:orientation="horizontal">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ngày xuất : "
                 android:textColor="#636363"
                 android:textSize="16dp"
-
                 />
-
             <TextView
                 android:id="@+id/tvNgayXuatSanPhamPhieuXuat"
                 android:layout_width="wrap_content"
@@ -137,20 +102,14 @@
     <ImageView
         android:id="@+id/ivXoaSPPhieuXuat"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
-
-
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:src="@drawable/icon_delete" />
-
     <ImageView
         android:id="@+id/ivSuaSPPhieuXuat"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
-
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
         android:layout_toLeftOf="@id/ivXoaSPPhieuXuat"

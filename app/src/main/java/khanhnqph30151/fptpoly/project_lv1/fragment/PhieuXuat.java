@@ -19,6 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -40,6 +41,8 @@ public class PhieuXuat extends Fragment {
     private ArrayList<SanPham> listSanPham;
     private PhieuXuatAdapter adapter;
     private ArrayAdapter<SanPham> adapterSanPham;
+    PhieuXkDAO dao;
+    RecyclerView rvPhieuXuat;
 
 
     public PhieuXuat() {
@@ -68,10 +71,31 @@ public class PhieuXuat extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        RecyclerView rvPhieuXuat = view.findViewById(R.id.rvDanhSachPhieuXuatKho);
+
+        rvPhieuXuat = view.findViewById(R.id.rvDanhSachPhieuXuatKho);
         FloatingActionButton floatAdd = view.findViewById(R.id.Float_add_Phieu_xuat_kho);
 
+        EditText edSearch = view.findViewById(R.id.edTimKiemPhieuSuatKho);
+        ImageButton btnSearch = view.findViewById(R.id.btn_phieuxk_timkiem);
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edSearch.length() > 0) {
+                    String tentimkiem = edSearch.getText().toString();
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
+                    rvPhieuXuat.setLayoutManager(layoutManager);
+                    PhieuXkDAO phieuXkDAO = new PhieuXkDAO(getContext());
+                    list = new ArrayList<>();
+                    list = phieuXkDAO.TimKiemPhXK(tentimkiem);
+                    adapter.setData(list);
+                    rvPhieuXuat.setAdapter(adapter);
+
+                } else {
+                    reloadData();
+                }
+            }
+        });
 
 
         PhieuXkDAO phieuXkDAO = new PhieuXkDAO(getContext());
@@ -171,9 +195,15 @@ public class PhieuXuat extends Fragment {
             }
         });
 
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        rvPhieuXuat.setLayoutManager(manager);
-        rvPhieuXuat.setAdapter(adapter);
+        reloadData();
         super.onViewCreated(view, savedInstanceState);
+    }
+    private void reloadData(){
+        dao = new PhieuXkDAO(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvPhieuXuat.setLayoutManager(layoutManager);
+        list = dao.getAllData();
+        adapter.setData(list);
+        rvPhieuXuat.setAdapter(adapter);
     }
 }
