@@ -31,11 +31,7 @@ public class SanPhamDAO {
 
     public int update(SanPham ob) {
         ContentValues values = new ContentValues();
-        values.put("Sp_tenSp", ob.getTen_sp());
-        values.put("loaiSp_id",ob.getId_loaiSP());
         values.put("Sp_soLuong",ob.getSoLuong_sp());
-        values.put("Sp_giaTien",ob.getGia_sp());
-        values.put("Sp_ngayLuuKho",ob.getNgayLuuKho_sp());
         return sqLiteDatabase.update("tbl_Sp", values, "Sp_id=?", new String[]{String.valueOf(ob.getId_sp())});
     }
 
