@@ -1,8 +1,20 @@
 package khanhnqph30151.fptpoly.project_lv1.model;
 
 public class SanPham {
-    int id_sp,id_loaiSP,soLuong_sp,gia_sp;
-    String ten_sp,ngayLuuKho_sp;
+    int id_sp,soLuong_sp,gia_sp;
+    String ten_sp,ngayLuuKho_sp, loai_Sp;
+
+    public SanPham() {
+    }
+
+    public SanPham(int id_sp, int soLuong_sp, int gia_sp, String ten_sp, String ngayLuuKho_sp, String loai_Sp) {
+        this.id_sp = id_sp;
+        this.soLuong_sp = soLuong_sp;
+        this.gia_sp = gia_sp;
+        this.ten_sp = ten_sp;
+        this.ngayLuuKho_sp = ngayLuuKho_sp;
+        this.loai_Sp = loai_Sp;
+    }
 
     public int getId_sp() {
         return id_sp;
@@ -10,14 +22,6 @@ public class SanPham {
 
     public void setId_sp(int id_sp) {
         this.id_sp = id_sp;
-    }
-
-    public int getId_loaiSP() {
-        return id_loaiSP;
-    }
-
-    public void setId_loaiSP(int id_loaiSP) {
-        this.id_loaiSP = id_loaiSP;
     }
 
     public int getSoLuong_sp() {
@@ -50,5 +54,13 @@ public class SanPham {
 
     public void setNgayLuuKho_sp(String ngayLuuKho_sp) {
         this.ngayLuuKho_sp = ngayLuuKho_sp;
+    }
+
+    public String getLoai_Sp() {
+        return loai_Sp;
+    }
+
+    public void setLoai_Sp(String loai_Sp) {
+        this.loai_Sp = loai_Sp;
     }
 }

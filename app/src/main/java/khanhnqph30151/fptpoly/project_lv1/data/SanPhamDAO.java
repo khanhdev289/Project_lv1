@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import khanhnqph30151.fptpoly.project_lv1.model.LoaiSP;
 import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
 
 public class SanPhamDAO {
@@ -22,7 +23,7 @@ public class SanPhamDAO {
     public long insert(SanPham ob) {
         ContentValues values = new ContentValues();
         values.put("Sp_tenSp", ob.getTen_sp());
-        values.put("loaiSp_id",ob.getId_loaiSP());
+        values.put("loaiSp_tenLoai",ob.getLoai_Sp());
         values.put("Sp_soLuong",ob.getSoLuong_sp());
         values.put("Sp_giaTien",ob.getGia_sp());
         values.put("Sp_ngayLuuKho",ob.getNgayLuuKho_sp());
@@ -40,6 +41,7 @@ public class SanPhamDAO {
         return sqLiteDatabase.delete("tbl_Sp", "Sp_id=?", new String[]{String.valueOf(ID)});
     }
 
+    @SuppressLint("Range")
     public ArrayList<SanPham> getData(String sql, String... SelectAvgs) {
         ArrayList<SanPham> lst = new ArrayList<>();
         Cursor cursor = sqLiteDatabase.rawQuery(sql, SelectAvgs);
@@ -47,7 +49,7 @@ public class SanPhamDAO {
             SanPham ob = new SanPham();
             ob.setId_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_id"))));
             ob.setGia_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_giaTien"))));
-            ob.setId_loaiSP(Integer.parseInt(cursor.getString(cursor.getColumnIndex("loaiSp_id"))));
+            ob.setLoai_Sp(cursor.getString(cursor.getColumnIndex("loaiSp_tenLoai")));
             ob.setTen_sp(cursor.getString(cursor.getColumnIndex("Sp_tenSp")));
             ob.setSoLuong_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_soLuong"))));
            ob.setNgayLuuKho_sp(cursor.getString(cursor.getColumnIndex("Sp_ngayLuuKho")));
@@ -78,5 +80,26 @@ public class SanPhamDAO {
     public ArrayList<String> name(){
         String name="SELECT Sp_tenSp FROM tbl_Sp";
         return getName(name);
+    }
+    @SuppressLint("Range")
+    public ArrayList<SanPham> TimKiemSp(String ten) {
+        ArrayList<SanPham> list = new ArrayList<>();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM tbl_Sp WHERE Sp_tenSp LIKE '%"+ ten +"%' ", null);
+        if(cursor.getCount()>0) {
+            cursor.moveToFirst();
+            do {
+                SanPham ob = new SanPham();
+                ob.setId_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_id"))));
+                ob.setGia_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_giaTien"))));
+                ob.setLoai_Sp(cursor.getString(cursor.getColumnIndex("loaiSp_tenLoai")));
+                ob.setTen_sp(cursor.getString(cursor.getColumnIndex("Sp_tenSp")));
+                ob.setSoLuong_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_soLuong"))));
+                ob.setNgayLuuKho_sp(cursor.getString(cursor.getColumnIndex("Sp_ngayLuuKho")));
+                list.add(ob);
+
+            }
+            while (cursor.moveToNext());
+        }
+        return list;
     }
 }

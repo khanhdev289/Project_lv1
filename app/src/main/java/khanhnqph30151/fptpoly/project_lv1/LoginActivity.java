@@ -11,13 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-    public static String tenDangNhap = "";
-
-    TextInputEditText edTenDN;
-    TextInputEditText edMatKhau;
-    AppCompatButton btnDangNhap;
-    List<ThanhVien> thanhVienList;
-    ThanhVienDAO thanhVienDAO;
+import khanhnqph30151.fptpoly.project_lv1.data.ThanhVienDAO;
 
 
 public class LoginActivity extends AppCompatActivity {
