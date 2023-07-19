@@ -20,6 +20,7 @@ public class TKTonAdapter extends RecyclerView.Adapter<TKTonAdapter.DbVH> {
     private ArrayList<SanPham> list;
     private SanPhamDAO sanPhamDAO;
     private Context context;
+
     public TKTonAdapter(ArrayList<SanPham> list, Context context) {
         this.list = list;
         this.context = context;

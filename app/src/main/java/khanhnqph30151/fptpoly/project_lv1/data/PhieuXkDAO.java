@@ -65,5 +65,9 @@ public class PhieuXkDAO {
         String sql = "SELECT * FROM tbl_phieuXk  where phieuXk_id=?";
         return getData(sql, id).get(0);
     }
+    public PhieuXuatKho getByIDSp(String id_sp) {
+        String sql = "SELECT * FROM tbl_phieuXk  where Sp_id = ?";
+        return getData(sql, id_sp).get(0);
+    }
   
 }
