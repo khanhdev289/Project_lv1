@@ -39,12 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "Sp_soLuong INTEGER NOT NULL," +
             "loaiSp_tenLoai  REFERENCES tbl_loaiSp(loaiSp_tenLoai)" +
             ")";
-    public static final String insert_sp = "Insert into tbl_Sp(Sp_tenSp,Sp_giaTien,Sp_ngayLuuKho,Sp_soLuong,loaiSp_tenLoai) values" +
-            "('ao babytee','150','14/07/2023','20','1')";
-    public static final String insert_sp1 = "Insert into tbl_Sp(Sp_tenSp,Sp_giaTien,Sp_ngayLuuKho,Sp_soLuong,loaiSp_tenLoai) values" +
-            "('ao tanktop','200','14/07/2023','40','1')";
-    public static final String insert_sp2 = "Insert into tbl_Sp(Sp_tenSp,Sp_giaTien,Sp_ngayLuuKho,Sp_soLuong,loaiSp_tenLoai) values" +
-            "('ao tanktop2','200','15/07/2023','40','1')";
+
     public static final String TABLE_PHIEU_XUAT_KHO_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_phieuXk(" +
             "phieuXk_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -53,12 +48,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "phieuXk_soLuong INTEGER NOT NULL ," +
             "phieuXk_ngayXuat TEXT NOT NULL)";
 
-    public static final String insert_pxk = "Insert into tbl_phieuXk(thanhVien_id,Sp_id,phieuXk_soLuong,phieuXk_ngayXuat) values" +
-            "('1','1','10','2023-08-20')";
-    public static final String insert_pxk1 = "Insert into tbl_phieuXk(thanhVien_id,Sp_id,phieuXk_soLuong,phieuXk_ngayXuat) values" +
-            "('1','2','4','2023-07-20')";
-    public static final String insert_pxk2 = "Insert into tbl_phieuXk(thanhVien_id,Sp_id,phieuXk_soLuong,phieuXk_ngayXuat) values" +
-            "('1','1','5','2023-07-21')";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -89,10 +78,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(insert_admin);
 
         db.execSQL(insert_loaisp);
-        db.execSQL(insert_sp); db.execSQL(insert_sp1);
-        db.execSQL(insert_pxk); db.execSQL(insert_pxk1);
-        db.execSQL(insert_sp2);
-        db.execSQL(insert_pxk2);
+
 
     }
 
