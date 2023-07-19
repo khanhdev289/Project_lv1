@@ -39,6 +39,11 @@ public class SanPhamDAO {
         values.put("Sp_ngayLuuKho",ob.getNgayLuuKho_sp());
         return sqLiteDatabase.update("tbl_Sp", values, "Sp_id=?", new String[]{String.valueOf(ob.getId_sp())});
     }
+    public int updateSL(SanPham ob) {
+        ContentValues values = new ContentValues();
+        values.put("Sp_soLuong",ob.getSoLuong_sp());
+        return sqLiteDatabase.update("tbl_Sp", values, "Sp_id=?", new String[]{String.valueOf(ob.getId_sp())});
+    }
 
 
     public int delete(int ID) {
@@ -69,6 +74,10 @@ public class SanPhamDAO {
 
     public SanPham getByID(String id) {
         String sql = "SELECT * FROM tbl_Sp  where loaiSp_tenLoai=?";
+        return getData(sql, id).get(0);
+    }
+    public SanPham getByID1(String id) {
+        String sql = "SELECT * FROM tbl_Sp  where Sp_id=?";
         return getData(sql, id).get(0);
     }
     public ArrayList<String> getName(String sql,String...SelectAvgs){

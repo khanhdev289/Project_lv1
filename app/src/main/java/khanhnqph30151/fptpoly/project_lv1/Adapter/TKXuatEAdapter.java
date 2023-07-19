@@ -87,9 +87,8 @@ public class TKXuatEAdapter extends BaseExpandableListAdapter {
         tv_name_sp = view.findViewById(R.id.tv_name_sp);
         tv_ngayXuat = view.findViewById(R.id.tv_ngayXuat);
         tv_soluong_sp = view.findViewById(R.id.tv_soluong_sp);
-
         PhieuXuatKho pxk = phieuXuatListItem.get(groupObjectList.get(i)).get(i1);
-        SanPham sp=sp_dao.getByID(String.valueOf(pxk.getId_sp()));
+        SanPham sp=sp_dao.getByID1(String.valueOf(pxk.getId_sp()));
         tv_name_sp.setText(sp.getTen_sp());
         tv_ngayXuat.setText(pxk.getNgayXuat());
         tv_soluong_sp.setText(pxk.getSoluong()+"");

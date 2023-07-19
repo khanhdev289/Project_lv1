@@ -42,6 +42,7 @@ public class PhieuXuat extends Fragment {
     private PhieuXuatAdapter adapter;
     private ArrayAdapter<SanPham> adapterSanPham;
     PhieuXkDAO dao;
+//    SanPhamDAO sanPhamDAO;
     RecyclerView rvPhieuXuat;
 
 
@@ -161,6 +162,11 @@ public class PhieuXuat extends Fragment {
                                 Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                                 list = phieuXkDAO.getAllData();
                                 adapter.setData(list);
+                                SanPham sp=sanPhamDAO.getByID1(String.valueOf(phieuXuatKho.getId_sp()));
+                                SanPham sanPham=new SanPham();
+                                sanPham.setId_sp(sp.getId_sp());
+                                sanPham.setSoLuong_sp((sp.getSoLuong_sp())-phieuXuatKho.getSoluong());
+                                sanPhamDAO.updateSL(sanPham);
                                 dialog.dismiss();
                             }else {
                                 Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
