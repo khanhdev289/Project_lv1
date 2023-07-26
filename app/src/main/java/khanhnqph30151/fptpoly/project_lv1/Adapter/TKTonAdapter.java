@@ -20,6 +20,7 @@ public class TKTonAdapter extends RecyclerView.Adapter<TKTonAdapter.DbVH> {
     private ArrayList<SanPham> list;
     private SanPhamDAO sanPhamDAO;
     private Context context;
+
     public TKTonAdapter(ArrayList<SanPham> list, Context context) {
         this.list = list;
         this.context = context;
@@ -29,15 +30,21 @@ public class TKTonAdapter extends RecyclerView.Adapter<TKTonAdapter.DbVH> {
     @Override
     public DbVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_thongketon, parent, false);
-
         return new DbVH(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DbVH holder, int position) {
         SanPham sanPham=list.get(position);
-        holder.tv_name_sp_ton.setText(sanPham.getTen_sp());
-        holder.tv_soluong_sp_ton.setText(sanPham.getSoLuong_sp()+"");
+        if(sanPham.getSoLuong_sp()==0){
+            holder.tv_name_sp_ton.setText(sanPham.getTen_sp());
+            holder.tv_soluong_sp_ton.setText("Đã xuất hết");
+        }
+        else{
+            holder.tv_name_sp_ton.setText(sanPham.getTen_sp());
+            holder.tv_soluong_sp_ton.setText("Số lượng: "+ sanPham.getSoLuong_sp());
+        }
+
     }
     public void setData(ArrayList<SanPham> lst) {
         this.list = lst;

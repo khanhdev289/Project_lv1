@@ -75,14 +75,12 @@ public class TKTonFragment extends Fragment {
         lstPXK = phieuXkDAO.getAllData();
         sanPhamDAO = new SanPhamDAO(getContext());
         lstSP = sanPhamDAO.getAllData();
-        int totalX = 0, total = 0;
-        for (PhieuXuatKho pxk : lstPXK) {
-            totalX += pxk.getSoluong();
-        }
+        int total = 0;
+
         for (SanPham sp : lstSP) {
             total += sp.getSoLuong_sp();
         }
-        tv_total_value_ton.setText(total - totalX + "");
+        tv_total_value_ton.setText(total+ "");
         rc_ton = view.findViewById(R.id.rc_ton);
         adapter = new TKTonAdapter(lstSP, getContext());
         RecyclerView rc = view.findViewById(R.id.rc_ton);

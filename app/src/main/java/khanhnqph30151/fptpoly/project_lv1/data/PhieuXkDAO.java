@@ -68,6 +68,7 @@ public class PhieuXkDAO {
         String sql = "SELECT * FROM tbl_phieuXk  where phieuXk_id=?";
         return getData(sql, id).get(0);
     }
+
     @SuppressLint("Range")
     public ArrayList<PhieuXuatKho> TimKiemPhXK(String ten) {
         ArrayList<PhieuXuatKho> list = new ArrayList<>();
@@ -86,6 +87,7 @@ public class PhieuXkDAO {
             while (cursor.moveToNext());
         }
         return list;
+
     }
   
 }
