@@ -10,6 +10,8 @@
             android:title="Sản phẩm" android:icon="@drawable/style_btn"/>
         <item android:id="@+id/phieuXuatKho"
             android:title="Phiêu xuất kho" android:icon="@drawable/style_btn"/>
+        <item android:id="@+id/phieuNhapKho"
+            android:title="Phiêu nhập kho" android:icon="@drawable/style_btn"/>
         <item android:id="@+id/ThongKe"
             android:title="Thống kê" android:icon="@drawable/style_btn"/>
         <item android:id="@+id/QuanlyTv"

@@ -36,14 +36,14 @@ public class TKTonAdapter extends RecyclerView.Adapter<TKTonAdapter.DbVH> {
     @Override
     public void onBindViewHolder(@NonNull DbVH holder, int position) {
         SanPham sanPham=list.get(position);
-        if(sanPham.getSoLuong_sp()==0){
-            holder.tv_name_sp_ton.setText(sanPham.getTen_sp());
-            holder.tv_soluong_sp_ton.setText("Đã xuất hết");
-        }
-        else{
-            holder.tv_name_sp_ton.setText(sanPham.getTen_sp());
-            holder.tv_soluong_sp_ton.setText("Số lượng: "+ sanPham.getSoLuong_sp());
-        }
+//        if(sanPham.getSoLuong_sp()==0){
+//            holder.tv_name_sp_ton.setText(sanPham.getTen_sp());
+//            holder.tv_soluong_sp_ton.setText("Đã xuất hết");
+//        }
+//        else{
+//            holder.tv_name_sp_ton.setText(sanPham.getTen_sp());
+//            holder.tv_soluong_sp_ton.setText("Số lượng: "+ sanPham.getSoLuong_sp());
+//        }
 
     }
     public void setData(ArrayList<SanPham> lst) {

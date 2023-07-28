@@ -115,8 +115,7 @@ public class DanhSach_Sp extends Fragment {
                 Button btnDialogAddCancel, btnDialogAddSubmit;
                 ed1 = dialog.findViewById(R.id.ed_sanPham_add_name);
                 ed2 = dialog.findViewById(R.id.ed_sanPham_add_price);
-                ed3 = dialog.findViewById(R.id.ed_sanPham_add_quanti);
-                ed4 = dialog.findViewById(R.id.ed_sanPham_add_dateIn);
+
 
                 spinerSp = dialog.findViewById(R.id.spn_sanPham_add_loaiSp);
                 btnDialogAddCancel = dialog.findViewById(R.id.btn_sanPham_add_cancel);
@@ -147,15 +146,12 @@ public class DanhSach_Sp extends Fragment {
                     public void onClick(View v) {
                         String ten = ed1.getText().toString();
                         String giatien = ed2.getText().toString();
-                        String soLuong = ed3.getText().toString();
-                        String ngayNhap = ed4.getText().toString();
-                        if (ten.trim().equals("") && giatien.trim().equals("") && soLuong.trim().equals("") && ngayNhap.trim().equals("")) {
+
+                        if (ten.trim().equals("") && giatien.trim().equals("")) {
                             Toast.makeText(getContext(), "ko dc de trong", Toast.LENGTH_SHORT).show();
                         } else {
                             s.setTen_sp(ed1.getText().toString());
                             s.setGia_sp(Integer.parseInt(ed2.getText().toString()));
-                            s.setSoLuong_sp(Integer.parseInt(ed3.getText().toString()));
-                            s.setNgayLuuKho_sp(ed4.getText().toString());
                         }
                         if (spDao.insert(s) >= 0) {
                             Toast.makeText(getContext(), "them thanh cong", Toast.LENGTH_LONG).show();

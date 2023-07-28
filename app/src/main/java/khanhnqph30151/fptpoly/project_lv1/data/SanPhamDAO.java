@@ -24,9 +24,7 @@ public class SanPhamDAO {
         ContentValues values = new ContentValues();
         values.put("Sp_tenSp", ob.getTen_sp());
         values.put("loaiSp_tenLoai",ob.getLoai_Sp());
-        values.put("Sp_soLuong",ob.getSoLuong_sp());
         values.put("Sp_giaTien",ob.getGia_sp());
-        values.put("Sp_ngayLuuKho",ob.getNgayLuuKho_sp());
         return sqLiteDatabase.insert("tbl_Sp", null, values);
     }
 
@@ -34,16 +32,14 @@ public class SanPhamDAO {
         ContentValues values = new ContentValues();
         values.put("Sp_tenSp", ob.getTen_sp());
         values.put("loaiSp_tenLoai",ob.getLoai_Sp());
-        values.put("Sp_soLuong",ob.getSoLuong_sp());
         values.put("Sp_giaTien",ob.getGia_sp());
-        values.put("Sp_ngayLuuKho",ob.getNgayLuuKho_sp());
         return sqLiteDatabase.update("tbl_Sp", values, "Sp_id=?", new String[]{String.valueOf(ob.getId_sp())});
     }
-    public int updateSL(SanPham ob) {
-        ContentValues values = new ContentValues();
-        values.put("Sp_soLuong",ob.getSoLuong_sp());
-        return sqLiteDatabase.update("tbl_Sp", values, "Sp_id=?", new String[]{String.valueOf(ob.getId_sp())});
-    }
+//    public int updateSL(SanPham ob) {
+//        ContentValues values = new ContentValues();
+//        values.put("Sp_giaTien",ob.getGia_sp());
+//        return sqLiteDatabase.update("tbl_Sp", values, "Sp_id=?", new String[]{String.valueOf(ob.getId_sp())});
+//    }
 
 
     public int delete(int ID) {
@@ -60,8 +56,6 @@ public class SanPhamDAO {
             ob.setGia_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_giaTien"))));
             ob.setLoai_Sp(cursor.getString(cursor.getColumnIndex("loaiSp_tenLoai")));
             ob.setTen_sp(cursor.getString(cursor.getColumnIndex("Sp_tenSp")));
-            ob.setSoLuong_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_soLuong"))));
-           ob.setNgayLuuKho_sp(cursor.getString(cursor.getColumnIndex("Sp_ngayLuuKho")));
             lst.add(ob);
         }
         return lst;
@@ -106,8 +100,6 @@ public class SanPhamDAO {
                 ob.setGia_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_giaTien"))));
                 ob.setLoai_Sp(cursor.getString(cursor.getColumnIndex("loaiSp_tenLoai")));
                 ob.setTen_sp(cursor.getString(cursor.getColumnIndex("Sp_tenSp")));
-                ob.setSoLuong_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_soLuong"))));
-                ob.setNgayLuuKho_sp(cursor.getString(cursor.getColumnIndex("Sp_ngayLuuKho")));
                 list.add(ob);
 
             }

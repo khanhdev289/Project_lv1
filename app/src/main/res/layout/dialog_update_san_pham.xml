@@ -78,32 +78,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Số lượng"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    />
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ed_sanPham_update_quanti"
-                    android:hint="Nhập số sản phẩm"
-                    android:padding="15dp"
-                    android:background="@drawable/style_ed_dialog_loaisp"
-                    android:layout_marginLeft="20dp"
 
-                    />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -132,32 +107,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ngày nhập"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    />
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ed_sanPham_update_dateIn"
-                    android:inputType="date"
-                    android:hint="Nhập ngày nhập sản phẩm"
-                    android:padding="15dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/style_ed_dialog_loaisp"
-                    />
-
-            </LinearLayout>
         </LinearLayout>
 
 

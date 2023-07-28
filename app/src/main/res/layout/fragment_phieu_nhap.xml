@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BF4848">
+    <LinearLayout
+        android:id="@+id/layoutOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/layoutOne"
+        android:id="@+id/layoutMid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/style_layout_middle"
+        >
+        <LinearLayout
+            android:id="@+id/layoutSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/style_ed_loaisp"
+            android:orientation="horizontal">
+            <EditText
+                android:background="@drawable/style_ed_loaisp"
+                android:id="@+id/edTimKiemPhieuNhapKho"
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Nhập mã phiếu nhập cần tìm kiếm ..."
+                />
+            <ImageButton
+                android:id="@+id/btn_phieunk_timkiem"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:background="@drawable/style_ed_loaisp"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_tim_kiem"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_below="@+id/layoutSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvDanhSachPhieuNhapKho"
+                />
+        </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/Float_add_Phieu_nhap_kho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="#FF9100"
+            android:src="@drawable/img_add"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

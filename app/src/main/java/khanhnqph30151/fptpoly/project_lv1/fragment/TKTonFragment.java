@@ -77,9 +77,9 @@ public class TKTonFragment extends Fragment {
         lstSP = sanPhamDAO.getAllData();
         int total = 0;
 
-        for (SanPham sp : lstSP) {
-            total += sp.getSoLuong_sp();
-        }
+//        for (SanPham sp : lstSP) {
+//            total += sp.getSoLuong_sp();
+//        }
         tv_total_value_ton.setText(total+ "");
         rc_ton = view.findViewById(R.id.rc_ton);
         adapter = new TKTonAdapter(lstSP, getContext());

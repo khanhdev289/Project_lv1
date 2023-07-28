@@ -63,9 +63,6 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
         holder.tv_ten.setText(list.get(position).getTen_sp());
         holder.tv_giaTien.setText(String.valueOf(list.get(position).getGia_sp()));
 
-        holder.tv_soLuong.setText(String.valueOf(list.get(position).getSoLuong_sp()));
-        holder.tv_ngayNhap.setText(list.get(position).getNgayLuuKho_sp());
-
         holder.tv_loaiSanPham.setText(String.valueOf(list.get(position).getLoai_Sp()));
         holder.sua.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,8 +90,6 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
             super(itemView);
             tv_ten = itemView.findViewById(R.id.tv_sanPham_tenSp);
             tv_giaTien = itemView.findViewById(R.id.tv_sanPham_giaTien);
-            tv_soLuong = itemView.findViewById(R.id.tv_sanPham_soLuong);
-            tv_ngayNhap= itemView.findViewById(R.id.tv_sanPham_ngayNhap);
             tv_loaiSanPham= itemView.findViewById(R.id.tv_sanPham_loaiSp);
             sua =itemView.findViewById(R.id.ivEditLoaiSp);
             xoa=itemView.findViewById(R.id.ivDeleteLoaiSp);
@@ -142,15 +137,13 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
         Button btnDialogAddCancel, btnDialogAddSubmit;
         ed1 = dialog.findViewById(R.id.ed_sanPham_update_name);
         ed2 = dialog.findViewById(R.id.ed_sanPham_update_price);
-        ed3 = dialog.findViewById(R.id.ed_sanPham_update_quanti);
-        ed4 = dialog.findViewById(R.id.ed_sanPham_update_dateIn);
+
         spinerSp = dialog.findViewById(R.id.spn_sanPham_update_loaiSp);
 
 
         ed1.setText(list.get(id).getTen_sp());
         ed2.setText(String.valueOf(list.get(id).getGia_sp()));
-        ed3.setText(String.valueOf(list.get(id).getSoLuong_sp()));
-        ed4.setText(list.get(id).getNgayLuuKho_sp());
+
 
         btnDialogAddCancel = dialog.findViewById(R.id.btn_sanPham_update_cancel);
         btnDialogAddSubmit = dialog.findViewById(R.id.btn_sanPham_update_submit);
@@ -190,19 +183,15 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
                 SanPhamDAO spDao = new SanPhamDAO(context);
                 String ten = ed1.getText().toString();
                 String giatien = ed2.getText().toString();
-                String soLuong = ed3.getText().toString();
-                String ngayNhap = ed4.getText().toString();
 
 
-                if (ten.trim().equals("") && giatien.trim().equals("") && soLuong.trim().equals("") && ngayNhap.trim().equals("")) {
+
+                if (ten.trim().equals("") && giatien.trim().equals("")) {
                     Toast.makeText(context, "Không được để trống", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     sanPham.setTen_sp(ed1.getText().toString());
                     sanPham.setGia_sp(Integer.parseInt(ed2.getText().toString()));
-                    sanPham.setSoLuong_sp(Integer.parseInt(ed3.getText().toString()));
-                    sanPham.setNgayLuuKho_sp(ed4.getText().toString());
-
 
                 }
                 if (spDao.update(sanPham) > 0) {
