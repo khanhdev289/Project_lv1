@@ -26,23 +26,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import khanhnqph30151.fptpoly.project_lv1.R;
+import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
+import khanhnqph30151.fptpoly.project_lv1.model.PhieuNhapKho;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
 import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
 
-public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.ViewHolder>{
+public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.ViewHolder>{
 
     Context myContext;
-    ArrayList<PhieuXuatKho> list;
+    ArrayList<PhieuNhapKho> list;
     ArrayList<SanPham> listSanPham;
     ArrayAdapter<SanPham> adapterSanPham;
 
-    public PhieuXuatAdapter(Context myContext, ArrayList<PhieuXuatKho> list) {
+    public PhieuNhapAdapter(Context myContext, ArrayList<PhieuNhapKho> list) {
         this.myContext = myContext;
         this.list = list;
     }
-    public void setData(ArrayList<PhieuXuatKho> list){
+    public void setData(ArrayList<PhieuNhapKho> list){
         this.list = list;
         notifyDataSetChanged();
 
@@ -52,20 +54,20 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)myContext).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_phieu_xuat_kho,parent,false);
+        View view = inflater.inflate(R.layout.item_phieu_nhap_kho,parent,false);
 
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PhieuXuatKho idPhieu = list.get(position);
-        PhieuXkDAO phieuXkDAO = new PhieuXkDAO(myContext);
+        PhieuNhapKho idPhieu = list.get(position);
+        PhieuNkDAO phieuNkDAO = new PhieuNkDAO(myContext);
 
 
         holder.tvTenSp.setText(list.get(position).getId_sp()+"");
         holder.tvSoLuong.setText(list.get(position).getSoluong()+"");
-        holder.tvNgayXuat.setText(list.get(position).getNgayXuat());
+        holder.tvNgayXuat.setText(list.get(position).getNgayNhap());
 
         //Sựa kiện xóa
         holder.ivXoa.setOnClickListener(new View.OnClickListener() {
@@ -78,10 +80,10 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
                         .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                int kq = phieuXkDAO.delete(idPhieu.getId_pxk());
+                                int kq = phieuNkDAO.delete(idPhieu.getId_pnk());
                                 if (kq > 0){
                                     Toast.makeText(myContext, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                                    list = phieuXkDAO.getAllData();
+                                    list = phieuNkDAO.getAllData();
                                     setData(list);
                                 }else {
                                     Toast.makeText(myContext, "Xóa thất bại", Toast.LENGTH_SHORT).show();
@@ -103,7 +105,7 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
             @Override
             public void onClick(View v) {
                 Dialog dialog = new Dialog(myContext);
-                dialog.setContentView(R.layout.dialog_update_phieu_xuat);
+                dialog.setContentView(R.layout.dialog_update_phieu_nhap);
                 dialog.setCancelable(false);
 
                 Window window = dialog.getWindow();
@@ -117,12 +119,12 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
                 AppCompatButton btnSua,btnHuy;
                 Spinner spinner;
 
-                spinner = dialog.findViewById(R.id.SpTenSpPhieuXuatSua);
+                spinner = dialog.findViewById(R.id.SpTenSpPhieuNhapSua);
 //                edTen = dialog.findViewById(R.id.edTenSpPhieuXuatSua);
-                edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuXuatSua);
-                edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuXuatSua);
-                btnSua = dialog.findViewById(R.id.btnSuaPhieuXuat);
-                btnHuy = dialog.findViewById(R.id.btnHuyLayouSuaPhieuXuat);
+                edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuNhapSua);
+                edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuNhapSua);
+                btnSua = dialog.findViewById(R.id.btnSuaPhieuNhap);
+                btnHuy = dialog.findViewById(R.id.btnHuyLayouSuaPhieuNhap);
 
 //                edTen.setText(idPhieu.getId_sp()+"");
                 SanPhamDAO sanPhamDAO = new SanPhamDAO(myContext);
@@ -138,7 +140,7 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
                 }
                 spinner.setSelection(viTri);
                 edSoLuong.setText(idPhieu.getSoluong()+"");
-                edNgayXuat.setText(idPhieu.getNgayXuat());
+                edNgayXuat.setText(idPhieu.getNgayNhap());
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -154,13 +156,13 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
                             int idSp = sanPham.getId_sp();
                             idPhieu.setId_sp(idSp);
                             idPhieu.setSoluong(Integer.parseInt(edSoLuong.getText().toString()));
-                            idPhieu.setNgayXuat(edNgayXuat.getText().toString());
+                            idPhieu.setNgayNhap(edNgayXuat.getText().toString());
 
-                            int kq = phieuXkDAO.update(idPhieu);
+                            int kq = phieuNkDAO.update(idPhieu);
                             if (kq > 0){
                                 Toast.makeText(myContext, "Sửa thành công ", Toast.LENGTH_SHORT).show();
 
-                                list = phieuXkDAO.getAllData();
+                                list = phieuNkDAO.getAllData();
                                 setData(list);
                                 dialog.dismiss();
 
@@ -217,11 +219,11 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTenSp = itemView.findViewById(R.id.tvTenSanPhamPhieuXuat);
-            tvSoLuong = itemView.findViewById(R.id.tvSoLuongSanPhamPhieuXuat);
-            tvNgayXuat = itemView.findViewById(R.id.tvNgayXuatSanPhamPhieuXuat);
-            ivSua = itemView.findViewById(R.id.ivSuaSPPhieuXuat);
-            ivXoa = itemView.findViewById(R.id.ivXoaSPPhieuXuat);
+            tvTenSp = itemView.findViewById(R.id.tvTenSanPhamPhieuNhap);
+            tvSoLuong = itemView.findViewById(R.id.tvSoLuongSanPhamPhieuNhap);
+            tvNgayXuat = itemView.findViewById(R.id.tvNgayXuatSanPhamPhieuNhap);
+            ivSua = itemView.findViewById(R.id.ivSuaSPPhieuNhap);
+            ivXoa = itemView.findViewById(R.id.ivXoaSPPhieuNhap);
 
 
         }

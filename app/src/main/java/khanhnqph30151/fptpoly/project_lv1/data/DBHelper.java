@@ -35,8 +35,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "Sp_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "Sp_tenSp TEXT NOT NULL," +
             "Sp_giaTien TEXT NOT NULL," +
-            "Sp_ngayLuuKho TEXT NOT NULL," +
-            "Sp_soLuong INTEGER NOT NULL," +
             "loaiSp_tenLoai  REFERENCES tbl_loaiSp(loaiSp_tenLoai)" +
             ")";
 
@@ -47,6 +45,13 @@ public class DBHelper extends SQLiteOpenHelper {
             "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
             "phieuXk_soLuong INTEGER NOT NULL ," +
             "phieuXk_ngayXuat TEXT NOT NULL)";
+    public static final String TABLE_PHIEU_NHAP_KHO_CREATE = "CREATE TABLE IF NOT EXISTS " +
+            "tbl_phieuNk(" +
+            "phieuNk_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "thanhVien_id TEXT REFERENCES tbl_thanhVien(thanhVien_id)," +
+            "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
+            "phieuNk_soLuong INTEGER NOT NULL ," +
+            "phieuNk_ngayNhap TEXT NOT NULL)";
 
 
     @Override
@@ -62,6 +67,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_SAN_PHAM_CREATE);
         //Phieu Xuat Kho
         db.execSQL(TABLE_PHIEU_XUAT_KHO_CREATE);
+        db.execSQL(TABLE_PHIEU_NHAP_KHO_CREATE);
 
         db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'quần đùi'),(2,'áo khoác'),(3, 'váy')");
 

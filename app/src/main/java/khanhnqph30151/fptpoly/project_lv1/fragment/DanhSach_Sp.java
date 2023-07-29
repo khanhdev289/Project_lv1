@@ -1,6 +1,8 @@
 package khanhnqph30151.fptpoly.project_lv1.fragment;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -101,13 +105,17 @@ public class DanhSach_Sp extends Fragment {
                 SanPham s = new SanPham();
                 dialog.setContentView(R.layout.dialog_add_san_pham);
 
+                Window window = dialog.getWindow();
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
                 EditText ed1, ed2, ed3, ed4;
                 Spinner spinerSp;
                 Button btnDialogAddCancel, btnDialogAddSubmit;
                 ed1 = dialog.findViewById(R.id.ed_sanPham_add_name);
                 ed2 = dialog.findViewById(R.id.ed_sanPham_add_price);
-                ed3 = dialog.findViewById(R.id.ed_sanPham_add_quanti);
-                ed4 = dialog.findViewById(R.id.ed_sanPham_add_dateIn);
+
 
                 spinerSp = dialog.findViewById(R.id.spn_sanPham_add_loaiSp);
                 btnDialogAddCancel = dialog.findViewById(R.id.btn_sanPham_add_cancel);
@@ -138,15 +146,12 @@ public class DanhSach_Sp extends Fragment {
                     public void onClick(View v) {
                         String ten = ed1.getText().toString();
                         String giatien = ed2.getText().toString();
-                        String soLuong = ed3.getText().toString();
-                        String ngayNhap = ed4.getText().toString();
-                        if (ten.trim().equals("") && giatien.trim().equals("") && soLuong.trim().equals("") && ngayNhap.trim().equals("")) {
+
+                        if (ten.trim().equals("") && giatien.trim().equals("")) {
                             Toast.makeText(getContext(), "ko dc de trong", Toast.LENGTH_SHORT).show();
                         } else {
                             s.setTen_sp(ed1.getText().toString());
                             s.setGia_sp(Integer.parseInt(ed2.getText().toString()));
-                            s.setSoLuong_sp(Integer.parseInt(ed3.getText().toString()));
-                            s.setNgayLuuKho_sp(ed4.getText().toString());
                         }
                         if (spDao.insert(s) >= 0) {
                             Toast.makeText(getContext(), "them thanh cong", Toast.LENGTH_LONG).show();

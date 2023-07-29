@@ -27,33 +27,35 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuNhapAdapter;
 import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuXuatAdapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
+import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
+import khanhnqph30151.fptpoly.project_lv1.model.PhieuNhapKho;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
 import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
 
 
-public class PhieuXuat extends Fragment {
+public class PhieuNhap extends Fragment {
 
-    private ArrayList<PhieuXuatKho> list;
+
+    private ArrayList<PhieuNhapKho> list;
     private ArrayList<SanPham> listSanPham;
-    private PhieuXuatAdapter adapter;
+    private PhieuNhapAdapter adapter;
     private ArrayAdapter<SanPham> adapterSanPham;
-    PhieuXkDAO dao;
-//    SanPhamDAO sanPhamDAO;
-    RecyclerView rvPhieuXuat;
+    PhieuNkDAO dao;
 
+    RecyclerView rvPhieuNhap;
 
-    public PhieuXuat() {
-        // Required empty public constructor
+    public PhieuNhap() {
+
     }
 
 
-    public static PhieuXuat newInstance() {
-        PhieuXuat fragment = new PhieuXuat();
-
+    public static PhieuNhap newInstance() {
+        PhieuNhap fragment = new PhieuNhap();
         return fragment;
     }
 
@@ -67,17 +69,17 @@ public class PhieuXuat extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_phieu_xuat, container, false);
+        return inflater.inflate(R.layout.fragment_phieu_nhap, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        rvPhieuNhap = view.findViewById(R.id.rvDanhSachPhieuNhapKho);
+        FloatingActionButton floatAdd = view.findViewById(R.id.Float_add_Phieu_nhap_kho);
 
-        rvPhieuXuat = view.findViewById(R.id.rvDanhSachPhieuXuatKho);
-        FloatingActionButton floatAdd = view.findViewById(R.id.Float_add_Phieu_xuat_kho);
-
-        EditText edSearch = view.findViewById(R.id.edTimKiemPhieuSuatKho);
-        ImageButton btnSearch = view.findViewById(R.id.btn_phieuxk_timkiem);
+        EditText edSearch = view.findViewById(R.id.edTimKiemPhieuNhapKho);
+        ImageButton btnSearch = view.findViewById(R.id.btn_phieunk_timkiem);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,12 +87,12 @@ public class PhieuXuat extends Fragment {
                 if (edSearch.length() > 0) {
                     String tentimkiem = edSearch.getText().toString();
                     LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
-                    rvPhieuXuat.setLayoutManager(layoutManager);
+                    rvPhieuNhap.setLayoutManager(layoutManager);
                     PhieuXkDAO phieuXkDAO = new PhieuXkDAO(getContext());
                     list = new ArrayList<>();
-                    list = phieuXkDAO.TimKiemPhXK(tentimkiem);
+                    list = dao.TimKiemPhNK(tentimkiem);
                     adapter.setData(list);
-                    rvPhieuXuat.setAdapter(adapter);
+                    rvPhieuNhap.setAdapter(adapter);
 
                 } else {
                     reloadData();
@@ -99,16 +101,16 @@ public class PhieuXuat extends Fragment {
         });
 
 
-        PhieuXkDAO phieuXkDAO = new PhieuXkDAO(getContext());
-        list = phieuXkDAO.getAllData();
-        adapter = new PhieuXuatAdapter(getContext(),list);
+        PhieuNkDAO phieuNkDAO = new PhieuNkDAO(getContext());
+        list = phieuNkDAO.getAllData();
+        adapter = new PhieuNhapAdapter(getContext(),list);
 
 
         floatAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Dialog dialog = new Dialog(getContext());
-                dialog.setContentView(R.layout.dialog_add_phieu_xuat);
+                dialog.setContentView(R.layout.dialog_add_phieu_nhap);
                 dialog.setCancelable(false);
 
                 Window window = dialog.getWindow();
@@ -122,12 +124,12 @@ public class PhieuXuat extends Fragment {
                 Spinner spinnerSanPham;
                 AppCompatButton btnThem,btnHuy;
 
-                spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuXuatThem);
+                spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuNhapThem);
 //                edTenSp = dialog.findViewById(R.id.edTenSpPhieuXuatThem);
-                edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuXuatThem);
-                edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuXuatThem);
-                btnThem = dialog.findViewById(R.id.btnThemPhieuXuat);
-                btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuXuat);
+                edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuNhapThem);
+                edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuNhapThem);
+                btnThem = dialog.findViewById(R.id.btnThemPhieuNhap);
+                btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuNhap);
 
                 SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
                 listSanPham = sanPhamDAO.getAllData();
@@ -152,17 +154,17 @@ public class PhieuXuat extends Fragment {
                             int soLuong = Integer.parseInt(edSoLuong.getText().toString());
                             String ngayXuat = edNgayXuat.getText().toString();
 
-                            PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
-                            phieuXuatKho.setId_sp(tenSp);
-                            phieuXuatKho.setNgayXuat(ngayXuat);
-                            phieuXuatKho.setSoluong(soLuong);
+                            PhieuNhapKho phieuNhapKho = new PhieuNhapKho();
+                            phieuNhapKho.setId_sp(tenSp);
+                            phieuNhapKho.setNgayNhap(ngayXuat);
+                            phieuNhapKho.setSoluong(soLuong);
 
-                            long kq = phieuXkDAO.insert(phieuXuatKho);
+                            long kq = phieuNkDAO.insert(phieuNhapKho);
                             if (kq > 0){
                                 Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                list = phieuXkDAO.getAllData();
+                                list = phieuNkDAO.getAllData();
                                 adapter.setData(list);
-                                SanPham sp=sanPhamDAO.getByID1(String.valueOf(phieuXuatKho.getId_sp()));
+                                SanPham sp=sanPhamDAO.getByID1(String.valueOf(phieuNhapKho.getId_sp()));
                                 SanPham sanPham=new SanPham();
                                 sanPham.setId_sp(sp.getId_sp());
 //                                sanPhamDAO.updateSL(sanPham);
@@ -175,7 +177,7 @@ public class PhieuXuat extends Fragment {
 
                     private boolean kiemTra() {
                         if (
-                                        edNgayXuat.getText().toString().equals("")
+                                edNgayXuat.getText().toString().equals("")
                                         ||edSoLuong.getText().toString().equals("")
                         ){
                             Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
@@ -201,14 +203,13 @@ public class PhieuXuat extends Fragment {
         });
 
         reloadData();
-        super.onViewCreated(view, savedInstanceState);
     }
     private void reloadData(){
-        dao = new PhieuXkDAO(getContext());
+        dao = new PhieuNkDAO(getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        rvPhieuXuat.setLayoutManager(layoutManager);
+        rvPhieuNhap.setLayoutManager(layoutManager);
         list = dao.getAllData();
         adapter.setData(list);
-        rvPhieuXuat.setAdapter(adapter);
+        rvPhieuNhap.setAdapter(adapter);
     }
 }

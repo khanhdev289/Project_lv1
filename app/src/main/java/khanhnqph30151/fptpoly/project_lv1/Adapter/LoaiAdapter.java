@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -112,6 +116,12 @@ public class LoaiAdapter extends RecyclerView.Adapter<LoaiAdapter.ViewHolder>{
     public void showUpdate(LoaiSP loaiSP, int id){
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_update_loai_sp);
+
+        Window window = dialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
         EditText ed1;
         Button btnDialogAddCancel, btnDialogAddSubmit;
         ed1 = dialog.findViewById(R.id.edTenLoaiSPSua);
