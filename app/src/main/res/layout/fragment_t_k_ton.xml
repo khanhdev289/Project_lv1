@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFEDED"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.TKTonFragment">
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_alignParentTop="true"
-        android:id="@+id/rc_ton"
+    <ExpandableListView
+
+        android:id="@+id/elv_tonKho"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:layout_weight="9.5"
         />
     <LinearLayout
         android:background="#F8F5F5"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.5"
+        android:padding="5dp"
+        >
         <TextView
             android:text="Tổng tồn kho: "
             android:textSize="20sp"
-            android:padding="5dp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -32,10 +35,9 @@
             android:textColor="@android:color/holo_red_light"
             android:textSize="20sp"
             android:layout_marginLeft="20dp"
-            android:padding="5dp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

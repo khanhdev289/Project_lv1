@@ -67,7 +67,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
 
         holder.tvTenSp.setText(list.get(position).getId_sp()+"");
         holder.tvSoLuong.setText(list.get(position).getSoluong()+"");
-        holder.tvNgayXuat.setText(list.get(position).getNgayXuat());
+        holder.tvNgayXuat.setText(list.get(position).getNgayNhap());
 
         //Sựa kiện xóa
         holder.ivXoa.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +140,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 }
                 spinner.setSelection(viTri);
                 edSoLuong.setText(idPhieu.getSoluong()+"");
-                edNgayXuat.setText(idPhieu.getNgayXuat());
+                edNgayXuat.setText(idPhieu.getNgayNhap());
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -156,7 +156,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                             int idSp = sanPham.getId_sp();
                             idPhieu.setId_sp(idSp);
                             idPhieu.setSoluong(Integer.parseInt(edSoLuong.getText().toString()));
-                            idPhieu.setNgayXuat(edNgayXuat.getText().toString());
+                            idPhieu.setNgayNhap(edNgayXuat.getText().toString());
 
                             int kq = phieuNkDAO.update(idPhieu);
                             if (kq > 0){

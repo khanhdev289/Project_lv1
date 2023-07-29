@@ -68,7 +68,10 @@ public class PhieuXkDAO {
         String sql = "SELECT * FROM tbl_phieuXk  where phieuXk_id=?";
         return getData(sql, id).get(0);
     }
-
+    public PhieuXuatKho getByID_SP(String id) {
+        String sql = "SELECT * FROM tbl_phieuXk  where Sp_id=?";
+        return getData(sql, id).get(0);
+    }
     @SuppressLint("Range")
     public ArrayList<PhieuXuatKho> TimKiemPhXK(String ten) {
         ArrayList<PhieuXuatKho> list = new ArrayList<>();

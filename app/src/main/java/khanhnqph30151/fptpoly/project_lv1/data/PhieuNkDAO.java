@@ -24,7 +24,7 @@ public class PhieuNkDAO {
         ContentValues values = new ContentValues();
         values.put("Sp_id", ob.getId_sp());
         values.put("phieuNk_soLuong",ob.getSoluong());
-        values.put("phieuNk_ngayXuat",ob.getNgayXuat());
+        values.put("phieuNk_ngayNhap",ob.getNgayNhap());
         values.put("thanhVien_id",ob.getId_tv());
         return sqLiteDatabase.insert("tbl_phieuNk", null, values);
     }
@@ -33,7 +33,7 @@ public class PhieuNkDAO {
         ContentValues values = new ContentValues();
         values.put("Sp_id", ob.getId_sp());
         values.put("phieuNk_soLuong",ob.getSoluong());
-        values.put("phieuNk_ngayXuat",ob.getNgayXuat());
+        values.put("phieuNk_ngayNhap",ob.getNgayNhap());
         values.put("thanhVien_id",ob.getId_tv());
         return sqLiteDatabase.update("tbl_phieuNk", values, "phieuNk_id=?", new String[]{String.valueOf(ob.getId_pnk())});
     }
@@ -52,7 +52,7 @@ public class PhieuNkDAO {
             ob.setId_pnk(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuNk_id"))));
             ob.setId_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_id"))));
             ob.setSoluong(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuNk_soLuong"))));
-            ob.setNgayXuat(cursor.getString(cursor.getColumnIndex("phieuNk_ngayXuat")));
+            ob.setNgayNhap(cursor.getString(cursor.getColumnIndex("phieuNk_ngayNhap")));
             ob.setId_tv(Integer.parseInt(cursor.getString(cursor.getColumnIndex("thanhVien_id"))));
             lst.add(ob);
         }
@@ -80,7 +80,7 @@ public class PhieuNkDAO {
                 ob.setId_pnk(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuNk_id"))));
                 ob.setId_sp(Integer.parseInt(cursor.getString(cursor.getColumnIndex("Sp_id"))));
                 ob.setSoluong(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuNk_soLuong"))));
-                ob.setNgayXuat(cursor.getString(cursor.getColumnIndex("phieuNk_ngayXuat")));
+                ob.setNgayNhap(cursor.getString(cursor.getColumnIndex("phieuNk_ngayNhap")));
                 ob.setId_tv(Integer.parseInt(cursor.getString(cursor.getColumnIndex("thanhVien_id"))));
                 list.add(ob);
             }

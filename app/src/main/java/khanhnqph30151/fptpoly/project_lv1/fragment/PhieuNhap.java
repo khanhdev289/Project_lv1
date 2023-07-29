@@ -156,7 +156,7 @@ public class PhieuNhap extends Fragment {
 
                             PhieuNhapKho phieuNhapKho = new PhieuNhapKho();
                             phieuNhapKho.setId_sp(tenSp);
-                            phieuNhapKho.setNgayXuat(ngayXuat);
+                            phieuNhapKho.setNgayNhap(ngayXuat);
                             phieuNhapKho.setSoluong(soLuong);
 
                             long kq = phieuNkDAO.insert(phieuNhapKho);
