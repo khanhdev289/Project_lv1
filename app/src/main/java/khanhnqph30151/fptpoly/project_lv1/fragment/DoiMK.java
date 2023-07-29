@@ -27,7 +27,7 @@ import khanhnqph30151.fptpoly.project_lv1.model.ThanhVien;
 
 public class DoiMK extends Fragment {
 
-
+    List<ThanhVien> thanhVienList;
     public DoiMK() {
         // Required empty public constructor
     }
@@ -61,10 +61,9 @@ public class DoiMK extends Fragment {
         TextInputEditText edNhapLaiMatKhauMoi = view.findViewById(R.id.edNhapLaiMatKhauMoi);
         AppCompatButton btnDoiMatKhau = view.findViewById(R.id.btnDoiMatKhau);
 
-
         ThanhVienDAO thanhVienDAO = new ThanhVienDAO(view.getContext());
 
-        List<ThanhVien> thanhVienList = thanhVienDAO.getAllData();
+        thanhVienList = thanhVienDAO.getAllData();
         btnDoiMatKhau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,11 +101,14 @@ public class DoiMK extends Fragment {
 
                         thanhVienDAO.update(new ThanhVien(thanhVienList.get(i).getId_tv(), thanhVienList.get(i).getHoTen_tv(), edMatKhauMoi.getText().toString(), thanhVienList.get(i).getRole_tv()));
                         Toast.makeText(view.getContext(), "Cập nhật mật khẩu thành công", Toast.LENGTH_SHORT).show();
+
                         edMatKhauCu.setText("");
                         edMatKhauMoi.setText("");
                         edNhapLaiMatKhauMoi.setText("");
                     }
                 }
+                thanhVienList.clear();
+                thanhVienList = thanhVienDAO.getAllData();
             }
         });
 

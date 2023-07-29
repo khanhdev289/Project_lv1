@@ -2,6 +2,7 @@ package khanhnqph30151.fptpoly.project_lv1.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -24,6 +26,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
@@ -125,6 +128,24 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuNhapSua);
                 btnSua = dialog.findViewById(R.id.btnSuaPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouSuaPhieuNhap);
+
+
+                edNgayXuat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar lich= Calendar.getInstance();
+                        int year=lich.get(Calendar.YEAR);
+                        int month=lich.get(Calendar.MONTH);
+                        int day=lich.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datedg=new DatePickerDialog(myContext, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                edNgayXuat.setText(String.format("%d/%d/%d",year,month,dayOfMonth));
+                            }
+                        },year,month,day);
+                        datedg.show();
+                    }
+                });
 
 //                edTen.setText(idPhieu.getId_sp()+"");
                 SanPhamDAO sanPhamDAO = new SanPhamDAO(myContext);
