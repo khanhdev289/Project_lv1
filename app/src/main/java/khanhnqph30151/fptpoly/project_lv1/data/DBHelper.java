@@ -51,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "thanhVien_id TEXT REFERENCES tbl_thanhVien(thanhVien_id)," +
             "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
             "phieuNk_soLuong INTEGER NOT NULL ," +
-            "phieuNk_ngayXuat TEXT NOT NULL)";
+            "phieuNk_ngayNhap TEXT NOT NULL)";
 
 
     @Override
