@@ -53,7 +53,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "phieuNk_soLuong INTEGER NOT NULL ," +
             "phieuNk_ngayNhap TEXT NOT NULL)";
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
 
