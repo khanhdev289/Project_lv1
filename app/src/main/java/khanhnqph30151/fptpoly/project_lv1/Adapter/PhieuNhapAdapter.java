@@ -2,6 +2,7 @@ package khanhnqph30151.fptpoly.project_lv1.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -23,7 +25,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
@@ -141,6 +145,28 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 spinner.setSelection(viTri);
                 edSoLuong.setText(idPhieu.getSoluong()+"");
                 edNgayXuat.setText(idPhieu.getNgayNhap());
+                Calendar calendar = Calendar.getInstance();
+                final int year = calendar.get(Calendar.YEAR);
+                final int month = calendar.get(Calendar.MONTH);
+                final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                edNgayXuat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(myContext, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                                month = month + 1;
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar selectedCalendar = Calendar.getInstance();
+                                selectedCalendar.set(year, month, dayOfMonth);
+                                String date = sdf.format(selectedCalendar.getTime());
+                                edNgayXuat.setText(date);
+                            }
+                        },year,month,day);
+                        datePickerDialog.show();
+                    }
+                });
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
                     @Override

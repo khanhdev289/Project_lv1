@@ -1,5 +1,6 @@
 package khanhnqph30151.fptpoly.project_lv1.fragment;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -25,7 +27,9 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuNhapAdapter;
 import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuXuatAdapter;
@@ -120,14 +124,16 @@ public class PhieuNhap extends Fragment {
                 );
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                EditText edTenSp,edSoLuong,edNgayXuat;
+
+
+                EditText edTenSp,edSoLuong,edNgayNhap;
                 Spinner spinnerSanPham;
                 AppCompatButton btnThem,btnHuy;
 
                 spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuNhapThem);
 //                edTenSp = dialog.findViewById(R.id.edTenSpPhieuXuatThem);
                 edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuNhapThem);
-                edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuNhapThem);
+                edNgayNhap = dialog.findViewById(R.id.edNgayXuatPhieuNhapThem);
                 btnThem = dialog.findViewById(R.id.btnThemPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuNhap);
 
@@ -135,6 +141,29 @@ public class PhieuNhap extends Fragment {
                 listSanPham = sanPhamDAO.getAllData();
                 adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,listSanPham);
                 spinnerSanPham.setAdapter(adapterSanPham);
+
+                Calendar calendar = Calendar.getInstance();
+                final int year = calendar.get(Calendar.YEAR);
+                final int month = calendar.get(Calendar.MONTH);
+                final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                edNgayNhap.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                                month = month + 1;
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar selectedCalendar = Calendar.getInstance();
+                                selectedCalendar.set(year, month, dayOfMonth);
+                                String date = sdf.format(selectedCalendar.getTime());
+                                edNgayNhap.setText(date);
+                            }
+                        },year,month,day);
+                        datePickerDialog.show();
+                    }
+                });
 
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +181,7 @@ public class PhieuNhap extends Fragment {
                             SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
                             int tenSp = id.getId_sp();
                             int soLuong = Integer.parseInt(edSoLuong.getText().toString());
-                            String ngayXuat = edNgayXuat.getText().toString();
+                            String ngayXuat = edNgayNhap.getText().toString();
 
                             PhieuNhapKho phieuNhapKho = new PhieuNhapKho();
                             phieuNhapKho.setId_sp(tenSp);
@@ -177,7 +206,7 @@ public class PhieuNhap extends Fragment {
 
                     private boolean kiemTra() {
                         if (
-                                edNgayXuat.getText().toString().equals("")
+                                edNgayNhap.getText().toString().equals("")
                                         ||edSoLuong.getText().toString().equals("")
                         ){
                             Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
