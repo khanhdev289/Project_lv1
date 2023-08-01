@@ -3,16 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragment.ThongKe">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout_thongke"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <Spinner
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/sp_month"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:entries="@array/months_array" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_thongke"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="15dp"
+        android:id="@+id/recy_statis"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
 </LinearLayout>
+
+
