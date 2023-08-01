@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    android:layout_height="match_parent">
+    android:layout_height="160dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_ql_kho"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:src="@drawable/icon3edit"
         android:layout_gravity="center"
         />
     <TextView

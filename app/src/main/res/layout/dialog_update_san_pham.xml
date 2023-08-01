@@ -19,6 +19,7 @@
                 android:textColor="#ffff"
                 android:background="@drawable/style_dialog_add_loai_sp2"
                 android:padding="16dp"
+                android:fontFamily="serif"
                 />
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,9 +30,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 >
                 <TextView
@@ -40,6 +40,7 @@
                     android:text="Tên Sp:"
                     android:textSize="18dp"
                     android:textStyle="bold"
+                    android:fontFamily="serif"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -47,8 +48,9 @@
                     android:id="@+id/ed_sanPham_update_name"
                     android:hint="Nhập tên sản phẩm"
                     android:padding="15dp"
-                    android:layout_marginLeft="30dp"
                     android:background="@drawable/style_ed_dialog_loaisp"
+                    android:fontFamily="serif"
+                    android:layout_marginTop="5dp"
                     />
 
             </LinearLayout>
@@ -56,8 +58,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
+                android:orientation="vertical"
                 >
                 <TextView
                     android:layout_width="wrap_content"
@@ -65,6 +66,7 @@
                     android:text="Giá tiền:"
                     android:textSize="18dp"
                     android:textStyle="bold"
+                    android:fontFamily="serif"
                     />
                 <EditText
                     android:layout_width="match_parent"
@@ -72,8 +74,9 @@
                     android:id="@+id/ed_sanPham_update_price"
                     android:hint="Nhập giá sản phẩm"
                     android:padding="15dp"
-                    android:layout_marginLeft="26dp"
                     android:background="@drawable/style_ed_dialog_loaisp"
+                    android:fontFamily="serif"
+                    android:layout_marginTop="5dp"
                     />
 
             </LinearLayout>
@@ -83,8 +86,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
+                android:orientation="vertical"
                 android:layout_marginTop="10dp"
                 >
                 <TextView
@@ -93,16 +95,15 @@
                     android:text="Loại Sp:"
                     android:textSize="18dp"
                     android:textStyle="bold"
+                    android:fontFamily="serif"
                     />
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/spn_sanPham_update_loaiSp"
                     android:hint="Nhập số sản phẩm"
-                    android:paddingLeft="15dp"
                     android:background="@drawable/style_ed_dialog_loaisp"
-                    android:layout_marginLeft="28dp"
-
+                    android:layout_marginTop="5dp"
                     />
 
             </LinearLayout>
@@ -116,29 +117,33 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginBottom="25dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
             >
             <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="100dp"
-                android:layout_height="50dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/btn_sanPham_update_submit"
 
                 android:text="Sửa"
+                android:layout_weight="1"
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:background="#03A9F4"
+                android:fontFamily="serif"
                 />
             <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="100dp"
-                android:layout_height="50dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/btn_sanPham_update_cancel"
                 android:layout_marginLeft="30dp"
                 android:text="Hủy"
+                android:layout_weight="1"
                 android:textAllCaps="false"
-                android:textColor="#fff"
-                android:background="#03A9F4"
-
+                android:textColor="#000000"
+                android:background="@android:color/darker_gray"
+                android:fontFamily="serif"
                 />
         </LinearLayout>
 

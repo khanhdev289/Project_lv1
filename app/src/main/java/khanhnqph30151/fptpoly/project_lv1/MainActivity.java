@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.id_nav);
         navigationView.setNavigationItemSelectedListener(this);
         replaceFragment(new DanhSach_Sp());
+        setTitle("Sản phẩm");
 
 
         SharedPreferences sharedPreferences = getSharedPreferences("USER_FILE", MODE_PRIVATE);
