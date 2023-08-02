@@ -2,6 +2,7 @@ package khanhnqph30151.fptpoly.project_lv1.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -23,7 +25,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
@@ -67,7 +71,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
 
         holder.tvTenSp.setText(list.get(position).getId_sp()+"");
         holder.tvSoLuong.setText(list.get(position).getSoluong()+"");
-        holder.tvNgayXuat.setText(list.get(position).getNgayXuat());
+        holder.tvNgayXuat.setText(list.get(position).getNgayNhap());
 
         //Sựa kiện xóa
         holder.ivXoa.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +130,24 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 btnSua = dialog.findViewById(R.id.btnSuaPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouSuaPhieuNhap);
 
+
+                edNgayXuat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar lich= Calendar.getInstance();
+                        int year=lich.get(Calendar.YEAR);
+                        int month=lich.get(Calendar.MONTH);
+                        int day=lich.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datedg=new DatePickerDialog(myContext, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                edNgayXuat.setText(String.format("%d/%d/%d",year,month,dayOfMonth));
+                            }
+                        },year,month,day);
+                        datedg.show();
+                    }
+                });
+
 //                edTen.setText(idPhieu.getId_sp()+"");
                 SanPhamDAO sanPhamDAO = new SanPhamDAO(myContext);
                 listSanPham = sanPhamDAO.getAllData();
@@ -140,7 +162,29 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 }
                 spinner.setSelection(viTri);
                 edSoLuong.setText(idPhieu.getSoluong()+"");
-                edNgayXuat.setText(idPhieu.getNgayXuat());
+                edNgayXuat.setText(idPhieu.getNgayNhap());
+                Calendar calendar = Calendar.getInstance();
+                final int year = calendar.get(Calendar.YEAR);
+                final int month = calendar.get(Calendar.MONTH);
+                final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                edNgayXuat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(myContext, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                                month = month + 1;
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar selectedCalendar = Calendar.getInstance();
+                                selectedCalendar.set(year, month, dayOfMonth);
+                                String date = sdf.format(selectedCalendar.getTime());
+                                edNgayXuat.setText(date);
+                            }
+                        },year,month,day);
+                        datePickerDialog.show();
+                    }
+                });
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -156,7 +200,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                             int idSp = sanPham.getId_sp();
                             idPhieu.setId_sp(idSp);
                             idPhieu.setSoluong(Integer.parseInt(edSoLuong.getText().toString()));
-                            idPhieu.setNgayXuat(edNgayXuat.getText().toString());
+                            idPhieu.setNgayNhap(edNgayXuat.getText().toString());
 
                             int kq = phieuNkDAO.update(idPhieu);
                             if (kq > 0){

@@ -5,7 +5,7 @@ public class PhieuNhapKho {
     int soluong;
     int id_sp;
     int id_tv;
-    String ngayXuat;
+    String ngayNhap;
     public int getId_tv() {
         return id_tv;
     }
@@ -39,11 +39,11 @@ public class PhieuNhapKho {
         this.id_sp = id_sp;
     }
 
-    public String getNgayXuat() {
-        return ngayXuat;
+    public String getNgayNhap() {
+        return ngayNhap;
     }
 
-    public void setNgayXuat(String ngayXuat) {
-        this.ngayXuat = ngayXuat;
+    public void setNgayNhap(String ngayNhap) {
+        this.ngayNhap = ngayNhap;
     }
 }

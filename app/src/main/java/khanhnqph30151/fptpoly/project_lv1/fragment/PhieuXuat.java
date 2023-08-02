@@ -1,5 +1,6 @@
 package khanhnqph30151.fptpoly.project_lv1.fragment;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -25,11 +27,15 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Calendar;
+
 
 import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuXuatAdapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
+import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
@@ -133,33 +139,80 @@ public class PhieuXuat extends Fragment {
 
                     spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuXuatThem);
 //                edTenSp = dialog.findViewById(R.id.edTenSpPhieuXuatThem);
-                    edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuXuatThem);
-                    edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuXuatThem);
-                    btnThem = dialog.findViewById(R.id.btnThemPhieuXuat);
-                    btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuXuat);
 
-                    SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
-                    listSanPham = sanPhamDAO.getAllData();
-                    adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,listSanPham);
-                    spinnerSanPham.setAdapter(adapterSanPham);
+                edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuXuatThem);
+                edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuXuatThem);
+                btnThem = dialog.findViewById(R.id.btnThemPhieuXuat);
+                btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuXuat);
 
+                SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
+                listSanPham = sanPhamDAO.getAllData();
+                adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,listSanPham);
+                spinnerSanPham.setAdapter(adapterSanPham);
+                Calendar calendar = Calendar.getInstance();
+                final int year = calendar.get(Calendar.YEAR);
+                final int month = calendar.get(Calendar.MONTH);
+                final int day = calendar.get(Calendar.DAY_OF_MONTH);
+                edNgayXuat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                                month = month + 1;
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar selectedCalendar = Calendar.getInstance();
+                                selectedCalendar.set(year, month, dayOfMonth);
+                                String date = sdf.format(selectedCalendar.getTime());
+                                edNgayXuat.setText(date);
+                            }
+                        },year,month,day);
+                        datePickerDialog.show();
+                    }
+                });
 
-                    btnHuy.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
+                edNgayXuat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar lich= Calendar.getInstance();
+                        int year=lich.get(Calendar.YEAR);
+                        int month=lich.get(Calendar.MONTH);
+                        int day=lich.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datedg=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                edNgayXuat.setText(String.format("%d/%d/%d",year,month,dayOfMonth));
+                            }
+                        },year,month,day);
+                        datedg.show();
+                    }
+                });
 
-                    btnThem.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (kiemTra()){
-//                            int tenSp = Integer.parseInt(edTenSp.getText().toString());
-                                SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
+                btnHuy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                btnThem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
+                        PhieuNkDAO nkDAO = new PhieuNkDAO(getContext());
+                        int slNhap = nkDAO.CheckSoLuong();
+                        int soLuong = Integer.parseInt(edSoLuong.getText().toString());
+                        if (soLuong >= slNhap){
+                            Toast.makeText(getContext(), "Số lượng xuất không thế lớn hơn số lượng nhập !", Toast.LENGTH_SHORT).show();
+                        } else if (id == null){
+                            Toast.makeText(getContext(), "Không có sản phẩm không thể xuất", Toast.LENGTH_SHORT).show();
+                        } else if (nkDAO.getAllData().isEmpty()) {
+                            Toast.makeText(getContext(), "Không có phiếu nhập không thể xuất", Toast.LENGTH_SHORT).show();
+                        } else if (kiemTra()){
                                 int tenSp = id.getId_sp();
-                                int soLuong = Integer.parseInt(edSoLuong.getText().toString());
                                 String ngayXuat = edNgayXuat.getText().toString();
+
+
 
                                 PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
                                 phieuXuatKho.setId_sp(tenSp);
@@ -180,6 +233,8 @@ public class PhieuXuat extends Fragment {
                                     Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                                 }
                             }
+
+
                         }
 
                         private boolean kiemTra() {

@@ -51,8 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "thanhVien_id TEXT REFERENCES tbl_thanhVien(thanhVien_id)," +
             "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
             "phieuNk_soLuong INTEGER NOT NULL ," +
-            "phieuNk_ngayXuat TEXT NOT NULL)";
-
+            "phieuNk_ngayNhap TEXT NOT NULL)";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -70,14 +69,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_PHIEU_NHAP_KHO_CREATE);
 
         db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'quần đùi'),(2,'áo khoác'),(3, 'váy')");
-
-//        public static final String TABLE_THANH_VIEN_CREATE = "CREATE TABLE IF NOT EXISTS " +
-//                "tbl_thanhVien (" +
-//                "thanhVien_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-//                "thanhVien_hoTen TEXT NOT NULL," +
-//                "thanhVien_matKhau TEXT NOT NULL," +
-//                "thanhVien_role TEXT" +
-//                ")";
 
         db.execSQL("INSERT INTO tbl_thanhVien VALUES (0, 'tv1', 'tv1', 'tv')");
 

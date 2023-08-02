@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="5dp"
+            android:layout_marginHorizontal="10dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,6 +107,10 @@
 
                     android:id="@+id/edNgayXuatPhieuXuatSua"
 
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:inputType="none"
+                    android:focusable="false"
 
                     android:hint="Nhập ngày xuất"
                     android:padding="15dp"
