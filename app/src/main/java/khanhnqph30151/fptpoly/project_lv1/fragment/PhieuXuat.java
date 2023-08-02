@@ -29,9 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import java.util.Calendar;
-
 
 import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuXuatAdapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
@@ -111,35 +109,26 @@ public class PhieuXuat extends Fragment {
         adapter = new PhieuXuatAdapter(getContext(),list);
 
 
-
-
-
-
-
         floatAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (kiemTraSanPham()){
+                Dialog dialog = new Dialog(getContext());
+                dialog.setContentView(R.layout.dialog_add_phieu_xuat);
+                dialog.setCancelable(false);
 
+                Window window = dialog.getWindow();
+                window.setLayout(
+                        WindowManager.LayoutParams.MATCH_PARENT,
+                        WindowManager.LayoutParams.WRAP_CONTENT
+                );
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                    Dialog dialog = new Dialog(getContext());
-                    dialog.setContentView(R.layout.dialog_add_phieu_xuat);
-                    dialog.setCancelable(false);
+                EditText edTenSp,edSoLuong,edNgayXuat;
+                Spinner spinnerSanPham;
+                AppCompatButton btnThem,btnHuy;
 
-                    Window window = dialog.getWindow();
-                    window.setLayout(
-                            WindowManager.LayoutParams.MATCH_PARENT,
-                            WindowManager.LayoutParams.WRAP_CONTENT
-                    );
-                    window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    EditText edTenSp,edSoLuong,edNgayXuat;
-                    Spinner spinnerSanPham;
-                    AppCompatButton btnThem,btnHuy;
-
-                    spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuXuatThem);
+                spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuXuatThem);
 //                edTenSp = dialog.findViewById(R.id.edTenSpPhieuXuatThem);
-
                 edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuXuatThem);
                 edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuXuatThem);
                 btnThem = dialog.findViewById(R.id.btnThemPhieuXuat);
@@ -213,7 +202,6 @@ public class PhieuXuat extends Fragment {
                                 String ngayXuat = edNgayXuat.getText().toString();
 
 
-
                                 PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
                                 phieuXuatKho.setId_sp(tenSp);
                                 phieuXuatKho.setNgayXuat(ngayXuat);
@@ -233,65 +221,38 @@ public class PhieuXuat extends Fragment {
                                     Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                                 }
                             }
+                    }
 
-
+                    private boolean kiemTra() {
+                        if (
+                                        edNgayXuat.getText().toString().equals("")
+                                        ||edSoLuong.getText().toString().equals("")
+                        ){
+                            Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                        try {
+                            Integer.parseInt(edSoLuong.getText().toString());
+                        }catch (NumberFormatException ex){
+                            Toast.makeText(getContext(), "Số lượng sản phẩm phải là số", Toast.LENGTH_SHORT).show();
+                            return false;
                         }
 
-                        private boolean kiemTra() {
-                            if (
-                                    edNgayXuat.getText().toString().equals("")
-                                            ||edSoLuong.getText().toString().equals("")
-                            ){
-                                Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
-                                return false;
-                            }
-                            try {
-                                Integer.parseInt(edSoLuong.getText().toString());
-                            }catch (NumberFormatException ex){
-                                Toast.makeText(getContext(), "Số lượng sản phẩm phải là số", Toast.LENGTH_SHORT).show();
-                                return false;
-                            }
 
-
-                            if (Integer.parseInt(edSoLuong.getText().toString())<=0){
-                                Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
-                                return false;
-                            }
-                            return true;
+                        if (Integer.parseInt(edSoLuong.getText().toString())<=0){
+                            Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
+                            return false;
                         }
-                    });
-                    dialog.show();
-
-                    
-                }
+                        return true;
+                    }
+                });
+                dialog.show();
             }
         });
-
-
-
 
         reloadData();
         super.onViewCreated(view, savedInstanceState);
     }
-
-    private boolean kiemTraSanPham() {
-
-        SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
-        List<SanPham> list1 = sanPhamDAO.getAllData();
-
-        if (list1.size() == 0){
-
-
-            Toast.makeText(getContext(), "Chưa có sản phẩm để làm phiếu xuất", Toast.LENGTH_SHORT).show();
-            return false;
-
-
-        }
-
-
-        return true;
-    }
-
     private void reloadData(){
         dao = new PhieuXkDAO(getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
