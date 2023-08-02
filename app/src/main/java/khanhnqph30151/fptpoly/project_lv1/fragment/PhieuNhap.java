@@ -137,7 +137,7 @@ public class PhieuNhap extends Fragment {
                 btnThem = dialog.findViewById(R.id.btnThemPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuNhap);
 
-                edNgayXuat.setOnClickListener(new View.OnClickListener() {
+                edNgayNhap.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Calendar lich= Calendar.getInstance();
@@ -147,7 +147,7 @@ public class PhieuNhap extends Fragment {
                         DatePickerDialog datedg=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                edNgayXuat.setText(String.format("%d/%d/%d",year,month,dayOfMonth));
+                                edNgayNhap.setText(String.format("%d/%d/%d",year,month,dayOfMonth));
                             }
                         },year,month,day);
                         datedg.show();

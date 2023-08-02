@@ -163,17 +163,18 @@ public class PhieuXuat extends Fragment {
                 edNgayXuat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Calendar lich= Calendar.getInstance();
-                        int year=lich.get(Calendar.YEAR);
-                        int month=lich.get(Calendar.MONTH);
-                        int day=lich.get(Calendar.DAY_OF_MONTH);
-                        DatePickerDialog datedg=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                edNgayXuat.setText(String.format("%d/%d/%d",year,month,dayOfMonth));
+//                                month = month + 1;
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar selectedCalendar = Calendar.getInstance();
+                                selectedCalendar.set(year, month, dayOfMonth);
+                                String date = sdf.format(selectedCalendar.getTime());
+                                edNgayXuat.setText(date);
                             }
                         },year,month,day);
-                        datedg.show();
+                        datePickerDialog.show();
                     }
                 });
 
