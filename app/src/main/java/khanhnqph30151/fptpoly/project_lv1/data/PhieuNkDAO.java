@@ -89,5 +89,21 @@ public class PhieuNkDAO {
         return list;
 
     }
+    @SuppressLint("Range")
+    public int CheckSoLuong() {
+        int total = 0;
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT phieuNk_soLuong FROM tbl_phieuNk WHERE phieuNk_soLuong ", null);
+        if(cursor.getCount()>0) {
+            cursor.moveToFirst();
+            do {
+                int quantity = Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuNk_soLuong")));
+                total += quantity;
+            }
+            while (cursor.moveToNext());
+        }
+        return total;
+
+    }
+
   
 }

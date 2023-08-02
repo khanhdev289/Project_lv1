@@ -173,14 +173,18 @@ public class PhieuXuat extends Fragment {
                     public void onClick(View v) {
                         SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
                         PhieuNkDAO nkDAO = new PhieuNkDAO(getContext());
-                        if (id == null){
+                        int slNhap = nkDAO.CheckSoLuong();
+                        int soLuong = Integer.parseInt(edSoLuong.getText().toString());
+                        if (soLuong >= slNhap){
+                            Toast.makeText(getContext(), "Số lượng xuất không thế lớn hơn số lượng nhập !", Toast.LENGTH_SHORT).show();
+                        } else if (id == null){
                             Toast.makeText(getContext(), "Không có sản phẩm không thể xuất", Toast.LENGTH_SHORT).show();
                         } else if (nkDAO.getAllData().isEmpty()) {
                             Toast.makeText(getContext(), "Không có phiếu nhập không thể xuất", Toast.LENGTH_SHORT).show();
                         } else if (kiemTra()){
                                 int tenSp = id.getId_sp();
-                                int soLuong = Integer.parseInt(edSoLuong.getText().toString());
                                 String ngayXuat = edNgayXuat.getText().toString();
+
 
                                 PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
                                 phieuXuatKho.setId_sp(tenSp);
@@ -201,8 +205,6 @@ public class PhieuXuat extends Fragment {
                                     Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                                 }
                             }
-
-
                     }
 
                     private boolean kiemTra() {
