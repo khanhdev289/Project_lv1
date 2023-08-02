@@ -114,6 +114,8 @@ public class PhieuXuat extends Fragment {
             @Override
             public void onClick(View v) {
                 if (kiemTraSanPham()){
+
+
                     Dialog dialog = new Dialog(getContext());
                     dialog.setContentView(R.layout.dialog_add_phieu_xuat);
                     dialog.setCancelable(false);
@@ -204,6 +206,8 @@ public class PhieuXuat extends Fragment {
                         }
                     });
                     dialog.show();
+
+                    
                 }
             }
         });
@@ -221,8 +225,12 @@ public class PhieuXuat extends Fragment {
         List<SanPham> list1 = sanPhamDAO.getAllData();
 
         if (list1.size() == 0){
+
+
             Toast.makeText(getContext(), "Chưa có sản phẩm để làm phiếu xuất", Toast.LENGTH_SHORT).show();
             return false;
+
+
         }
 
 
