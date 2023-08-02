@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import khanhnqph30151.fptpoly.project_lv1.R;
+import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
@@ -193,8 +194,19 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
                 btnSua.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (kiemTra()){
-                            SanPham sanPham = (SanPham) spinner.getSelectedItem();
+                        SanPham sanPham = (SanPham) spinner.getSelectedItem();
+                        PhieuNkDAO nkDAO = new PhieuNkDAO(myContext);
+                        int slNhap = nkDAO.CheckSoLuong();
+                        int soLuong = Integer.parseInt(edSoLuong.getText().toString());
+                        if (soLuong >= slNhap){
+                            Toast.makeText(myContext, "Số lượng xuất không thế lớn hơn số lượng nhập !", Toast.LENGTH_SHORT).show();
+                        } else if (sanPham == null){
+                            Toast.makeText(myContext, "Không có sản phẩm không thể xuất", Toast.LENGTH_SHORT).show();
+                        } else if (nkDAO.getAllData().isEmpty()) {
+                            Toast.makeText(myContext, "Không có phiếu nhập không thể xuất", Toast.LENGTH_SHORT).show();
+
+                        } else if (kiemTra()){
+
                             int idSp = sanPham.getId_sp();
                             idPhieu.setId_sp(idSp);
                             idPhieu.setSoluong(Integer.parseInt(edSoLuong.getText().toString()));
