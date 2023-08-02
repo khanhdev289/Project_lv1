@@ -176,9 +176,12 @@ public class PhieuNhap extends Fragment {
                 btnThem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (kiemTra()){
+                        SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
+                        if (id == null){
+                            Toast.makeText(getContext(), "Không có sản phẩm không thể nhập", Toast.LENGTH_SHORT).show();
+                        } else if (kiemTra()){
 //                            int tenSp = Integer.parseInt(edTenSp.getText().toString());
-                            SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
+
                             int tenSp = id.getId_sp();
                             int soLuong = Integer.parseInt(edSoLuong.getText().toString());
                             String ngayXuat = edNgayNhap.getText().toString();

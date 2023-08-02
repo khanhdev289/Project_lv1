@@ -33,6 +33,7 @@ import java.util.Calendar;
 
 import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuXuatAdapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
+import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
@@ -170,32 +171,38 @@ public class PhieuXuat extends Fragment {
                 btnThem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (kiemTra()){
-//                            int tenSp = Integer.parseInt(edTenSp.getText().toString());
-                            SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
-                            int tenSp = id.getId_sp();
-                            int soLuong = Integer.parseInt(edSoLuong.getText().toString());
-                            String ngayXuat = edNgayXuat.getText().toString();
+                        SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
+                        PhieuNkDAO nkDAO = new PhieuNkDAO(getContext());
+                        if (id == null){
+                            Toast.makeText(getContext(), "Không có sản phẩm không thể xuất", Toast.LENGTH_SHORT).show();
+                        } else if (nkDAO.getAllData().isEmpty()) {
+                            Toast.makeText(getContext(), "Không có phiếu nhập không thể xuất", Toast.LENGTH_SHORT).show();
+                        } else if (kiemTra()){
+                                int tenSp = id.getId_sp();
+                                int soLuong = Integer.parseInt(edSoLuong.getText().toString());
+                                String ngayXuat = edNgayXuat.getText().toString();
 
-                            PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
-                            phieuXuatKho.setId_sp(tenSp);
-                            phieuXuatKho.setNgayXuat(ngayXuat);
-                            phieuXuatKho.setSoluong(soLuong);
+                                PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
+                                phieuXuatKho.setId_sp(tenSp);
+                                phieuXuatKho.setNgayXuat(ngayXuat);
+                                phieuXuatKho.setSoluong(soLuong);
 
-                            long kq = phieuXkDAO.insert(phieuXuatKho);
-                            if (kq > 0){
-                                Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                list = phieuXkDAO.getAllData();
-                                adapter.setData(list);
-                                SanPham sp=sanPhamDAO.getByID1(String.valueOf(phieuXuatKho.getId_sp()));
-                                SanPham sanPham=new SanPham();
-                                sanPham.setId_sp(sp.getId_sp());
+                                long kq = phieuXkDAO.insert(phieuXuatKho);
+                                if (kq > 0){
+                                    Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                    list = phieuXkDAO.getAllData();
+                                    adapter.setData(list);
+                                    SanPham sp=sanPhamDAO.getByID1(String.valueOf(phieuXuatKho.getId_sp()));
+                                    SanPham sanPham=new SanPham();
+                                    sanPham.setId_sp(sp.getId_sp());
 //                                sanPhamDAO.updateSL(sanPham);
-                                dialog.dismiss();
-                            }else {
-                                Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }else {
+                                    Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
+
+
                     }
 
                     private boolean kiemTra() {
