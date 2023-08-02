@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuXuatAdapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
@@ -104,105 +105,130 @@ public class PhieuXuat extends Fragment {
         adapter = new PhieuXuatAdapter(getContext(),list);
 
 
+
+
+
+
+
         floatAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = new Dialog(getContext());
-                dialog.setContentView(R.layout.dialog_add_phieu_xuat);
-                dialog.setCancelable(false);
+                if (kiemTraSanPham()){
+                    Dialog dialog = new Dialog(getContext());
+                    dialog.setContentView(R.layout.dialog_add_phieu_xuat);
+                    dialog.setCancelable(false);
 
-                Window window = dialog.getWindow();
-                window.setLayout(
-                        WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.WRAP_CONTENT
-                );
-                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    Window window = dialog.getWindow();
+                    window.setLayout(
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.WRAP_CONTENT
+                    );
+                    window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                EditText edTenSp,edSoLuong,edNgayXuat;
-                Spinner spinnerSanPham;
-                AppCompatButton btnThem,btnHuy;
+                    EditText edTenSp,edSoLuong,edNgayXuat;
+                    Spinner spinnerSanPham;
+                    AppCompatButton btnThem,btnHuy;
 
-                spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuXuatThem);
+                    spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuXuatThem);
 //                edTenSp = dialog.findViewById(R.id.edTenSpPhieuXuatThem);
-                edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuXuatThem);
-                edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuXuatThem);
-                btnThem = dialog.findViewById(R.id.btnThemPhieuXuat);
-                btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuXuat);
+                    edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuXuatThem);
+                    edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuXuatThem);
+                    btnThem = dialog.findViewById(R.id.btnThemPhieuXuat);
+                    btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuXuat);
 
-                SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
-                listSanPham = sanPhamDAO.getAllData();
-                adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,listSanPham);
-                spinnerSanPham.setAdapter(adapterSanPham);
+                    SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
+                    listSanPham = sanPhamDAO.getAllData();
+                    adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,listSanPham);
+                    spinnerSanPham.setAdapter(adapterSanPham);
 
 
-                btnHuy.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
+                    btnHuy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
 
-                btnThem.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (kiemTra()){
+                    btnThem.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (kiemTra()){
 //                            int tenSp = Integer.parseInt(edTenSp.getText().toString());
-                            SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
-                            int tenSp = id.getId_sp();
-                            int soLuong = Integer.parseInt(edSoLuong.getText().toString());
-                            String ngayXuat = edNgayXuat.getText().toString();
+                                SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
+                                int tenSp = id.getId_sp();
+                                int soLuong = Integer.parseInt(edSoLuong.getText().toString());
+                                String ngayXuat = edNgayXuat.getText().toString();
 
-                            PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
-                            phieuXuatKho.setId_sp(tenSp);
-                            phieuXuatKho.setNgayXuat(ngayXuat);
-                            phieuXuatKho.setSoluong(soLuong);
+                                PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
+                                phieuXuatKho.setId_sp(tenSp);
+                                phieuXuatKho.setNgayXuat(ngayXuat);
+                                phieuXuatKho.setSoluong(soLuong);
 
-                            long kq = phieuXkDAO.insert(phieuXuatKho);
-                            if (kq > 0){
-                                Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                list = phieuXkDAO.getAllData();
-                                adapter.setData(list);
-                                SanPham sp=sanPhamDAO.getByID1(String.valueOf(phieuXuatKho.getId_sp()));
-                                SanPham sanPham=new SanPham();
-                                sanPham.setId_sp(sp.getId_sp());
+                                long kq = phieuXkDAO.insert(phieuXuatKho);
+                                if (kq > 0){
+                                    Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                    list = phieuXkDAO.getAllData();
+                                    adapter.setData(list);
+                                    SanPham sp=sanPhamDAO.getByID1(String.valueOf(phieuXuatKho.getId_sp()));
+                                    SanPham sanPham=new SanPham();
+                                    sanPham.setId_sp(sp.getId_sp());
 //                                sanPhamDAO.updateSL(sanPham);
-                                dialog.dismiss();
-                            }else {
-                                Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }else {
+                                    Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
-                    }
 
-                    private boolean kiemTra() {
-                        if (
-                                        edNgayXuat.getText().toString().equals("")
-                                        ||edSoLuong.getText().toString().equals("")
-                        ){
-                            Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
-                            return false;
-                        }
-                        try {
-                            Integer.parseInt(edSoLuong.getText().toString());
-                        }catch (NumberFormatException ex){
-                            Toast.makeText(getContext(), "Số lượng sản phẩm phải là số", Toast.LENGTH_SHORT).show();
-                            return false;
-                        }
+                        private boolean kiemTra() {
+                            if (
+                                    edNgayXuat.getText().toString().equals("")
+                                            ||edSoLuong.getText().toString().equals("")
+                            ){
+                                Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
+                            try {
+                                Integer.parseInt(edSoLuong.getText().toString());
+                            }catch (NumberFormatException ex){
+                                Toast.makeText(getContext(), "Số lượng sản phẩm phải là số", Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
 
 
-                        if (Integer.parseInt(edSoLuong.getText().toString())<=0){
-                            Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
-                            return false;
+                            if (Integer.parseInt(edSoLuong.getText().toString())<=0){
+                                Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
+                            return true;
                         }
-                        return true;
-                    }
-                });
-                dialog.show();
+                    });
+                    dialog.show();
+                }
             }
         });
+
+
+
 
         reloadData();
         super.onViewCreated(view, savedInstanceState);
     }
+
+    private boolean kiemTraSanPham() {
+
+        SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
+        List<SanPham> list1 = sanPhamDAO.getAllData();
+
+        if (list1.size() == 0){
+            Toast.makeText(getContext(), "Chưa có sản phẩm để làm phiếu xuất", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        return true;
+    }
+
     private void reloadData(){
         dao = new PhieuXkDAO(getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
