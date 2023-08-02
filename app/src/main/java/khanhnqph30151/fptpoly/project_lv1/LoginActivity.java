@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Login thanh cong", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
-                rememberUser(strUser, strPass,dao.getRole(strUser));
+                rememberUser(dao.getRole(strUser), strUser, strPass);
                 finish();
             } else {
                 Toast.makeText(this, "Login k thanh cong", Toast.LENGTH_SHORT).show();

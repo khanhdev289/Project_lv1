@@ -137,6 +137,23 @@ public class PhieuNhap extends Fragment {
                 btnThem = dialog.findViewById(R.id.btnThemPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuNhap);
 
+                edNgayXuat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar lich= Calendar.getInstance();
+                        int year=lich.get(Calendar.YEAR);
+                        int month=lich.get(Calendar.MONTH);
+                        int day=lich.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datedg=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                edNgayXuat.setText(String.format("%d/%d/%d",year,month,dayOfMonth));
+                            }
+                        },year,month,day);
+                        datedg.show();
+                    }
+                });
+
                 SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
                 listSanPham = sanPhamDAO.getAllData();
                 adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,listSanPham);

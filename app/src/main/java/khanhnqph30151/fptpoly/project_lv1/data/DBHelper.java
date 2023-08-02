@@ -70,14 +70,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'quần đùi'),(2,'áo khoác'),(3, 'váy')");
 
-//        public static final String TABLE_THANH_VIEN_CREATE = "CREATE TABLE IF NOT EXISTS " +
-//                "tbl_thanhVien (" +
-//                "thanhVien_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-//                "thanhVien_hoTen TEXT NOT NULL," +
-//                "thanhVien_matKhau TEXT NOT NULL," +
-//                "thanhVien_role TEXT" +
-//                ")";
-
         db.execSQL("INSERT INTO tbl_thanhVien VALUES (0, 'tv1', 'tv1', 'tv')");
 
         db.execSQL(insert_admin);

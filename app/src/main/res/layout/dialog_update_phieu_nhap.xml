@@ -107,6 +107,11 @@
 
                     android:id="@+id/edNgayXuatPhieuNhapSua"
 
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:inputType="none"
+                    android:focusable="false"
+
 
                     android:hint="Nhập ngày nhập"
                     android:padding="15dp"

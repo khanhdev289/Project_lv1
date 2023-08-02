@@ -130,6 +130,24 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 btnSua = dialog.findViewById(R.id.btnSuaPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouSuaPhieuNhap);
 
+
+                edNgayXuat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar lich= Calendar.getInstance();
+                        int year=lich.get(Calendar.YEAR);
+                        int month=lich.get(Calendar.MONTH);
+                        int day=lich.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datedg=new DatePickerDialog(myContext, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                edNgayXuat.setText(String.format("%d/%d/%d",year,month,dayOfMonth));
+                            }
+                        },year,month,day);
+                        datedg.show();
+                    }
+                });
+
 //                edTen.setText(idPhieu.getId_sp()+"");
                 SanPhamDAO sanPhamDAO = new SanPhamDAO(myContext);
                 listSanPham = sanPhamDAO.getAllData();
