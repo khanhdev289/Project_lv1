@@ -5,5 +5,9 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Project_lv1" parent="Base.Theme.Project_lv1" />
+    <style name="Theme.Project_lv1" parent="Base.Theme.Project_lv1" >
+        <item name="android:fontFamily">@font/hehe</item>
+    </style>
+
+
 </resources>
