@@ -7,22 +7,15 @@
     android:orientation="vertical"
     tools:context=".fragment.ThongKe">
 
-    <Spinner
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/sp_month"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:entries="@array/months_array" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_margin="15dp"
-        android:id="@+id/recy_statis"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_height="wrap_content" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_statis"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
 

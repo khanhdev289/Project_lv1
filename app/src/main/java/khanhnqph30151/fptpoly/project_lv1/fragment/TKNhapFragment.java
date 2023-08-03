@@ -16,42 +16,43 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-import khanhnqph30151.fptpoly.project_lv1.Adapter.TKXuatAdapter;
+import khanhnqph30151.fptpoly.project_lv1.Adapter.TKNhapAdapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.ThongKeDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.NhapKho;
-import khanhnqph30151.fptpoly.project_lv1.model.XuatKho;
 
-public class TKXuatFragment extends Fragment {
-    private ArrayList<XuatKho> list_xuat;
-    private ArrayList<NhapKho> list_ton;
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link TKNhapFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class TKNhapFragment extends Fragment {
+    private ArrayList<NhapKho> list_nhap;
+
     private ThongKeDAO dao;
-    TKXuatAdapter adapter;
+    TKNhapAdapter adapter;
     RecyclerView recy;
-
-    public TKXuatFragment() {
+    public TKNhapFragment() {
         // Required empty public constructor
     }
 
+    public static TKNhapFragment newInstance() {
+        TKNhapFragment fragment = new TKNhapFragment();
 
-    public static TKXuatFragment newInstance() {
-        TKXuatFragment fragment = new TKXuatFragment();
+
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_t_k_ton, container, false);
+        return inflater.inflate(R.layout.fragment_t_k_xuat, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -59,7 +60,7 @@ public class TKXuatFragment extends Fragment {
         recy = view.findViewById(R.id.recy_statis);
         dao = new ThongKeDAO(getContext());
         RecyclerView rc = view.findViewById(R.id.recy_statis);
-        adapter = new TKXuatAdapter(list_xuat, list_ton, getContext());
+        adapter = new TKNhapAdapter(list_nhap,getContext());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rc.setLayoutManager(linearLayoutManager);
@@ -73,9 +74,8 @@ public class TKXuatFragment extends Fragment {
                 }else{
                     m=""+(i+1);
                 }
-                list_xuat = dao.XuatKho( m);
-                list_ton = dao.TonKho( m);
-                adapter.setData(list_xuat,list_ton);
+                list_nhap = dao.TonKho( m);
+                adapter.setData(list_nhap);
                 recy.setAdapter(adapter);
             }
             @Override
