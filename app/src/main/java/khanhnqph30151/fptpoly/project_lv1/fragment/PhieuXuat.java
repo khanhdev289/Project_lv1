@@ -47,7 +47,7 @@ public class PhieuXuat extends Fragment {
     private PhieuXuatAdapter adapter;
     private ArrayAdapter<SanPham> adapterSanPham;
     PhieuXkDAO dao;
-//    SanPhamDAO sanPhamDAO;
+    //    SanPhamDAO sanPhamDAO;
     RecyclerView rvPhieuXuat;
 
 
@@ -106,7 +106,7 @@ public class PhieuXuat extends Fragment {
 
         PhieuXkDAO phieuXkDAO = new PhieuXkDAO(getContext());
         list = phieuXkDAO.getAllData();
-        adapter = new PhieuXuatAdapter(getContext(),list);
+        adapter = new PhieuXuatAdapter(getContext(), list);
 
 
         floatAdd.setOnClickListener(new View.OnClickListener() {
@@ -123,9 +123,9 @@ public class PhieuXuat extends Fragment {
                 );
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                EditText edTenSp,edSoLuong,edNgayXuat;
+                EditText edTenSp, edSoLuong, edNgayXuat;
                 Spinner spinnerSanPham;
-                AppCompatButton btnThem,btnHuy;
+                AppCompatButton btnThem, btnHuy;
 
                 spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuXuatThem);
 //                edTenSp = dialog.findViewById(R.id.edTenSpPhieuXuatThem);
@@ -136,7 +136,7 @@ public class PhieuXuat extends Fragment {
 
                 SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
                 listSanPham = sanPhamDAO.getAllData();
-                adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,listSanPham);
+                adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listSanPham);
                 spinnerSanPham.setAdapter(adapterSanPham);
                 Calendar calendar = Calendar.getInstance();
                 final int year = calendar.get(Calendar.YEAR);
@@ -155,7 +155,7 @@ public class PhieuXuat extends Fragment {
                                 String date = sdf.format(selectedCalendar.getTime());
                                 edNgayXuat.setText(date);
                             }
-                        },year,month,day);
+                        }, year, month, day);
                         datePickerDialog.show();
                     }
                 });
@@ -173,7 +173,7 @@ public class PhieuXuat extends Fragment {
                                 String date = sdf.format(selectedCalendar.getTime());
                                 edNgayXuat.setText(date);
                             }
-                        },year,month,day);
+                        }, year, month, day);
                         datePickerDialog.show();
                     }
                 });
@@ -189,19 +189,22 @@ public class PhieuXuat extends Fragment {
                     @Override
                     public void onClick(View v) {
                         SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
+                        String ngayXuat = edNgayXuat.getText().toString();
                         PhieuNkDAO nkDAO = new PhieuNkDAO(getContext());
-                        int slNhap = nkDAO.CheckSoLuong();
+                        dao = new PhieuXkDAO(getContext());
+                        int soLuongNhapHomTruoc = nkDAO.getSoLuongNhapHomTruoc(id.getId_sp(), ngayXuat);
                         int soLuong = Integer.parseInt(edSoLuong.getText().toString());
-                        if (soLuong >= slNhap){
-                            Toast.makeText(getContext(), "Số lượng xuất không thế lớn hơn số lượng nhập !", Toast.LENGTH_SHORT).show();
-                        } else if (id == null){
+                        int soLuongXuatHomTruoc = dao.getSoLuongXuatHomTruoc(id.getId_sp(), ngayXuat);
+                        int totalSolUong = soLuongNhapHomTruoc - soLuongXuatHomTruoc;
+                        if (id == null) {
                             Toast.makeText(getContext(), "Không có sản phẩm không thể xuất", Toast.LENGTH_SHORT).show();
                         } else if (nkDAO.getAllData().isEmpty()) {
                             Toast.makeText(getContext(), "Không có phiếu nhập không thể xuất", Toast.LENGTH_SHORT).show();
-                        } else if (kiemTra()){
+                        } else if (kiemTra()) {
+                            if (soLuong > totalSolUong) {
+                                Toast.makeText(getContext(), "Số lượng xuất không thể lớn hơn số lượng nhập!", Toast.LENGTH_SHORT).show();
+                            } else {
                                 int tenSp = id.getId_sp();
-                                String ngayXuat = edNgayXuat.getText().toString();
-
 
                                 PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
                                 phieuXuatKho.setId_sp(tenSp);
@@ -209,38 +212,35 @@ public class PhieuXuat extends Fragment {
                                 phieuXuatKho.setSoluong(soLuong);
 
                                 long kq = phieuXkDAO.insert(phieuXuatKho);
-                                if (kq > 0){
+                                if (kq > 0) {
                                     Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                                     list = phieuXkDAO.getAllData();
                                     adapter.setData(list);
-                                    SanPham sp=sanPhamDAO.getByID1(String.valueOf(phieuXuatKho.getId_sp()));
-                                    SanPham sanPham=new SanPham();
-                                    sanPham.setId_sp(sp.getId_sp());
-//                                sanPhamDAO.updateSL(sanPham);
                                     dialog.dismiss();
-                                }else {
+                                } else {
                                     Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                                 }
                             }
+                        }
                     }
 
                     private boolean kiemTra() {
                         if (
-                                        edNgayXuat.getText().toString().equals("")
-                                        ||edSoLuong.getText().toString().equals("")
-                        ){
+                                edNgayXuat.getText().toString().equals("")
+                                        || edSoLuong.getText().toString().equals("")
+                        ) {
                             Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
                             return false;
                         }
                         try {
                             Integer.parseInt(edSoLuong.getText().toString());
-                        }catch (NumberFormatException ex){
+                        } catch (NumberFormatException ex) {
                             Toast.makeText(getContext(), "Số lượng sản phẩm phải là số", Toast.LENGTH_SHORT).show();
                             return false;
                         }
 
 
-                        if (Integer.parseInt(edSoLuong.getText().toString())<=0){
+                        if (Integer.parseInt(edSoLuong.getText().toString()) <= 0) {
                             Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
                             return false;
                         }
@@ -254,7 +254,8 @@ public class PhieuXuat extends Fragment {
         reloadData();
         super.onViewCreated(view, savedInstanceState);
     }
-    private void reloadData(){
+
+    private void reloadData() {
         dao = new PhieuXkDAO(getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvPhieuXuat.setLayoutManager(layoutManager);

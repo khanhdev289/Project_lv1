@@ -92,5 +92,20 @@ public class PhieuXkDAO {
         return list;
 
     }
+    @SuppressLint("Range")
+    public int getSoLuongXuatHomTruoc(int id_sp, String ngayXuat) {
+        String sql = "SELECT SUM(phieuXk_soLuong) AS total FROM tbl_phieuXk WHERE Sp_id = ? AND phieuXk_ngayXuat <= ? ORDER BY phieuXk_ngayXuat";
+        String[] selectionArgs = {String.valueOf(id_sp), ngayXuat};
+
+        int soLuongXuat = 0;
+        Cursor cursor = sqLiteDatabase.rawQuery(sql, selectionArgs);
+
+        if (cursor.moveToFirst()) {
+            soLuongXuat = cursor.getInt(cursor.getColumnIndex("total"));
+        }
+
+        cursor.close();
+        return soLuongXuat;
+    }
   
 }
