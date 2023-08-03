@@ -1,6 +1,6 @@
 package khanhnqph30151.fptpoly.project_lv1.model;
 
-public class TonKho {
+public class NhapKho {
     private int sp_Id,tonKho;
 
 
