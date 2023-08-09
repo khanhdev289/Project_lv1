@@ -130,13 +130,13 @@ public class PhieuXuat extends Fragment {
 
                 EditText edTenSp, edSoLuong;
                 Spinner spinnerSanPham;
-                TextView tentv, edNgayXuat;
+                TextView tentv, tvNgayXuat;
                 AppCompatButton btnThem, btnHuy;
 
                 spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuXuatThem);
 //                edTenSp = dialog.findViewById(R.id.edTenSpPhieuXuatThem);
                 edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuXuatThem);
-                edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuXuatThem);
+                tvNgayXuat = dialog.findViewById(R.id.tvNgayXuatPhieuXuatThem);
                 btnThem = dialog.findViewById(R.id.btnThemPhieuXuat);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuXuat);
                 tentv=dialog.findViewById(R.id.dialogxuat_tennv);
@@ -147,40 +147,16 @@ public class PhieuXuat extends Fragment {
                 listSanPham = sanPhamDAO.getAllData();
                 adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listSanPham);
                 spinnerSanPham.setAdapter(adapterSanPham);
-                Calendar calendar = Calendar.getInstance();
-                final int year = calendar.get(Calendar.YEAR);
-                final int month = calendar.get(Calendar.MONTH);
-                final int day = calendar.get(Calendar.DAY_OF_MONTH);
-                edNgayXuat.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                                month = month + 1;
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                Calendar selectedCalendar = Calendar.getInstance();
-                                selectedCalendar.set(year, month, dayOfMonth);
-                                String date = sdf.format(selectedCalendar.getTime());
-                                edNgayXuat.setText(date);
-                            }
-                        }, year, month, day);
-                        datePickerDialog.show();
-                    }
-                });
 
-                edNgayXuat.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+
+
                         Calendar calendar = Calendar.getInstance();
                         Date currentDate = calendar.getTime();
 
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                         String formattedDate = dateFormat.format(currentDate);
-                        edNgayXuat.setText(formattedDate);
-                    }
+                        tvNgayXuat.setText(formattedDate);
 
-                });
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -193,7 +169,7 @@ public class PhieuXuat extends Fragment {
                     @Override
                     public void onClick(View v) {
                         SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
-                        String ngayXuat = edNgayXuat.getText().toString();
+                        String ngayXuat = tvNgayXuat.getText().toString();
                         PhieuNkDAO nkDAO = new PhieuNkDAO(getContext());
                         dao = new PhieuXkDAO(getContext());
                         int soLuongNhapHomTruoc = nkDAO.getSoLuongNhapHomTruoc(id.getId_sp(), ngayXuat);
@@ -234,7 +210,7 @@ public class PhieuXuat extends Fragment {
 
                     private boolean kiemTra() {
                         if (
-                                edNgayXuat.getText().toString().equals("")
+                                tvNgayXuat.getText().toString().equals("")
                                         || edSoLuong.getText().toString().equals("")
                         ) {
                             Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();

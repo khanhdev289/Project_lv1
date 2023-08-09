@@ -132,7 +132,7 @@ public class PhieuNhap extends Fragment {
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-                TextView tennv, edNgayNhap;
+                TextView tennv, tvNgayNhap;
                 EditText edTenSp, edSoLuong;
                 Spinner spinnerSanPham;
                 AppCompatButton btnThem, btnHuy;
@@ -140,48 +140,27 @@ public class PhieuNhap extends Fragment {
                 spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuNhapThem);
 //                edTenSp = dialog.findViewById(R.id.edTenSpPhieuXuatThem);
                 edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuNhapThem);
-                edNgayNhap = dialog.findViewById(R.id.edNgayXuatPhieuNhapThem);
+                tvNgayNhap = dialog.findViewById(R.id.tvNgayXuatPhieuNhapThem);
                 btnThem = dialog.findViewById(R.id.btnThemPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuNhap);
                 tennv = dialog.findViewById(R.id.dialog_tennv);
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
                 String username = sharedPreferences.getString("USERNAME", "");
                 tennv.setText(username);
-                edNgayNhap.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Calendar lich = Calendar.getInstance();
-                        int year = lich.get(Calendar.YEAR);
-                        int month = lich.get(Calendar.MONTH);
-                        int day = lich.get(Calendar.DAY_OF_MONTH);
-                        DatePickerDialog datedg = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                edNgayNhap.setText(String.format("%d/%d/%d", year, month, dayOfMonth));
-                            }
-                        }, year, month, day);
-                        datedg.show();
-                    }
-                });
 
                 SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
                 listSanPham = sanPhamDAO.getAllData();
                 adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listSanPham);
                 spinnerSanPham.setAdapter(adapterSanPham);
 
-                edNgayNhap.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                        Calendar calendar = Calendar.getInstance();
-                        Date currentDate = calendar.getTime();
+                Calendar calendar = Calendar.getInstance();
+                Date currentDate = calendar.getTime();
 
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                        String formattedDate = dateFormat.format(currentDate);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String formattedDate = dateFormat.format(currentDate);
 
-                        edNgayNhap.setText(formattedDate);
-                    }
-                });
+                tvNgayNhap.setText(formattedDate);
 
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +182,7 @@ public class PhieuNhap extends Fragment {
                             String name = sharedPreferences.getString("USERNAME", "");
                             int tenSp = id.getId_sp();
                             int soLuong = Integer.parseInt(edSoLuong.getText().toString());
-                            String ngayXuat = edNgayNhap.getText().toString();
+                            String ngayXuat = tvNgayNhap.getText().toString();
 
                             PhieuNhapKho phieuNhapKho = new PhieuNhapKho();
                             phieuNhapKho.setTentv(name);
@@ -229,7 +208,7 @@ public class PhieuNhap extends Fragment {
 
                     private boolean kiemTra() {
                         if (
-                                edNgayNhap.getText().toString().equals("")
+                                tvNgayNhap.getText().toString().equals("")
                                         || edSoLuong.getText().toString().equals("")
                         ) {
                             Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
