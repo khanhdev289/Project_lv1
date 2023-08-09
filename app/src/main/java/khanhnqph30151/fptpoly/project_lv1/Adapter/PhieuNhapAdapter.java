@@ -122,7 +122,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 );
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                TextView tvNgayXuat;
+                TextView tvNgayNhap;
                 EditText edTen, edSoLuong;
                 AppCompatButton btnSua, btnHuy;
                 Spinner spinner;
@@ -130,7 +130,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 spinner = dialog.findViewById(R.id.SpTenSpPhieuNhapSua);
 //                edTen = dialog.findViewById(R.id.edTenSpPhieuXuatSua);
                 edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuNhapSua);
-                tvNgayXuat = dialog.findViewById(R.id.tvNgayXuatPhieuNhapSua);
+                tvNgayNhap = dialog.findViewById(R.id.tvNgayXuatPhieuNhapSua);
                 btnSua = dialog.findViewById(R.id.btnSuaPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouSuaPhieuNhap);
 
@@ -148,7 +148,28 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 }
                 spinner.setSelection(viTri);
                 edSoLuong.setText(idPhieu.getSoluong() + "");
-                tvNgayXuat.setText(idPhieu.getNgayNhap());
+                tvNgayNhap.setText(idPhieu.getNgayNhap());
+
+                tvNgayNhap.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar lich= Calendar.getInstance();
+                        int year=lich.get(Calendar.YEAR);
+                        int month=lich.get(Calendar.MONTH);
+                        int day=lich.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datedg=new DatePickerDialog(myContext, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar selectedCalendar = Calendar.getInstance();
+                                selectedCalendar.set(year, month, dayOfMonth);
+                                String date = sdf.format(selectedCalendar.getTime());
+                                tvNgayNhap.setText(date);
+                            }
+                        },year,month,day);
+                        datedg.show();
+                    }
+                });
 
 
                 Calendar calendar = Calendar.getInstance();
@@ -156,7 +177,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 String formattedDate = dateFormat.format(currentDate);
-                tvNgayXuat.setText(formattedDate);
+                tvNgayNhap.setText(formattedDate);
                 ;
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -173,7 +194,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                             int idSp = sanPham.getId_sp();
                             idPhieu.setId_sp(idSp);
                             idPhieu.setSoluong(Integer.parseInt(edSoLuong.getText().toString()));
-                            idPhieu.setNgayNhap(tvNgayXuat.getText().toString());
+                            idPhieu.setNgayNhap(tvNgayNhap.getText().toString());
 
                             int kq = phieuNkDAO.update(idPhieu);
                             if (kq > 0) {
@@ -192,7 +213,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                     private boolean kiemTra() {
 
                         if (
-                                tvNgayXuat.getText().toString().equals("")
+                                tvNgayNhap.getText().toString().equals("")
                                         || edSoLuong.getText().toString().equals("")
                         ) {
                             Toast.makeText(myContext, "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();

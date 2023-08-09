@@ -2,6 +2,7 @@ package khanhnqph30151.fptpoly.project_lv1.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.ThongKeDAO;
+import khanhnqph30151.fptpoly.project_lv1.fragment.PhieuXuat;
 import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
 import khanhnqph30151.fptpoly.project_lv1.model.NhapKho;
 import khanhnqph30151.fptpoly.project_lv1.model.XuatKho;
@@ -53,7 +55,10 @@ public class TKXuatAdapter extends RecyclerView.Adapter<TKXuatAdapter.ViewHolder
         XuatKho xuatKho = list_xuat.get(position);
         SanPham sanPham=sanPhamDAO.getByID1(String.valueOf(xuatKho.getSp_Id()));
         holder.tvIdSPl.setText((position+1)+". "+sanPham.getTen_sp() + "");
-        holder.tvTon.setText("Tồn : "+(nhapKho.getTonKho() - xuatKho.getXuatKho()) + " sp");
+        String tonKho = "Tồn : "+(nhapKho.getTonKho() - xuatKho.getXuatKho()) + " sp";
+
+
+        holder.tvTon.setText(tonKho);
         holder.tvXuat.setText("Xuất : "+ xuatKho.getXuatKho() + " sp");
     }
 

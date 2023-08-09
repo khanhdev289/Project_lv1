@@ -153,15 +153,26 @@ public class PhieuNhap extends Fragment {
                 adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listSanPham);
                 spinnerSanPham.setAdapter(adapterSanPham);
 
-
-                Calendar calendar = Calendar.getInstance();
-                Date currentDate = calendar.getTime();
-
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                String formattedDate = dateFormat.format(currentDate);
-
-                tvNgayNhap.setText(formattedDate);
-
+                tvNgayNhap.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar lich= Calendar.getInstance();
+                        int year=lich.get(Calendar.YEAR);
+                        int month=lich.get(Calendar.MONTH);
+                        int day=lich.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datedg=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar selectedCalendar = Calendar.getInstance();
+                                selectedCalendar.set(year, month, dayOfMonth);
+                                String date = sdf.format(selectedCalendar.getTime());
+                                tvNgayNhap.setText(date);
+                            }
+                        },year,month,day);
+                        datedg.show();
+                    }
+                });
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
                     @Override
