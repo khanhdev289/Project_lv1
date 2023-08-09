@@ -12,7 +12,9 @@ String hoTen_tv,matKhau_tv,role_tv;
     }
     public ThanhVien() {
     }
-
+//    public ThanhVien(String user_name) {
+//        this.id_tv = user_name;
+//    }
     public String getId_tv() {
         return id_tv;
     }

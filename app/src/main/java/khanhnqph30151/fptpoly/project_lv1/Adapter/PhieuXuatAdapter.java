@@ -66,7 +66,7 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
         PhieuXuatKho idPhieu = list.get(position);
         PhieuXkDAO phieuXkDAO = new PhieuXkDAO(myContext);
 
-
+        holder.ten.setText(list.get(position).getTentv());
         holder.tvTenSp.setText(list.get(position).getId_sp()+"");
         holder.tvSoLuong.setText(list.get(position).getSoluong()+"");
         holder.tvNgayXuat.setText(list.get(position).getNgayXuat());
@@ -256,7 +256,7 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTenSp,tvSoLuong,tvNgayXuat;
+        TextView tvTenSp,tvSoLuong,tvNgayXuat,ten;
         ImageView ivXoa,ivSua;
 
         public ViewHolder(@NonNull View itemView) {
@@ -265,6 +265,7 @@ public class PhieuXuatAdapter extends RecyclerView.Adapter<PhieuXuatAdapter.View
             tvSoLuong = itemView.findViewById(R.id.tvSoLuongSanPhamPhieuXuat);
             tvNgayXuat = itemView.findViewById(R.id.tvNgayXuatSanPhamPhieuXuat);
             ivSua = itemView.findViewById(R.id.ivSuaSPPhieuXuat);
+            ten =itemView.findViewById(R.id.tennv);
             ivXoa = itemView.findViewById(R.id.ivXoaSPPhieuXuat);
 
 

@@ -2,6 +2,8 @@ package khanhnqph30151.fptpoly.project_lv1.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,9 +40,11 @@ import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
+import khanhnqph30151.fptpoly.project_lv1.data.ThanhVienDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuNhapKho;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
 import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
+import khanhnqph30151.fptpoly.project_lv1.model.ThanhVien;
 
 
 public class PhieuNhap extends Fragment {
@@ -50,7 +55,7 @@ public class PhieuNhap extends Fragment {
     private PhieuNhapAdapter adapter;
     private ArrayAdapter<SanPham> adapterSanPham;
     PhieuNkDAO dao;
-
+    ArrayList<ThanhVien> listUser;
     RecyclerView rvPhieuNhap;
 
     public PhieuNhap() {
@@ -125,7 +130,7 @@ public class PhieuNhap extends Fragment {
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-
+                TextView tennv;
                 EditText edTenSp,edSoLuong,edNgayNhap;
                 Spinner spinnerSanPham;
                 AppCompatButton btnThem,btnHuy;
@@ -136,7 +141,10 @@ public class PhieuNhap extends Fragment {
                 edNgayNhap = dialog.findViewById(R.id.edNgayXuatPhieuNhapThem);
                 btnThem = dialog.findViewById(R.id.btnThemPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuNhap);
-
+                tennv=dialog.findViewById(R.id.dialog_tennv);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+                String username = sharedPreferences.getString("USERNAME", "");
+                tennv.setText(username);
                 edNgayNhap.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -198,12 +206,14 @@ public class PhieuNhap extends Fragment {
                             Toast.makeText(getContext(), "Không có sản phẩm không thể nhập", Toast.LENGTH_SHORT).show();
                         } else if (kiemTra()){
 //                            int tenSp = Integer.parseInt(edTenSp.getText().toString());
-
+                            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+                            String name = sharedPreferences.getString("USERNAME", "");
                             int tenSp = id.getId_sp();
                             int soLuong = Integer.parseInt(edSoLuong.getText().toString());
                             String ngayXuat = edNgayNhap.getText().toString();
 
                             PhieuNhapKho phieuNhapKho = new PhieuNhapKho();
+                            phieuNhapKho.setTentv(name);
                             phieuNhapKho.setId_sp(tenSp);
                             phieuNhapKho.setNgayNhap(ngayXuat);
                             phieuNhapKho.setSoluong(soLuong);
