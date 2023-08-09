@@ -18,6 +18,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tên nhân viên : "
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:fontFamily="serif"
+                    />
+                <TextView
+                    android:id="@+id/tennv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="a"
+                    android:textStyle="bold"
+                    android:fontFamily="serif"
+                    />
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/layoutTensp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

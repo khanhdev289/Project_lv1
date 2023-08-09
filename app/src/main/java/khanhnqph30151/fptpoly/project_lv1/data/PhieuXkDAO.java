@@ -26,6 +26,7 @@ public class PhieuXkDAO {
         values.put("phieuXk_soLuong",ob.getSoluong());
         values.put("phieuXk_ngayXuat",ob.getNgayXuat());
         values.put("thanhVien_id",ob.getId_tv());
+        values.put("thanhvien_hoten",ob.getTentv());
         return sqLiteDatabase.insert("tbl_phieuXk", null, values);
     }
 
@@ -54,6 +55,7 @@ public class PhieuXkDAO {
             ob.setSoluong(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuXk_soLuong"))));
             ob.setNgayXuat(cursor.getString(cursor.getColumnIndex("phieuXk_ngayXuat")));
             ob.setId_tv(Integer.parseInt(cursor.getString(cursor.getColumnIndex("thanhVien_id"))));
+            ob.setTentv(cursor.getString(cursor.getColumnIndex("thanhVien_hoten")));
             lst.add(ob);
         }
         return lst;
@@ -85,6 +87,7 @@ public class PhieuXkDAO {
                 ob.setSoluong(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuXk_soLuong"))));
                 ob.setNgayXuat(cursor.getString(cursor.getColumnIndex("phieuXk_ngayXuat")));
                 ob.setId_tv(Integer.parseInt(cursor.getString(cursor.getColumnIndex("thanhVien_id"))));
+                ob.setTentv(cursor.getString(cursor.getColumnIndex("thanhVien_hoten")));
                 list.add(ob);
             }
             while (cursor.moveToNext());

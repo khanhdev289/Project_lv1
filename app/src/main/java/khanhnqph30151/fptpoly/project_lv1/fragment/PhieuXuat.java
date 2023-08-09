@@ -2,6 +2,8 @@ package khanhnqph30151.fptpoly.project_lv1.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -125,6 +128,7 @@ public class PhieuXuat extends Fragment {
 
                 EditText edTenSp, edSoLuong, edNgayXuat;
                 Spinner spinnerSanPham;
+                TextView tentv;
                 AppCompatButton btnThem, btnHuy;
 
                 spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuXuatThem);
@@ -133,7 +137,10 @@ public class PhieuXuat extends Fragment {
                 edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuXuatThem);
                 btnThem = dialog.findViewById(R.id.btnThemPhieuXuat);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuXuat);
-
+                tentv=dialog.findViewById(R.id.dialogxuat_tennv);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+                String username = sharedPreferences.getString("USERNAME", "");
+                tentv.setText(username);
                 SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
                 listSanPham = sanPhamDAO.getAllData();
                 adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listSanPham);
@@ -204,9 +211,12 @@ public class PhieuXuat extends Fragment {
                             if (soLuong > totalSolUong) {
                                 Toast.makeText(getContext(), "Số lượng xuất không thể lớn hơn số lượng nhập!", Toast.LENGTH_SHORT).show();
                             } else {
+                                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+                                String name = sharedPreferences.getString("USERNAME", "");
                                 int tenSp = id.getId_sp();
 
                                 PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
+                                phieuXuatKho.setTentv(name);
                                 phieuXuatKho.setId_sp(tenSp);
                                 phieuXuatKho.setNgayXuat(ngayXuat);
                                 phieuXuatKho.setSoluong(soLuong);

@@ -80,4 +80,24 @@ public String getRole(String  thanhVien_hoTen) {
         }
         return 1;
     }
+//    public ArrayList<ThanhVien> getUsersByName(String thanhvien_hoTen) {
+//        ArrayList<ThanhVien> userList = new ArrayList<>();
+//
+//        String[] columns = {"thanhVien_hoTen"};
+//        String selection = "thanhVien_matKhau=?";
+//        String[] selectionArgs = {thanhvien_hoTen};
+//
+//        Cursor cursor = sqLiteDatabase.query("tbl_thanhvien", columns, selection, selectionArgs, null, null, null);
+//        while (cursor.moveToNext()) {
+//
+//            @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("thanhVien_hoTen"));
+//
+//
+//            ThanhVien user = new ThanhVien(name);
+//            userList.add(user);
+//        }
+//        cursor.close();
+//
+//        return userList;
+//    }
 }

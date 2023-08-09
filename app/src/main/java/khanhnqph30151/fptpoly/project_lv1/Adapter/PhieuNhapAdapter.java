@@ -68,7 +68,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
         PhieuNhapKho idPhieu = list.get(position);
         PhieuNkDAO phieuNkDAO = new PhieuNkDAO(myContext);
 
-
+        holder.tentv.setText(list.get(position).getTentv()+"");
         holder.tvTenSp.setText(list.get(position).getId_sp()+"");
         holder.tvSoLuong.setText(list.get(position).getSoluong()+"");
         holder.tvNgayXuat.setText(list.get(position).getNgayNhap());
@@ -258,7 +258,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTenSp,tvSoLuong,tvNgayXuat;
+        TextView tvTenSp,tvSoLuong,tvNgayXuat,tentv;
         ImageView ivXoa,ivSua;
 
         public ViewHolder(@NonNull View itemView) {
@@ -268,7 +268,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
             tvNgayXuat = itemView.findViewById(R.id.tvNgayXuatSanPhamPhieuNhap);
             ivSua = itemView.findViewById(R.id.ivSuaSPPhieuNhap);
             ivXoa = itemView.findViewById(R.id.ivXoaSPPhieuNhap);
-
+            tentv =itemView.findViewById(R.id.tentv);
 
         }
     }
