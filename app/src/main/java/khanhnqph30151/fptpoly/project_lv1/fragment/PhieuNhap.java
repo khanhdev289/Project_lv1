@@ -33,6 +33,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuNhapAdapter;
 import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuXuatAdapter;
@@ -112,7 +114,7 @@ public class PhieuNhap extends Fragment {
 
         PhieuNkDAO phieuNkDAO = new PhieuNkDAO(getContext());
         list = phieuNkDAO.getAllData();
-        adapter = new PhieuNhapAdapter(getContext(),list);
+        adapter = new PhieuNhapAdapter(getContext(), list);
 
 
         floatAdd.setOnClickListener(new View.OnClickListener() {
@@ -130,10 +132,10 @@ public class PhieuNhap extends Fragment {
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-                TextView tennv;
-                EditText edTenSp,edSoLuong,edNgayNhap;
+                TextView tennv, edNgayNhap;
+                EditText edTenSp, edSoLuong;
                 Spinner spinnerSanPham;
-                AppCompatButton btnThem,btnHuy;
+                AppCompatButton btnThem, btnHuy;
 
                 spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuNhapThem);
 //                edTenSp = dialog.findViewById(R.id.edTenSpPhieuXuatThem);
@@ -141,52 +143,43 @@ public class PhieuNhap extends Fragment {
                 edNgayNhap = dialog.findViewById(R.id.edNgayXuatPhieuNhapThem);
                 btnThem = dialog.findViewById(R.id.btnThemPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuNhap);
-                tennv=dialog.findViewById(R.id.dialog_tennv);
+                tennv = dialog.findViewById(R.id.dialog_tennv);
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
                 String username = sharedPreferences.getString("USERNAME", "");
                 tennv.setText(username);
                 edNgayNhap.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Calendar lich= Calendar.getInstance();
-                        int year=lich.get(Calendar.YEAR);
-                        int month=lich.get(Calendar.MONTH);
-                        int day=lich.get(Calendar.DAY_OF_MONTH);
-                        DatePickerDialog datedg=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                        Calendar lich = Calendar.getInstance();
+                        int year = lich.get(Calendar.YEAR);
+                        int month = lich.get(Calendar.MONTH);
+                        int day = lich.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datedg = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                edNgayNhap.setText(String.format("%d/%d/%d",year,month,dayOfMonth));
+                                edNgayNhap.setText(String.format("%d/%d/%d", year, month, dayOfMonth));
                             }
-                        },year,month,day);
+                        }, year, month, day);
                         datedg.show();
                     }
                 });
 
                 SanPhamDAO sanPhamDAO = new SanPhamDAO(getContext());
                 listSanPham = sanPhamDAO.getAllData();
-                adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,listSanPham);
+                adapterSanPham = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listSanPham);
                 spinnerSanPham.setAdapter(adapterSanPham);
-
-                Calendar calendar = Calendar.getInstance();
-                final int year = calendar.get(Calendar.YEAR);
-                final int month = calendar.get(Calendar.MONTH);
-                final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
                 edNgayNhap.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                                month = month + 1;
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                Calendar selectedCalendar = Calendar.getInstance();
-                                selectedCalendar.set(year, month, dayOfMonth);
-                                String date = sdf.format(selectedCalendar.getTime());
-                                edNgayNhap.setText(date);
-                            }
-                        },year,month,day);
-                        datePickerDialog.show();
+
+                        Calendar calendar = Calendar.getInstance();
+                        Date currentDate = calendar.getTime();
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        String formattedDate = dateFormat.format(currentDate);
+
+                        edNgayNhap.setText(formattedDate);
                     }
                 });
 
@@ -202,9 +195,9 @@ public class PhieuNhap extends Fragment {
                     @Override
                     public void onClick(View v) {
                         SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
-                        if (id == null){
+                        if (id == null) {
                             Toast.makeText(getContext(), "Không có sản phẩm không thể nhập", Toast.LENGTH_SHORT).show();
-                        } else if (kiemTra()){
+                        } else if (kiemTra()) {
 //                            int tenSp = Integer.parseInt(edTenSp.getText().toString());
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
                             String name = sharedPreferences.getString("USERNAME", "");
@@ -219,16 +212,16 @@ public class PhieuNhap extends Fragment {
                             phieuNhapKho.setSoluong(soLuong);
 
                             long kq = phieuNkDAO.insert(phieuNhapKho);
-                            if (kq > 0){
+                            if (kq > 0) {
                                 Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                                 list = phieuNkDAO.getAllData();
                                 adapter.setData(list);
-                                SanPham sp=sanPhamDAO.getByID1(String.valueOf(phieuNhapKho.getId_sp()));
-                                SanPham sanPham=new SanPham();
+                                SanPham sp = sanPhamDAO.getByID1(String.valueOf(phieuNhapKho.getId_sp()));
+                                SanPham sanPham = new SanPham();
                                 sanPham.setId_sp(sp.getId_sp());
 //                                sanPhamDAO.updateSL(sanPham);
                                 dialog.dismiss();
-                            }else {
+                            } else {
                                 Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -237,20 +230,20 @@ public class PhieuNhap extends Fragment {
                     private boolean kiemTra() {
                         if (
                                 edNgayNhap.getText().toString().equals("")
-                                        ||edSoLuong.getText().toString().equals("")
-                        ){
+                                        || edSoLuong.getText().toString().equals("")
+                        ) {
                             Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
                             return false;
                         }
                         try {
                             Integer.parseInt(edSoLuong.getText().toString());
-                        }catch (NumberFormatException ex){
+                        } catch (NumberFormatException ex) {
                             Toast.makeText(getContext(), "Số lượng sản phẩm phải là số", Toast.LENGTH_SHORT).show();
                             return false;
                         }
 
 
-                        if (Integer.parseInt(edSoLuong.getText().toString())<=0){
+                        if (Integer.parseInt(edSoLuong.getText().toString()) <= 0) {
                             Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
                             return false;
                         }
@@ -263,7 +256,8 @@ public class PhieuNhap extends Fragment {
 
         reloadData();
     }
-    private void reloadData(){
+
+    private void reloadData() {
         dao = new PhieuNkDAO(getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvPhieuNhap.setLayoutManager(layoutManager);

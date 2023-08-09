@@ -33,6 +33,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuXuatAdapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
@@ -126,9 +128,9 @@ public class PhieuXuat extends Fragment {
                 );
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                EditText edTenSp, edSoLuong, edNgayXuat;
+                EditText edTenSp, edSoLuong;
                 Spinner spinnerSanPham;
-                TextView tentv;
+                TextView tentv, edNgayXuat;
                 AppCompatButton btnThem, btnHuy;
 
                 spinnerSanPham = dialog.findViewById(R.id.SpTenSpPhieuXuatThem);
@@ -170,19 +172,14 @@ public class PhieuXuat extends Fragment {
                 edNgayXuat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                                month = month + 1;
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                Calendar selectedCalendar = Calendar.getInstance();
-                                selectedCalendar.set(year, month, dayOfMonth);
-                                String date = sdf.format(selectedCalendar.getTime());
-                                edNgayXuat.setText(date);
-                            }
-                        }, year, month, day);
-                        datePickerDialog.show();
+                        Calendar calendar = Calendar.getInstance();
+                        Date currentDate = calendar.getTime();
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        String formattedDate = dateFormat.format(currentDate);
+                        edNgayXuat.setText(formattedDate);
                     }
+
                 });
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -200,7 +197,7 @@ public class PhieuXuat extends Fragment {
                         PhieuNkDAO nkDAO = new PhieuNkDAO(getContext());
                         dao = new PhieuXkDAO(getContext());
                         int soLuongNhapHomTruoc = nkDAO.getSoLuongNhapHomTruoc(id.getId_sp(), ngayXuat);
-                        int soLuong = Integer.parseInt(edSoLuong.getText().toString());
+
                         int soLuongXuatHomTruoc = dao.getSoLuongXuatHomTruoc(id.getId_sp(), ngayXuat);
                         int totalSolUong = soLuongNhapHomTruoc - soLuongXuatHomTruoc;
                         if (id == null) {
@@ -208,6 +205,7 @@ public class PhieuXuat extends Fragment {
                         } else if (nkDAO.getAllData().isEmpty()) {
                             Toast.makeText(getContext(), "Không có phiếu nhập không thể xuất", Toast.LENGTH_SHORT).show();
                         } else if (kiemTra()) {
+                            int soLuong = Integer.parseInt(edSoLuong.getText().toString());
                             if (soLuong > totalSolUong) {
                                 Toast.makeText(getContext(), "Số lượng xuất không thể lớn hơn số lượng nhập!", Toast.LENGTH_SHORT).show();
                             } else {
@@ -248,8 +246,6 @@ public class PhieuXuat extends Fragment {
                             Toast.makeText(getContext(), "Số lượng sản phẩm phải là số", Toast.LENGTH_SHORT).show();
                             return false;
                         }
-
-
                         if (Integer.parseInt(edSoLuong.getText().toString()) <= 0) {
                             Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
                             return false;

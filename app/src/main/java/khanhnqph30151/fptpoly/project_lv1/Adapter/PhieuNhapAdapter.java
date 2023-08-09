@@ -28,6 +28,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
@@ -171,18 +173,13 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 edNgayXuat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(myContext, new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                                month = month + 1;
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                Calendar selectedCalendar = Calendar.getInstance();
-                                selectedCalendar.set(year, month, dayOfMonth);
-                                String date = sdf.format(selectedCalendar.getTime());
-                                edNgayXuat.setText(date);
-                            }
-                        },year,month,day);
-                        datePickerDialog.show();
+                        Calendar calendar = Calendar.getInstance();
+                        Date currentDate = calendar.getTime();
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        String formattedDate = dateFormat.format(currentDate);
+                        edNgayXuat.setText(formattedDate);
+
                     }
                 });
 
