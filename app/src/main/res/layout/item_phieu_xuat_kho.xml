@@ -24,7 +24,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="tên nhân viên : "
+                    android:text="Tên người xuất : "
                     android:textSize="16dp"
                     android:textStyle="bold"
                     android:fontFamily="serif"
@@ -33,7 +33,7 @@
                     android:id="@+id/tennv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="a"
+                    android:text="Khánh"
                     android:textStyle="bold"
                     android:fontFamily="serif"
                     />

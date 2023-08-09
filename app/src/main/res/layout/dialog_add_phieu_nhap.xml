@@ -123,7 +123,7 @@
                     android:textStyle="bold"
                     android:fontFamily="serif"
                     />
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edNgayXuatPhieuNhapThem"
@@ -131,7 +131,7 @@
                     android:cursorVisible="false"
                     android:inputType="none"
                     android:focusable="false"
-                    android:hint="Nhập ngày nhập"
+                    android:hint="Ngày nhập"
                     android:padding="15dp"
                     android:fontFamily="serif"
                     android:background="@drawable/style_ed_dialog_loaisp"
