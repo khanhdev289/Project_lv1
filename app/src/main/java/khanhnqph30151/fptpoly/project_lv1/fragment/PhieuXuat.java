@@ -41,8 +41,10 @@ import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
+import khanhnqph30151.fptpoly.project_lv1.model.NhapKho;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
 import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
+import khanhnqph30151.fptpoly.project_lv1.model.XuatKho;
 
 
 public class PhieuXuat extends Fragment {
@@ -51,6 +53,7 @@ public class PhieuXuat extends Fragment {
     private ArrayList<SanPham> listSanPham;
     private PhieuXuatAdapter adapter;
     private ArrayAdapter<SanPham> adapterSanPham;
+
     PhieuXkDAO dao;
     //    SanPhamDAO sanPhamDAO;
     RecyclerView rvPhieuXuat;
@@ -178,64 +181,82 @@ public class PhieuXuat extends Fragment {
                 btnThem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SanPham id = (SanPham) spinnerSanPham.getSelectedItem();
-                        String ngayXuat = tvNgayXuat.getText().toString();
-                        PhieuNkDAO nkDAO = new PhieuNkDAO(getContext());
-                        dao = new PhieuXkDAO(getContext());
-                        int soLuongNhapHomTruoc = nkDAO.getSoLuongNhapHomTruoc(id.getId_sp(), ngayXuat);
 
-                        int soLuongXuatHomTruoc = dao.getSoLuongXuatHomTruoc(id.getId_sp(), ngayXuat);
-                        int totalSolUong = soLuongNhapHomTruoc - soLuongXuatHomTruoc;
-                        if (id == null) {
-                            Toast.makeText(getContext(), "Không có sản phẩm không thể xuất", Toast.LENGTH_SHORT).show();
-                        } else if (nkDAO.getAllData().isEmpty()) {
-                            Toast.makeText(getContext(), "Không có phiếu nhập không thể xuất", Toast.LENGTH_SHORT).show();
-                        } else if (kiemTra()) {
+                        if (kiemTraThongTin()) {
+                            SanPham selectedSanPham = (SanPham) spinnerSanPham.getSelectedItem();
+                            if (selectedSanPham == null) {
+                                Toast.makeText(getContext(), "Không có sản phẩm không thể xuất", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            String ngayXuat = tvNgayXuat.getText().toString();
                             int soLuong = Integer.parseInt(edSoLuong.getText().toString());
-                            if (soLuong > totalSolUong) {
+
+                            if (soLuong <= 0) {
+                                Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            PhieuNkDAO nkDAO = new PhieuNkDAO(getContext());
+                            int soLuongNhapHomTruoc = nkDAO.getSoLuongNhapHomTruoc(selectedSanPham.getId_sp(), ngayXuat);
+
+                            PhieuXkDAO xkDAO = new PhieuXkDAO(getContext());
+                            int soLuongXuatHomTruoc = xkDAO.getSoLuongXuatHomTruoc(selectedSanPham.getId_sp(), ngayXuat);
+                            int totalSoLuong = soLuongNhapHomTruoc - soLuongXuatHomTruoc;
+
+                            if (totalSoLuong < 0) {
+                                Toast.makeText(getContext(), "Không thể xuất vì tồn kho nhỏ hơn 0", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            if (soLuong > totalSoLuong) {
                                 Toast.makeText(getContext(), "Số lượng xuất không thể lớn hơn số lượng nhập!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+                            String name = sharedPreferences.getString("USERNAME", "");
+
+                            PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
+                            phieuXuatKho.setTentv(name);
+                            phieuXuatKho.setId_sp(selectedSanPham.getId_sp());
+                            phieuXuatKho.setNgayXuat(ngayXuat);
+                            phieuXuatKho.setSoluong(soLuong);
+
+                            long insertResult = xkDAO.insert(phieuXuatKho);
+                            if (insertResult > 0) {
+                                Toast.makeText(getContext(), "Thêm thành công !", Toast.LENGTH_SHORT).show();
+                                list = xkDAO.getAllData();
+                                adapter.setData(list);
+                                dialog.dismiss();
                             } else {
-                                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
-                                String name = sharedPreferences.getString("USERNAME", "");
-                                int tenSp = id.getId_sp();
-
-                                PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
-                                phieuXuatKho.setTentv(name);
-                                phieuXuatKho.setId_sp(tenSp);
-                                phieuXuatKho.setNgayXuat(ngayXuat);
-                                phieuXuatKho.setSoluong(soLuong);
-
-                                long kq = phieuXkDAO.insert(phieuXuatKho);
-                                if (kq > 0) {
-                                    Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                    list = phieuXkDAO.getAllData();
-                                    adapter.setData(list);
-                                    dialog.dismiss();
-                                } else {
-                                    Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
-                                }
+                                Toast.makeText(getContext(), "Thêm thất bại !", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
 
-                    private boolean kiemTra() {
-                        if (
-                                tvNgayXuat.getText().toString().equals("")
-                                        || edSoLuong.getText().toString().equals("")
-                        ) {
+
+                    private boolean kiemTraThongTin() {
+                        String ngayXuat = tvNgayXuat.getText().toString();
+                        String soLuongStr = edSoLuong.getText().toString();
+
+                        if (ngayXuat.equals("") || soLuongStr.equals("")) {
                             Toast.makeText(getContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
                             return false;
                         }
+
                         try {
-                            Integer.parseInt(edSoLuong.getText().toString());
+                            int soLuong = Integer.parseInt(soLuongStr);
+                            if (soLuong <= 0) {
+                                Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
                         } catch (NumberFormatException ex) {
                             Toast.makeText(getContext(), "Số lượng sản phẩm phải là số", Toast.LENGTH_SHORT).show();
+
                             return false;
                         }
-                        if (Integer.parseInt(edSoLuong.getText().toString()) <= 0) {
-                            Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
-                            return false;
-                        }
+
                         return true;
                     }
                 });
