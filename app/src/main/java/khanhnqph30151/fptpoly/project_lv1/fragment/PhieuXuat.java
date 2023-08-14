@@ -31,7 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuXuatAdapter;
+import khanhnqph30151.fptpoly.project_lv1.adapter.PhieuXuatAdapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;

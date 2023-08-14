@@ -31,14 +31,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuNhapAdapter;
-import khanhnqph30151.fptpoly.project_lv1.Adapter.PhieuXuatAdapter;
+import khanhnqph30151.fptpoly.project_lv1.adapter.PhieuNhapAdapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuNhapKho;
-import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
 import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
 
 

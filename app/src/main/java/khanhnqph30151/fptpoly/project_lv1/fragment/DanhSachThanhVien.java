@@ -1,6 +1,5 @@
 package khanhnqph30151.fptpoly.project_lv1.fragment;
 
-import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,20 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-import khanhnqph30151.fptpoly.project_lv1.Adapter.DanhSachNhanVien_adapter;
-import khanhnqph30151.fptpoly.project_lv1.Adapter.LoaiAdapter;
+import khanhnqph30151.fptpoly.project_lv1.adapter.DanhSachNhanVien_adapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
-import khanhnqph30151.fptpoly.project_lv1.data.LoaiSPDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.ThanhVienDAO;
-import khanhnqph30151.fptpoly.project_lv1.model.LoaiSP;
 import khanhnqph30151.fptpoly.project_lv1.model.ThanhVien;
 
 

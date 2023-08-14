@@ -1,27 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFEDED"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.TKXuatFragment">
+    tools:context=".fragment.ThongKe"
+    android:background="#EFEDED">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Thống kê theo ngày"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        >
+        <Button
+            android:id="@+id/btn_tuNgay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:text="Từ ngày" />
+
+        <TextView
+            android:id="@+id/tv_tuNgay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp">
+        <Button
+            android:id="@+id/btn_denNgay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:text="Đến  ngày" />
+        <TextView
+            android:id="@+id/tv_denNgay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_thongKe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Thống kê " />
+
     <Spinner
         android:padding="10dp"
-        android:layout_marginTop="20dp"
         android:id="@+id/sp_month"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:entries="@array/months_array" />
 
+        <TextView
+            android:id="@+id/tv_null"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="Không có sản phẩm nhập xuất "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <com.github.mikephil.charting.charts.PieChart
+        android:layout_gravity="center"
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="10dp"
+        android:layout_height="300dp" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_margin="15dp"
+        android:layout_weight="4"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
         android:id="@+id/recy_statis"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

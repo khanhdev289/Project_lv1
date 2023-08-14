@@ -25,8 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-import khanhnqph30151.fptpoly.project_lv1.Adapter.LoaiAdapter;
-import khanhnqph30151.fptpoly.project_lv1.MainActivity;
+import khanhnqph30151.fptpoly.project_lv1.adapter.LoaiAdapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.LoaiSPDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.LoaiSP;
