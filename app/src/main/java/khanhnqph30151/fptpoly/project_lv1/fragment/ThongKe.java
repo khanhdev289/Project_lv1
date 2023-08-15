@@ -125,9 +125,10 @@ public class ThongKe extends Fragment {
 
                     PieDataSet dataSet = new PieDataSet(entries, " ");
                     ArrayList<Integer> colors = new ArrayList<>();
-                    colors.add(getResources().getColor(R.color.green)); // Màu sắc cho thu nhập
+                    colors.add(getResources().getColor(R.color.blue)); // Màu sắc cho thu nhập
                     colors.add(getResources().getColor(R.color.red));
                     dataSet.setColors(colors);
+                    dataSet.setValueTextSize(20);
                     PieData data = new PieData(dataSet);
                     pieChart.setData(data);
                     pieChart.animateY(1000);
@@ -228,9 +229,10 @@ public class ThongKe extends Fragment {
 
                         PieDataSet dataSet = new PieDataSet(entries, " ");
                         ArrayList<Integer> colors = new ArrayList<>();
-                        colors.add(getResources().getColor(R.color.green)); // Màu sắc cho thu nhập
+                        colors.add(getResources().getColor(R.color.blue)); // Màu sắc cho thu nhập
                         colors.add(getResources().getColor(R.color.red));
                         dataSet.setColors(colors);
+                        dataSet.setValueTextSize(20);
                         PieData data = new PieData(dataSet);
                         pieChart.setData(data);
                         pieChart.animateY(1000);
