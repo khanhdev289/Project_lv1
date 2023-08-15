@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -40,8 +41,8 @@ public class ThongKe extends Fragment {
     private ThongKeDAO dao;
     TKXuatAdapter adapter;
     RecyclerView recy;
-    Button btn_tuNgay,btn_denNgay,btn_thongKe;
-    TextView tv_tuNgay,tv_denNgay;
+    Button btn_tuNgay, btn_denNgay, btn_thongKe;
+    TextView tv_tuNgay, tv_denNgay;
     private final Calendar myCalendar = Calendar.getInstance();
 
     public ThongKe() {
@@ -79,9 +80,9 @@ public class ThongKe extends Fragment {
         btn_tuNgay = view.findViewById(R.id.btn_tuNgay);
         btn_denNgay = view.findViewById(R.id.btn_denNgay);
         btn_thongKe = view.findViewById(R.id.btn_thongKe);
-        tv_tuNgay=view.findViewById(R.id.tv_tuNgay);
-        tv_denNgay=view.findViewById(R.id.tv_denNgay);
-        TextView tv_null=view.findViewById(R.id.tv_null);
+        tv_tuNgay = view.findViewById(R.id.tv_tuNgay);
+        tv_denNgay = view.findViewById(R.id.tv_denNgay);
+        TextView tv_null = view.findViewById(R.id.tv_null);
         tv_null.setVisibility(View.INVISIBLE);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -93,34 +94,34 @@ public class ThongKe extends Fragment {
                 tv_tuNgay.setText("");
                 tv_denNgay.setText("");
                 String m;
-                if(i<9){
-                    m="0"+""+(i+1);
-                }else{
-                    m=""+(i+1);
+                if (i < 9) {
+                    m = "0" + "" + (i + 1);
+                } else {
+                    m = "" + (i + 1);
                 }
                 list_xuat = dao.XuatKhoByMonth(m);
                 list_ton = dao.TonKhoByMonth(m);
-                adapter.setData(list_xuat,list_ton);
+                adapter.setData(list_xuat, list_ton);
                 recy.setAdapter(adapter);
-                if(list_ton.size()==0&&list_xuat.size()==0){
+                if (list_ton.size() == 0 && list_xuat.size() == 0) {
                     tv_null.setVisibility(View.VISIBLE);
                     pieChart.setVisibility(View.INVISIBLE);
-                }else{
+                } else {
                     tv_null.setVisibility(View.INVISIBLE);
                     pieChart.setVisibility(View.VISIBLE);
-                    int xuat=0;
-                    for(XuatKho xuatKho:list_xuat){
-                        xuat+=xuatKho.getXuatKho();
+                    int xuat = 0;
+                    for (XuatKho xuatKho : list_xuat) {
+                        xuat += xuatKho.getXuatKho();
                     }
-                    int nhap=0;
-                    for(NhapKho nhapKho:list_ton){
-                        nhap+=nhapKho.getTonKho();
+                    int nhap = 0;
+                    for (NhapKho nhapKho : list_ton) {
+                        nhap += nhapKho.getTonKho();
                     }
 
 
                     ArrayList<PieEntry> entries = new ArrayList<>();
                     entries.add(new PieEntry(xuat, "Xuất"));
-                    entries.add(new PieEntry(nhap-xuat, "Tồn"));
+                    entries.add(new PieEntry(nhap - xuat, "Tồn"));
 
                     PieDataSet dataSet = new PieDataSet(entries, " ");
                     ArrayList<Integer> colors = new ArrayList<>();
@@ -133,6 +134,7 @@ public class ThongKe extends Fragment {
                 }
 
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -182,47 +184,63 @@ public class ThongKe extends Fragment {
         btn_thongKe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String tuNgay=tv_tuNgay.getText().toString();
-                String denNgay=tv_denNgay.getText().toString();
-                list_xuat = dao.XuatKhoByDate(tuNgay,denNgay);
-                list_ton = dao.TonKhoByDate(tuNgay,denNgay);
-                adapter.setData(list_xuat,list_ton);
-                recy.setAdapter(adapter);
-                if(list_ton.size()==0&&list_xuat.size()==0){
-                    tv_null.setVisibility(View.VISIBLE);
-                    pieChart.setVisibility(View.INVISIBLE);
-                }else{
-                    tv_null.setVisibility(View.INVISIBLE);
-                    int xuat=0;
-                    for(XuatKho xuatKho:list_xuat){
-                        xuat+=xuatKho.getXuatKho();
+                String tuNgay = tv_tuNgay.getText().toString();
+                String denNgay = tv_denNgay.getText().toString();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    Date date1 = sdf.parse(tuNgay);
+                    Date date2 = sdf.parse(denNgay);
+                    int compare = date2.compareTo(date1);
+                    if (compare < 0) {
+                        Toast.makeText(getContext(), "Chọn ngày thống kê không hợp lệ", Toast.LENGTH_SHORT).show();
+                        tv_tuNgay.setText("");
+                        tv_denNgay.setText("");
                     }
-                    int nhap=0;
-                    for(NhapKho nhapKho:list_ton){
-                        nhap+=nhapKho.getTonKho();
+                } catch (Exception e) {
+
+                }
+
+                if (tuNgay.equals("") || denNgay.equals("")) {
+                    Toast.makeText(getContext(), "Vui lòng chọn ngày!", Toast.LENGTH_SHORT).show();
+                } else {
+                    list_xuat = dao.XuatKhoByDate(tuNgay, denNgay);
+                    list_ton = dao.TonKhoByDate(tuNgay, denNgay);
+                    adapter.setData(list_xuat, list_ton);
+                    recy.setAdapter(adapter);
+                    if (list_ton.size() == 0 && list_xuat.size() == 0) {
+                        tv_null.setVisibility(View.VISIBLE);
+                        pieChart.setVisibility(View.INVISIBLE);
+                    } else {
+                        tv_null.setVisibility(View.INVISIBLE);
+                        int xuat = 0;
+                        for (XuatKho xuatKho : list_xuat) {
+                            xuat += xuatKho.getXuatKho();
+                        }
+                        int nhap = 0;
+                        for (NhapKho nhapKho : list_ton) {
+                            nhap += nhapKho.getTonKho();
+                        }
+
+                        pieChart.setVisibility(View.VISIBLE);
+                        ArrayList<PieEntry> entries = new ArrayList<>();
+                        entries.add(new PieEntry(xuat, "Xuất"));
+                        entries.add(new PieEntry(nhap - xuat, "Tồn"));
+
+                        PieDataSet dataSet = new PieDataSet(entries, " ");
+                        ArrayList<Integer> colors = new ArrayList<>();
+                        colors.add(getResources().getColor(R.color.green)); // Màu sắc cho thu nhập
+                        colors.add(getResources().getColor(R.color.red));
+                        dataSet.setColors(colors);
+                        PieData data = new PieData(dataSet);
+                        pieChart.setData(data);
+                        pieChart.animateY(1000);
                     }
-
-                    pieChart.setVisibility(View.VISIBLE);
-                    ArrayList<PieEntry> entries = new ArrayList<>();
-                    entries.add(new PieEntry(xuat, "Xuất"));
-                    entries.add(new PieEntry(nhap-xuat, "Tồn"));
-
-                    PieDataSet dataSet = new PieDataSet(entries, " ");
-                    ArrayList<Integer> colors = new ArrayList<>();
-                    colors.add(getResources().getColor(R.color.green)); // Màu sắc cho thu nhập
-                    colors.add(getResources().getColor(R.color.red));
-                    dataSet.setColors(colors);
-                    PieData data = new PieData(dataSet);
-                    pieChart.setData(data);
-                    pieChart.animateY(1000);
                 }
 
 
             }
         });
     }
-
-
 
 
 }
