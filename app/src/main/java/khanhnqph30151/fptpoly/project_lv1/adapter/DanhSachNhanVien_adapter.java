@@ -1,9 +1,12 @@
 package khanhnqph30151.fptpoly.project_lv1.adapter;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +22,7 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.ThanhVienDAO;
@@ -26,6 +30,7 @@ import khanhnqph30151.fptpoly.project_lv1.model.ThanhVien;
 
 public class DanhSachNhanVien_adapter extends RecyclerView.Adapter<DanhSachNhanVien_adapter.ViewHolder>{
     private ArrayList<ThanhVien> list;
+    List<ThanhVien> thanhVienList;
     Context context;
 
     private ThanhVienDAO dao;
@@ -48,7 +53,7 @@ public class DanhSachNhanVien_adapter extends RecyclerView.Adapter<DanhSachNhanV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.tv_name.setText(list.get(position).getHoTen_tv());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +67,7 @@ public class DanhSachNhanVien_adapter extends RecyclerView.Adapter<DanhSachNhanV
             public boolean onLongClick(View v) {
                 @SuppressLint("RestrictedApi") MenuBuilder builder = new MenuBuilder(context);
                 MenuInflater inflater = new MenuInflater(context);
-                inflater.inflate(R.menu.menu_pouup_sua_xoa, builder);
+                inflater.inflate(R.menu.menu_pouup_sua_xoa_rspass, builder);
                 @SuppressLint("RestrictedApi") MenuPopupHelper optionmenu = new MenuPopupHelper(context, builder, v);
                 builder.setCallback(new MenuBuilder.Callback() {
                     @SuppressLint("RestrictedApi")
@@ -74,7 +79,27 @@ public class DanhSachNhanVien_adapter extends RecyclerView.Adapter<DanhSachNhanV
                         } else if (item.getItemId() == R.id.option_delete) {
                             showDele(position);
                             return true;
-                        } else {
+                        }
+                        else if (item.getItemId() == R.id.option_reset) {
+                            showRs();
+                            ThanhVienDAO thanhVienDAO = new ThanhVienDAO(context);
+                            thanhVienList = thanhVienDAO.getAllData();
+                            String tenTv = holder.tv_name.getText().toString();
+                            for (int i = 0; i < thanhVienList.size(); i++) {
+
+                                SharedPreferences sharedPreferences = context.getSharedPreferences("USER_FILE", MODE_PRIVATE);
+                                String username = sharedPreferences.getString("USERNAME", "");
+
+                                if (thanhVienList.get(i).getHoTen_tv().equals(tenTv)) {
+
+                                    thanhVienDAO.update(new ThanhVien(thanhVienList.get(i).getId_tv(), thanhVienList.get(i).getHoTen_tv(), "123", thanhVienList.get(i).getRole_tv()));
+                                    Toast.makeText(context, "Cập nhật mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            thanhVienList.clear();
+                            thanhVienList = thanhVienDAO.getAllData();
+                            return true;
+                        }else {
                             return false;
                         }
                     }
@@ -116,6 +141,9 @@ public class DanhSachNhanVien_adapter extends RecyclerView.Adapter<DanhSachNhanV
             }
         });
         dialogDL.show();
+    }
+    public void showRs(){
+
     }
 //    public void showUpdate(ThanhVien thanhVien, int id){
 //        Dialog dialog = new Dialog(context);
