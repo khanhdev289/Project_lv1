@@ -1,4 +1,4 @@
-package khanhnqph30151.fptpoly.project_lv1.Adapter;
+package khanhnqph30151.fptpoly.project_lv1.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -1,4 +1,4 @@
-package khanhnqph30151.fptpoly.project_lv1.Adapter;
+package khanhnqph30151.fptpoly.project_lv1.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;

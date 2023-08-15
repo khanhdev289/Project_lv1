@@ -1,4 +1,4 @@
-package khanhnqph30151.fptpoly.project_lv1.Adapter;
+package khanhnqph30151.fptpoly.project_lv1.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,10 +33,8 @@ import java.util.Locale;
 
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
-import khanhnqph30151.fptpoly.project_lv1.data.PhieuXkDAO;
 import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuNhapKho;
-import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
 import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
 
 public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.ViewHolder> {
