@@ -70,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_PHIEU_XUAT_KHO_CREATE);
         db.execSQL(TABLE_PHIEU_NHAP_KHO_CREATE);
 
-        db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'quần đùi'),(2,'áo khoác'),(3, 'váy')");
+        db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'Quần'),(2,'Áo'),(3, 'Giày')");
 
         db.execSQL("INSERT INTO tbl_thanhVien VALUES (0, 'tv1', 'tv1', 'tv')");
 
