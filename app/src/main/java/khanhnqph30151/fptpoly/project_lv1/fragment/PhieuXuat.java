@@ -142,7 +142,7 @@ public class PhieuXuat extends Fragment {
                 tvNgayXuat = dialog.findViewById(R.id.tvNgayXuatPhieuXuatThem);
                 btnThem = dialog.findViewById(R.id.btnThemPhieuXuat);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouThemPhieuXuat);
-                tentv=dialog.findViewById(R.id.dialogxuat_tennv);
+                tentv = dialog.findViewById(R.id.dialogxuat_tennv);
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
                 String username = sharedPreferences.getString("USERNAME", "");
                 tentv.setText(username);
@@ -153,11 +153,11 @@ public class PhieuXuat extends Fragment {
                 tvNgayXuat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Calendar lich= Calendar.getInstance();
-                        int year=lich.get(Calendar.YEAR);
-                        int month=lich.get(Calendar.MONTH);
-                        int day=lich.get(Calendar.DAY_OF_MONTH);
-                        DatePickerDialog datedg=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                        Calendar lich = Calendar.getInstance();
+                        int year = lich.get(Calendar.YEAR);
+                        int month = lich.get(Calendar.MONTH);
+                        int day = lich.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datedg = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -166,7 +166,7 @@ public class PhieuXuat extends Fragment {
                                 String date = sdf.format(selectedCalendar.getTime());
                                 tvNgayXuat.setText(date);
                             }
-                        },year,month,day);
+                        }, year, month, day);
                         datedg.show();
                     }
                 });
@@ -191,7 +191,6 @@ public class PhieuXuat extends Fragment {
 
                             String ngayXuat = tvNgayXuat.getText().toString();
                             int soLuong = Integer.parseInt(edSoLuong.getText().toString());
-
                             if (soLuong <= 0) {
                                 Toast.makeText(getContext(), "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
                                 return;
@@ -199,39 +198,45 @@ public class PhieuXuat extends Fragment {
 
                             PhieuNkDAO nkDAO = new PhieuNkDAO(getContext());
                             int soLuongNhapHomTruoc = nkDAO.getSoLuongNhapHomTruoc(selectedSanPham.getId_sp(), ngayXuat);
-
+                            int totalTon;
                             PhieuXkDAO xkDAO = new PhieuXkDAO(getContext());
                             int soLuongXuatHomTruoc = xkDAO.getSoLuongXuatHomTruoc(selectedSanPham.getId_sp(), ngayXuat);
-                            int totalSoLuong = soLuongNhapHomTruoc - soLuongXuatHomTruoc;
+                            int soluongXuat = xkDAO.getSoLuongXuat(selectedSanPham.getId_sp());
+                            if (soluongXuat > 0) {
+                                totalTon = xkDAO.getSoLuongTon(selectedSanPham.getId_sp(),ngayXuat);
+                            } else {
+                                totalTon = soLuongNhapHomTruoc;
+                            }
 
-                            if (totalSoLuong < 0) {
+                            if (totalTon <= 0) {
                                 Toast.makeText(getContext(), "Không thể xuất vì tồn kho nhỏ hơn 0", Toast.LENGTH_SHORT).show();
                                 return;
                             }
 
-                            if (soLuong > totalSoLuong) {
+                            if (soLuong > totalTon) {
                                 Toast.makeText(getContext(), "Số lượng xuất không thể lớn hơn số lượng nhập!", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
 
-                            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
-                            String name = sharedPreferences.getString("USERNAME", "");
-
-                            PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
-                            phieuXuatKho.setTentv(name);
-                            phieuXuatKho.setId_sp(selectedSanPham.getId_sp());
-                            phieuXuatKho.setNgayXuat(ngayXuat);
-                            phieuXuatKho.setSoluong(soLuong);
-
-                            long insertResult = xkDAO.insert(phieuXuatKho);
-                            if (insertResult > 0) {
-                                Toast.makeText(getContext(), "Thêm thành công !", Toast.LENGTH_SHORT).show();
-                                list = xkDAO.getAllData();
-                                adapter.setData(list);
-                                dialog.dismiss();
                             } else {
-                                Toast.makeText(getContext(), "Thêm thất bại !", Toast.LENGTH_SHORT).show();
+                                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+                                String name = sharedPreferences.getString("USERNAME", "");
+
+                                PhieuXuatKho phieuXuatKho = new PhieuXuatKho();
+                                phieuXuatKho.setTentv(name);
+                                phieuXuatKho.setId_sp(selectedSanPham.getId_sp());
+                                phieuXuatKho.setNgayXuat(ngayXuat);
+                                phieuXuatKho.setSoluong(soLuong);
+                                phieuXuatKho.setSoluongTon(totalTon - soLuong);
+                                long insertResult = xkDAO.insert(phieuXuatKho);
+                                if (insertResult > 0) {
+                                    Toast.makeText(getContext(), "Thêm thành công !", Toast.LENGTH_SHORT).show();
+                                    list = xkDAO.getAllData();
+                                    adapter.setData(list);
+                                    dialog.dismiss();
+                                } else {
+                                    Toast.makeText(getContext(), "Thêm thất bại !", Toast.LENGTH_SHORT).show();
+                                }
                             }
+
                         }
                     }
 
