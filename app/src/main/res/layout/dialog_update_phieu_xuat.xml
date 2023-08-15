@@ -101,11 +101,11 @@
                     android:textStyle="bold"
                     android:fontFamily="serif"
                     />
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:id="@+id/edNgayXuatPhieuXuatSua"
+                    android:id="@+id/tvNgayXuatPhieuXuatSua"
 
                     android:clickable="false"
                     android:cursorVisible="false"

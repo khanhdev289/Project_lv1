@@ -5,6 +5,7 @@ public class PhieuNhapKho {
     int soluong;
     int id_sp;
     int id_tv;
+    String tentv;
     String ngayNhap;
     public int getId_tv() {
         return id_tv;
@@ -14,6 +15,13 @@ public class PhieuNhapKho {
         this.id_tv = id_tv;
     }
 
+    public String getTentv() {
+        return tentv;
+    }
+
+    public void setTentv(String tentv) {
+        this.tentv = tentv;
+    }
 
     public int getId_pnk() {
         return id_pnk;

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import khanhnqph30151.fptpoly.project_lv1.model.NhapKho;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuNhapKho;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuXuatKho;
 
@@ -25,7 +26,8 @@ public class PhieuNkDAO {
         values.put("Sp_id", ob.getId_sp());
         values.put("phieuNk_soLuong",ob.getSoluong());
         values.put("phieuNk_ngayNhap",ob.getNgayNhap());
-        values.put("thanhVien_id",ob.getId_tv());
+        values.put("thanhvien_id",ob.getId_tv());
+        values.put("thanhvien_hoten",ob.getTentv());
         return sqLiteDatabase.insert("tbl_phieuNk", null, values);
     }
 
@@ -35,6 +37,7 @@ public class PhieuNkDAO {
         values.put("phieuNk_soLuong",ob.getSoluong());
         values.put("phieuNk_ngayNhap",ob.getNgayNhap());
         values.put("thanhVien_id",ob.getId_tv());
+        values.put("thanhvien_hoten",ob.getTentv());
         return sqLiteDatabase.update("tbl_phieuNk", values, "phieuNk_id=?", new String[]{String.valueOf(ob.getId_pnk())});
     }
 
@@ -54,6 +57,7 @@ public class PhieuNkDAO {
             ob.setSoluong(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuNk_soLuong"))));
             ob.setNgayNhap(cursor.getString(cursor.getColumnIndex("phieuNk_ngayNhap")));
             ob.setId_tv(Integer.parseInt(cursor.getString(cursor.getColumnIndex("thanhVien_id"))));
+            ob.setTentv(cursor.getString(cursor.getColumnIndex("thanhVien_hoten")));
             lst.add(ob);
         }
         return lst;
@@ -82,6 +86,7 @@ public class PhieuNkDAO {
                 ob.setSoluong(Integer.parseInt(cursor.getString(cursor.getColumnIndex("phieuNk_soLuong"))));
                 ob.setNgayNhap(cursor.getString(cursor.getColumnIndex("phieuNk_ngayNhap")));
                 ob.setId_tv(Integer.parseInt(cursor.getString(cursor.getColumnIndex("thanhVien_id"))));
+                ob.setTentv(cursor.getString(cursor.getColumnIndex("thanhVien_hoten")));
                 list.add(ob);
             }
             while (cursor.moveToNext());
@@ -104,6 +109,24 @@ public class PhieuNkDAO {
         return total;
 
     }
+    @SuppressLint("Range")
+    public int getSoLuongNhapHomTruoc(int id_sp, String ngayXuat) {
+        String sql = "SELECT SUM(phieuNk_soLuong) AS total FROM tbl_phieuNk WHERE Sp_id = ? AND phieuNk_ngayNhap <= ? ORDER BY phieuNk_ngayNhap";
+        String[] selectionArgs = {String.valueOf(id_sp), ngayXuat};
+
+        int soLuongNhap = 0;
+        Cursor cursor = sqLiteDatabase.rawQuery(sql, selectionArgs);
+
+        if (cursor.moveToFirst()) {
+            soLuongNhap = cursor.getInt(cursor.getColumnIndex("total"));
+        }
+
+        cursor.close();
+        return soLuongNhap;
+    }
+
+
+
 
   
 }

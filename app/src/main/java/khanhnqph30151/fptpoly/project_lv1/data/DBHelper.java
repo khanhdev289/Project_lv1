@@ -42,6 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "tbl_phieuXk(" +
             "phieuXk_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "thanhVien_id TEXT REFERENCES tbl_thanhVien(thanhVien_id)," +
+            "thanhVien_hoten TEXT REFERENCES tbl_thanhVien(thanhVien_hoten)," +
             "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
             "phieuXk_soLuong INTEGER NOT NULL ," +
             "phieuXk_ngayXuat TEXT NOT NULL)";
@@ -49,6 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "tbl_phieuNk(" +
             "phieuNk_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "thanhVien_id TEXT REFERENCES tbl_thanhVien(thanhVien_id)," +
+            "thanhVien_hoten TEXT REFERENCES tbl_thanhVien(thanhVien_hoten)," +
             "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
             "phieuNk_soLuong INTEGER NOT NULL ," +
             "phieuNk_ngayNhap TEXT NOT NULL)";
@@ -68,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_PHIEU_XUAT_KHO_CREATE);
         db.execSQL(TABLE_PHIEU_NHAP_KHO_CREATE);
 
-        db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'quần đùi'),(2,'áo khoác'),(3, 'váy')");
+        db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'Quần'),(2,'Áo'),(3, 'Giày')");
 
         db.execSQL("INSERT INTO tbl_thanhVien VALUES (0, 'tv1', 'tv1', 'tv')");
 

@@ -28,6 +28,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import khanhnqph30151.fptpoly.project_lv1.R;
 import khanhnqph30151.fptpoly.project_lv1.data.PhieuNkDAO;
@@ -35,7 +37,7 @@ import khanhnqph30151.fptpoly.project_lv1.data.SanPhamDAO;
 import khanhnqph30151.fptpoly.project_lv1.model.PhieuNhapKho;
 import khanhnqph30151.fptpoly.project_lv1.model.SanPham;
 
-public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.ViewHolder>{
+public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.ViewHolder> {
 
     Context myContext;
     ArrayList<PhieuNhapKho> list;
@@ -46,7 +48,8 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
         this.myContext = myContext;
         this.list = list;
     }
-    public void setData(ArrayList<PhieuNhapKho> list){
+
+    public void setData(ArrayList<PhieuNhapKho> list) {
         this.list = list;
         notifyDataSetChanged();
 
@@ -55,8 +58,8 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = ((Activity)myContext).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_phieu_nhap_kho,parent,false);
+        LayoutInflater inflater = ((Activity) myContext).getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_phieu_nhap_kho, parent, false);
 
         return new ViewHolder(view);
     }
@@ -66,9 +69,9 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
         PhieuNhapKho idPhieu = list.get(position);
         PhieuNkDAO phieuNkDAO = new PhieuNkDAO(myContext);
 
-
-        holder.tvTenSp.setText(list.get(position).getId_sp()+"");
-        holder.tvSoLuong.setText(list.get(position).getSoluong()+"");
+        holder.tentv.setText(list.get(position).getTentv() + "");
+        holder.tvTenSp.setText(list.get(position).getId_sp() + "");
+        holder.tvSoLuong.setText(list.get(position).getSoluong() + "");
         holder.tvNgayXuat.setText(list.get(position).getNgayNhap());
 
         //Sựa kiện xóa
@@ -83,11 +86,11 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 int kq = phieuNkDAO.delete(idPhieu.getId_pnk());
-                                if (kq > 0){
+                                if (kq > 0) {
                                     Toast.makeText(myContext, "Xóa thành công", Toast.LENGTH_SHORT).show();
                                     list = phieuNkDAO.getAllData();
                                     setData(list);
-                                }else {
+                                } else {
                                     Toast.makeText(myContext, "Xóa thất bại", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -117,19 +120,35 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 );
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                EditText edTen,edSoLuong,edNgayXuat;
-                AppCompatButton btnSua,btnHuy;
+                TextView tvNgayNhap;
+                EditText edTen, edSoLuong;
+                AppCompatButton btnSua, btnHuy;
                 Spinner spinner;
 
                 spinner = dialog.findViewById(R.id.SpTenSpPhieuNhapSua);
 //                edTen = dialog.findViewById(R.id.edTenSpPhieuXuatSua);
                 edSoLuong = dialog.findViewById(R.id.edSoLuongSPPhieuNhapSua);
-                edNgayXuat = dialog.findViewById(R.id.edNgayXuatPhieuNhapSua);
+                tvNgayNhap = dialog.findViewById(R.id.tvNgayXuatPhieuNhapSua);
                 btnSua = dialog.findViewById(R.id.btnSuaPhieuNhap);
                 btnHuy = dialog.findViewById(R.id.btnHuyLayouSuaPhieuNhap);
 
+//                edTen.setText(idPhieu.getId_sp()+"");
+                SanPhamDAO sanPhamDAO = new SanPhamDAO(myContext);
+                listSanPham = sanPhamDAO.getAllData();
+                adapterSanPham = new ArrayAdapter<>(myContext, android.R.layout.simple_list_item_1, listSanPham);
+                spinner.setAdapter(adapterSanPham);
+                int viTri = 0;
+                for (int i = 0; i < listSanPham.size(); i++) {
+                    if (idPhieu.getId_sp() == listSanPham.get(i).getId_sp()) {
+                        viTri = i;
+                        break;
+                    }
+                }
+                spinner.setSelection(viTri);
+                edSoLuong.setText(idPhieu.getSoluong() + "");
+                tvNgayNhap.setText(idPhieu.getNgayNhap());
 
-                edNgayXuat.setOnClickListener(new View.OnClickListener() {
+                tvNgayNhap.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Calendar lich= Calendar.getInstance();
@@ -139,50 +158,25 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                         DatePickerDialog datedg=new DatePickerDialog(myContext, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                edNgayXuat.setText(String.format("%d/%d/%d",year,month,dayOfMonth));
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar selectedCalendar = Calendar.getInstance();
+                                selectedCalendar.set(year, month, dayOfMonth);
+                                String date = sdf.format(selectedCalendar.getTime());
+                                tvNgayNhap.setText(date);
                             }
                         },year,month,day);
                         datedg.show();
                     }
                 });
 
-//                edTen.setText(idPhieu.getId_sp()+"");
-                SanPhamDAO sanPhamDAO = new SanPhamDAO(myContext);
-                listSanPham = sanPhamDAO.getAllData();
-                adapterSanPham = new ArrayAdapter<>(myContext, android.R.layout.simple_list_item_1,listSanPham);
-                spinner.setAdapter(adapterSanPham);
-                int viTri = 0;
-                for (int i = 0; i < listSanPham.size(); i++) {
-                    if (idPhieu.getId_sp() == listSanPham.get(i).getId_sp()){
-                        viTri = i;
-                        break;
-                    }
-                }
-                spinner.setSelection(viTri);
-                edSoLuong.setText(idPhieu.getSoluong()+"");
-                edNgayXuat.setText(idPhieu.getNgayNhap());
-                Calendar calendar = Calendar.getInstance();
-                final int year = calendar.get(Calendar.YEAR);
-                final int month = calendar.get(Calendar.MONTH);
-                final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                edNgayXuat.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(myContext, new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                                month = month + 1;
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                Calendar selectedCalendar = Calendar.getInstance();
-                                selectedCalendar.set(year, month, dayOfMonth);
-                                String date = sdf.format(selectedCalendar.getTime());
-                                edNgayXuat.setText(date);
-                            }
-                        },year,month,day);
-                        datePickerDialog.show();
-                    }
-                });
+                Calendar calendar = Calendar.getInstance();
+                Date currentDate = calendar.getTime();
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String formattedDate = dateFormat.format(currentDate);
+                tvNgayNhap.setText(formattedDate);
+                ;
 
                 btnHuy.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -193,22 +187,22 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                 btnSua.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (kiemTra()){
+                        if (kiemTra()) {
                             SanPham sanPham = (SanPham) spinner.getSelectedItem();
                             int idSp = sanPham.getId_sp();
                             idPhieu.setId_sp(idSp);
                             idPhieu.setSoluong(Integer.parseInt(edSoLuong.getText().toString()));
-                            idPhieu.setNgayNhap(edNgayXuat.getText().toString());
+                            idPhieu.setNgayNhap(tvNgayNhap.getText().toString());
 
                             int kq = phieuNkDAO.update(idPhieu);
-                            if (kq > 0){
+                            if (kq > 0) {
                                 Toast.makeText(myContext, "Sửa thành công ", Toast.LENGTH_SHORT).show();
 
                                 list = phieuNkDAO.getAllData();
                                 setData(list);
                                 dialog.dismiss();
 
-                            }else {
+                            } else {
                                 Toast.makeText(myContext, "Sửa thất bại", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -217,22 +211,22 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
                     private boolean kiemTra() {
 
                         if (
-                                        edNgayXuat.getText().toString().equals("")
-                                        ||edSoLuong.getText().toString().equals("")
-                        ){
+                                tvNgayNhap.getText().toString().equals("")
+                                        || edSoLuong.getText().toString().equals("")
+                        ) {
                             Toast.makeText(myContext, "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
                             return false;
                         }
 
                         try {
                             Integer.parseInt(edSoLuong.getText().toString());
-                        }catch (NumberFormatException ex){
+                        } catch (NumberFormatException ex) {
                             Toast.makeText(myContext, "Số lượng sản phẩm phải là số", Toast.LENGTH_SHORT).show();
                             return false;
                         }
 
 
-                        if (Integer.parseInt(edSoLuong.getText().toString())<=0){
+                        if (Integer.parseInt(edSoLuong.getText().toString()) <= 0) {
                             Toast.makeText(myContext, "Số lượng sản phẩm phải lớn hơn 0 !", Toast.LENGTH_SHORT).show();
                             return false;
                         }
@@ -256,8 +250,8 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTenSp,tvSoLuong,tvNgayXuat;
-        ImageView ivXoa,ivSua;
+        TextView tvTenSp, tvSoLuong, tvNgayXuat, tentv;
+        ImageView ivXoa, ivSua;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -266,7 +260,7 @@ public class PhieuNhapAdapter extends RecyclerView.Adapter<PhieuNhapAdapter.View
             tvNgayXuat = itemView.findViewById(R.id.tvNgayXuatSanPhamPhieuNhap);
             ivSua = itemView.findViewById(R.id.ivSuaSPPhieuNhap);
             ivXoa = itemView.findViewById(R.id.ivXoaSPPhieuNhap);
-
+            tentv = itemView.findViewById(R.id.tentv);
 
         }
     }

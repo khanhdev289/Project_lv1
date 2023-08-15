@@ -5,9 +5,17 @@ public class PhieuXuatKho {
     int soluong;
     int id_sp;
     int id_tv;
-    String ngayXuat;
+    String ngayXuat,tentv;
     public int getId_tv() {
         return id_tv;
+    }
+
+    public String getTentv() {
+        return tentv;
+    }
+
+    public void setTentv(String tentv) {
+        this.tentv = tentv;
     }
 
     public void setId_tv(int id_tv) {
