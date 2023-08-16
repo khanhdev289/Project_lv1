@@ -226,7 +226,6 @@ public class PhieuXuat extends Fragment {
                                 phieuXuatKho.setId_sp(selectedSanPham.getId_sp());
                                 phieuXuatKho.setNgayXuat(ngayXuat);
                                 phieuXuatKho.setSoluong(soLuong);
-                                phieuXuatKho.setSoluongTon(totalTon - soLuong);
                                 long insertResult = xkDAO.insert(phieuXuatKho);
                                 if (insertResult > 0) {
                                     Toast.makeText(getContext(), "Thêm thành công !", Toast.LENGTH_SHORT).show();
