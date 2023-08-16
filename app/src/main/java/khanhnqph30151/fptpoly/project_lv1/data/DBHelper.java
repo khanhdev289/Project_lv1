@@ -45,8 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "thanhVien_hoten TEXT REFERENCES tbl_thanhVien(thanhVien_hoten)," +
             "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
             "phieuXk_soLuong INTEGER NOT NULL ," +
-            "phieuXk_ngayXuat TEXT NOT NULL," +
-            "phieuXk_soLuongTon INTEGER )";
+            "phieuXk_ngayXuat TEXT NOT NULL)";
     public static final String TABLE_PHIEU_NHAP_KHO_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_phieuNk(" +
             "phieuNk_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
