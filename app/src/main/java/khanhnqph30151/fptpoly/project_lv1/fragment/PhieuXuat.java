@@ -198,12 +198,13 @@ public class PhieuXuat extends Fragment {
 
                             PhieuNkDAO nkDAO = new PhieuNkDAO(getContext());
                             int soLuongNhapHomTruoc = nkDAO.getSoLuongNhapHomTruoc(selectedSanPham.getId_sp(), ngayXuat);
+                            int soLuongNhap= nkDAO.getSoLuongNhap(selectedSanPham.getId_sp());
                             int totalTon;
                             PhieuXkDAO xkDAO = new PhieuXkDAO(getContext());
                             int soLuongXuatHomTruoc = xkDAO.getSoLuongXuatHomTruoc(selectedSanPham.getId_sp(), ngayXuat);
                             int soluongXuat = xkDAO.getSoLuongXuat(selectedSanPham.getId_sp());
                             if (soluongXuat > 0) {
-                                totalTon = xkDAO.getSoLuongTon(selectedSanPham.getId_sp(),ngayXuat);
+                              totalTon=soLuongNhap-soluongXuat;
                             } else {
                                 totalTon = soLuongNhapHomTruoc;
                             }

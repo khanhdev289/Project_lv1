@@ -124,6 +124,21 @@ public class PhieuNkDAO {
         cursor.close();
         return soLuongNhap;
     }
+    @SuppressLint("Range")
+    public int getSoLuongNhap(int id_sp) {
+        String sql = "SELECT SUM(phieuNk_soLuong) AS total FROM tbl_phieuNk WHERE Sp_id = ? ";
+        String[] selectionArgs = {String.valueOf(id_sp)};
+
+        int soLuongNhap = 0;
+        Cursor cursor = sqLiteDatabase.rawQuery(sql, selectionArgs);
+
+        if (cursor.moveToFirst()) {
+            soLuongNhap = cursor.getInt(cursor.getColumnIndex("total"));
+        }
+
+        cursor.close();
+        return soLuongNhap;
+    }
 
 
 
