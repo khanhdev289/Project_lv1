@@ -2,7 +2,7 @@ package khanhnqph30151.fptpoly.project_lv1.model;
 
 public class PhieuXuatKho {
     int id_pxk;
-    int soluong,soluongTon;
+    int soluong;
     int id_sp;
     int id_tv;
     String ngayXuat,tentv;
@@ -22,13 +22,6 @@ public class PhieuXuatKho {
         this.id_tv = id_tv;
     }
 
-    public int getSoluongTon() {
-        return soluongTon;
-    }
-
-    public void setSoluongTon(int soluongTon) {
-        this.soluongTon = soluongTon;
-    }
 
     public int getId_pxk() {
         return id_pxk;
