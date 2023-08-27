@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import khanhnqph30151.fptpoly.project_lv1.Adapter.QuanLyThanhVienView_Adapter;
+import khanhnqph30151.fptpoly.project_lv1.adapter.QuanLyThanhVienView_Adapter;
 import khanhnqph30151.fptpoly.project_lv1.R;
 
 public class QuanLyThanhVien extends Fragment {

@@ -21,27 +21,39 @@ public class DBHelper extends SQLiteOpenHelper {
             "thanhVien_matKhau TEXT NOT NULL," +
             "thanhVien_role TEXT" +
             ")";
+    public static final String insert_admin = "Insert into tbl_thanhVien(thanhVien_hoTen,thanhVien_matKhau,thanhVien_role) values" +
+            "('admin','123','admin')";
     public static final String TABLE_LOAI_SAN_PHAM_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_loaiSp (" +
             "loaiSp_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "loaiSp_tenLoai TEXT NOT NULL" +
             ")";
+    public static final String insert_loaisp = "Insert into tbl_loaiSp(loaiSp_tenLoai) values" +
+            "('ao phong')";
     public static final String TABLE_SAN_PHAM_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_Sp (" +
             "Sp_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "Sp_tenSp TEXT NOT NULL," +
             "Sp_giaTien TEXT NOT NULL," +
-            "Sp_ngayLuuKho TEXT NOT NULL," +
-            "Sp_soLuong INTEGER NOT NULL," +
-            "loaiSp_id  REFERENCES tbl_loaiSp(loaiSp_id)" +
+            "loaiSp_tenLoai  REFERENCES tbl_loaiSp(loaiSp_tenLoai)" +
             ")";
+
     public static final String TABLE_PHIEU_XUAT_KHO_CREATE = "CREATE TABLE IF NOT EXISTS " +
             "tbl_phieuXk(" +
             "phieuXk_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "thanhVien_id TEXT REFERENCES tbl_thanhVien(thanhVien_id)," +
+            "thanhVien_hoten TEXT REFERENCES tbl_thanhVien(thanhVien_hoten)," +
             "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
             "phieuXk_soLuong INTEGER NOT NULL ," +
             "phieuXk_ngayXuat TEXT NOT NULL)";
+    public static final String TABLE_PHIEU_NHAP_KHO_CREATE = "CREATE TABLE IF NOT EXISTS " +
+            "tbl_phieuNk(" +
+            "phieuNk_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "thanhVien_id TEXT REFERENCES tbl_thanhVien(thanhVien_id)," +
+            "thanhVien_hoten TEXT REFERENCES tbl_thanhVien(thanhVien_hoten)," +
+            "Sp_id INTEGER REFERENCES tbl_Sp(Sp_id)," +
+            "phieuNk_soLuong INTEGER NOT NULL ," +
+            "phieuNk_ngayNhap TEXT NOT NULL)";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -56,7 +68,15 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_SAN_PHAM_CREATE);
         //Phieu Xuat Kho
         db.execSQL(TABLE_PHIEU_XUAT_KHO_CREATE);
+        db.execSQL(TABLE_PHIEU_NHAP_KHO_CREATE);
 
+        db.execSQL("INSERT INTO tbl_loaiSp VALUES (1, 'Quần'),(2,'Áo'),(3, 'Giày')");
+
+        db.execSQL("INSERT INTO tbl_thanhVien VALUES (0, 'tv1', 'tv1', 'tv')");
+
+        db.execSQL(insert_admin);
+
+        db.execSQL(insert_loaisp);
 
 
     }

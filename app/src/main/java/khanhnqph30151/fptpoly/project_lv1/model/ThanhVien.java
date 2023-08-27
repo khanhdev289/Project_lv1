@@ -4,7 +4,17 @@ public class ThanhVien {
 String id_tv;
 String hoTen_tv,matKhau_tv,role_tv;
 
-
+    public ThanhVien(String id_tv, String hoTen_tv, String matKhau_tv, String role_tv) {
+        this.id_tv = id_tv;
+        this.hoTen_tv = hoTen_tv;
+        this.matKhau_tv = matKhau_tv;
+        this.role_tv = role_tv;
+    }
+    public ThanhVien() {
+    }
+//    public ThanhVien(String user_name) {
+//        this.id_tv = user_name;
+//    }
     public String getId_tv() {
         return id_tv;
     }

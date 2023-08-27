@@ -1,4 +1,4 @@
-package khanhnqph30151.fptpoly.project_lv1.Adapter;
+package khanhnqph30151.fptpoly.project_lv1.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
